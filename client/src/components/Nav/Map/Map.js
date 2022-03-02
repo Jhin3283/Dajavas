@@ -28,10 +28,11 @@ const Page = styled.h4`
 
 function Map({userInfo}) {
 
-    const [array, setArray] = useState("")
-
+    const [selectedLocation, setSelectedLocation] = useState("")
+    const [render, rerender] = useState(false)
     const mapApp = () => {
         let mapContainer = document.getElementById('map') //지도를 표시할 div
+
 
         //* 초기 지도 지도 옵션 설정 후 지도 생성
                 let options = {
@@ -195,7 +196,7 @@ function Map({userInfo}) {
                     let locPosition = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()),   
                         message = '이름없음'
                    // console.log(locPosition.Ma,locPosition.La, '위치 제대로 갔냐')
-                    setArray({lat: locPosition.La, long:locPosition.Ma, location_name: message, userId: userInfo.id})
+                    setSelectedLocation({lat: locPosition.La, long:locPosition.Ma, location_name: message, userId: userInfo.id})
                     
                     let marker = new kakao.maps.Marker({  
                         map: map, 
@@ -267,8 +268,11 @@ function Map({userInfo}) {
     useEffect (() => {
         mapApp()
     }, [])
+    useEffect (() => {
+        mapApp()
+    }, [render])
 
-console.log(array, '위도와경도 그리고 메세지를 서버에 보낼 수 있을까?')
+console.log(selectedLocation, '위도와경도 그리고 메세지를 서버에 보낼 수 있을까?')
 
 // setArray({...array,  userId: userInfo.id})
 // console.log(array)
@@ -276,13 +280,14 @@ console.log(array, '위도와경도 그리고 메세지를 서버에 보낼 수 
 
 //즐겨찾기 추가(저장) 버튼눌렀을때 서버에 데이터 전송
 const click = () => {
-    console.log(array)
-    axios.post(`https://localhost:5000/map`, array, {
+    console.log(selectedLocation)
+    let payload = selectedLocation
+    axios.post(`https://localhost:5000/map`, payload, {
            headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
         })
         .then(result => console.log(result))
         .catch(error => console.log(error)) 
-        setBookmark(!setAddBookmark)
+    setBookmark(!setAddBookmark) 
 
     
     
@@ -343,7 +348,7 @@ const goHome = () => {
     alert('로그인을 하세요')
     navigate('/login')
 }
-console.log(bookmarkList[2])
+
     return (
         <div>
             
@@ -376,19 +381,19 @@ console.log(bookmarkList[2])
                     {setAddBookmark === false ? 
                         <>
                         <ul>
-                            <div>위치이름 : {array.location_name}</div>
-                            <div>경도: {array.long}</div>
-                            <div>위도:{array.lat}</div>
+                            <div>위치이름 : {selectedLocation.location_name}</div>
+                            <div>경도: {selectedLocation.long}</div>
+                            <div>위도:{selectedLocation.lat}</div>
                             <button onClick={click}>저장</button>
                         </ul> 
                         </> 
                         : 
                         <>북마크된 목록을 보여줍니다
-                        <Like {...bookmarkList[0]} />
-                        <Like {...bookmarkList[1]}/>
-                        <Like {...bookmarkList[2]}/>
-                        <Like {...bookmarkList[3]}/>
-                        <Like {...bookmarkList[4]}/>
+                        <Like {...bookmarkList[0]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender}/>
+                        <Like {...bookmarkList[1]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender}/>
+                        <Like {...bookmarkList[2]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender}/>
+                        <Like {...bookmarkList[3]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender}/>
+                        <Like {...bookmarkList[4]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender}/>
 
                          <Pagenation>
                 

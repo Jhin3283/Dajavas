@@ -11,16 +11,25 @@ module.exports = {
     const data = await models.location.findAll({
       where: { user_id: userInfo.id },
     });
+   /*  console.log(userInfo.id,'헤이헤이헤이') */
+   /*  console.log(data,'090909090909') */
     async function arr() {
       for (let i = 0; i < data.length; i++) {
-        const locationInfo = await models.location.findOne({
+        /* const locationInfo = await models.location.findOne({
           where: { user_id: data[i].user_id },
         });
-        result.push({
+        console.log(locationInfo,'------') */
+        /* result.push({
           id: locationInfo.id,
           location_name: locationInfo.location_name,
           lat: locationInfo.lat,
           long: locationInfo.long,
+        }); */
+        result.push({
+          id: data[i].id,
+          location_name: data[i].location_name,
+          lat: data[i].lat,
+          long: data[i].long,
         });
       }
       realResult = result.slice((page - 1) * 5, page * 5);
