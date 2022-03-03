@@ -13,7 +13,7 @@ const Div = styled.div`
 `
 
 function Like({location_name, long, lat, bookmarkList, id, userInfo, bookmark }) {
-    
+    console.log(location_name,']]]]]]]]]]]]]')
     const selectLocation = bookmarkList.find(el => el.id === id)
 
     const [text, setText] = useState(false)
@@ -47,7 +47,7 @@ function Like({location_name, long, lat, bookmarkList, id, userInfo, bookmark })
           })
         .then(result => console.log(result))
         .catch(err => console.log(err))
-        bookmark()
+         bookmark() 
         
         
     }

@@ -5,6 +5,7 @@ import axios from "axios";
 import {connect} from 'react-redux'
 import Modal from '../../Modal/Modal'
 import { useNavigate } from "react-router-dom"
+const AWS = require("aws-sdk/dist/aws-sdk-react-native");
 
 
 
@@ -33,7 +34,7 @@ const Input = styled.input`
     justify-content: center;
     align-items: center;
 `
-const Photo = styled.div`
+const Photo = styled.img`
     border: dotted red 2px; 
     margin:0.8rem;
     padding:2rem;
@@ -86,15 +87,42 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
    
   
 
-    // 파일 업로드
-    const firstImgHandle = (event) => {
-        const imageFile = event.target.files[0];
-        console.log(imageFile.name)
-        setPhoto(imageFile.name)
-    }
+    
 
-//* aws연결해야함 *//
-   
+   //* aws연결해야함 *//
+  AWS.config.update({
+    region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력하기. (Ex. "ap-northeast-2")
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: "ap-northeast-2:ef99751f-2c0b-464a-9500-6fd482fa1eaf", // cognito 인증 풀에서 받아온 키를 문자열로 입력하기. (Ex. "ap-northeast-2...")
+    }),
+  });
+  
+  // 파일 업로드
+  const firstImgHandle = (event) => {
+    const imageFile = event.target.files[0];
+    console.log(imageFile,'#########');
+    setPhoto(imageFile);
+  
+  const upload = new AWS.S3.ManagedUpload({ 
+    params: {
+      Bucket: "dajavas-photo", // 업로드할 대상 버킷명 문자열로 작성.
+      Key: imageFile.name, //업로드할 파일명 
+      Body: imageFile, // 업로드할 파일 객체
+    },
+  });
+
+  const promise = upload.promise();
+
+  promise.then(
+    function (data) {
+      setPhoto(data.Location);
+    },
+    function (err) {
+      console.log(err);
+    }
+  );
+  }
+
  
 
 
@@ -106,31 +134,32 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
             alert('모두 입력해주세요')
        }   
         if(fishName === '변경안함') {
-            setRecord({
-                ...record, 
-                src: photo,
-                size: size,
-                ranked: 1,
-                userId: userInfo.id
-              
-            })    
+            axios({
+                url: `https://localhost:5000/fish/board`,
+                method: "put",
+                headers: {authorizationtoken: userInfo.accessToken},
+                data: {
+                    ...record, 
+                    src: photo,
+                    size: size,
+                    ranked: 1,
+                    userId: userInfo.id
+                }
+            })
         }else {        
 //* 저장되었다는 모달창 띄우자 그러고나면 네비게이트로 /record로 보내주기
-            setRecord({
-                ...record, 
-                fish_name: fishName,
-                src: photo,
-                size: size,
-                ranked: 1,
-                userId: userInfo.id
-           
-        })   
-        
-        axios({
-            url: `https://localhost:5000/fish/board`,
-            method: "put",
-            headers: {authorizationtoken: userInfo.accessToken},
-            data: record
+            axios({
+                url: `https://localhost:5000/fish/board`,
+                method: "put",
+                headers: {authorizationtoken: userInfo.accessToken},
+                data: {
+                    ...record, 
+                    fish_name: fishName,
+                    src: photo,
+                    size: size,
+                    ranked: 1,
+                    userId: userInfo.id
+                }
         })
         .then(result => {
             console.log(result)
@@ -141,11 +170,9 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
          
     }
 
+    setTimeout(() => {navigate('/fishboard')}, 500)
 }
-    const send = (e) => {
-        save(e)
-        setTimeout(() => {navigate('/fishboard')}, 500)
-    }
+   
 
     return (
         
@@ -153,8 +180,13 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
             <form  onSubmit={save} >
                 <File> 
                     <div>선택한 사진 주소: {photo}</div>   
-                    <Photo>사진첨부</Photo>
-                    <Input type='file' name='file' accept='image/*' onChange={firstImgHandle}/>    
+                    <Photo src={photo} alt='사진'/>
+                    <Input
+                        type="file"
+                        name="file"
+                        // accept="image/*"
+                        onChange={firstImgHandle}
+                        />   
                 </File>
                 <Fish>
                     <div>
@@ -172,7 +204,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                     </div>
                 </Fish>
                     <Btn onClick={save}>기록 저장</Btn>
-                    <Btn onClick={send}>확인</Btn>
+                    
             </form>   
         </Div>
     )

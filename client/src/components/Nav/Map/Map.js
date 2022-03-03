@@ -31,7 +31,7 @@ function Map({userInfo}) {
     //selsctedLocation 포인트 찍은것
     // bookmarkList 서버에서 받아온 데이터
      
-
+    
  
   /*   useEffect (() => {
         mapApp()
