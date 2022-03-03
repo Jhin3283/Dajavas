@@ -12,7 +12,7 @@ const Div = styled.div`
     border: solid 1px wheat;
 `
 
-function Like({location_name, long, lat, bookmarkList, id, userInfo, render, rerender,setBookmark ,setAddBookmark }) {
+function Like({location_name, long, lat, bookmarkList, id, userInfo, bookmark }) {
     
     const selectLocation = bookmarkList.find(el => el.id === id)
 
@@ -28,7 +28,7 @@ function Like({location_name, long, lat, bookmarkList, id, userInfo, render, rer
           })
         .then(result => console.log(result))
         .catch(err => console.log(err))
-       
+       bookmark()
         
     }
 
@@ -47,7 +47,7 @@ function Like({location_name, long, lat, bookmarkList, id, userInfo, render, rer
           })
         .then(result => console.log(result))
         .catch(err => console.log(err))
-        /* rerender(!render) */
+        bookmark()
         
         
     }

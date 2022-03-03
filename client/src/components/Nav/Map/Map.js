@@ -38,7 +38,7 @@ function Map({userInfo}) {
     }, [bookmarkList])  */
 
     const [selectedLocation, setSelectedLocation] = useState("") // 포인트 찍은것
-    const [render, rerender] = useState(false)
+    
     
     // 👉 메세지 설정해주고 싶으면 변수 설정해주고, 옵션스에 집어 넣어주고 ma에 할당해주자
     const [bookmarkList, setBookmarkList] = useState([]) //*null로 넣으면 왜 안된느거지?//
@@ -581,11 +581,11 @@ const click = () => {
                         </> 
                         : 
                         <>북마크된 목록을 보여줍니다
-                        <Like {...bookmarkList[0]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender} setBookmark={setBookmark} setAddBookmark={setAddBookmark} />
-                        <Like {...bookmarkList[1]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender} setBookmark={setBookmark} setAddBookmark={setAddBookmark} />
-                        <Like {...bookmarkList[2]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender} setBookmark={setBookmark} setAddBookmark={setAddBookmark} />
-                        <Like {...bookmarkList[3]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender} setBookmark={setBookmark} setAddBookmark={setAddBookmark} />
-                        <Like {...bookmarkList[4]} bookmarkList={bookmarkList} key={bookmarkList.id} render={render} rerender={rerender} setBookmark={setBookmark} setAddBookmark={setAddBookmark} />
+                        <Like {...bookmarkList[0]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                        <Like {...bookmarkList[1]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                        <Like {...bookmarkList[2]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                        <Like {...bookmarkList[3]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                        <Like {...bookmarkList[4]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
 
                          <Pagenation>
                 
