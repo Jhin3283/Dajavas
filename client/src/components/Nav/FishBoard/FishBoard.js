@@ -110,49 +110,6 @@ useEffect(() => {
 const result = [
   {
     fish_name: "도다리",
-    ranked: 57,
-    src: photo,
-    size: 5,
-    createdAt: "20220220",
-    fishId: 3,
-  },
-  {
-    fish_name: "숭어",
-    ranked: 57,
-    src: photo,
-    size: 10,
-    createdAt: "20220220",
-    fishId: 6,
-  },
-  {
-    fish_name: "홍어",
-    ranked: 57,
-    src: photo,
-    size: 5,
-    createdAt: "20220220",
-    fishId: 11,
-  },
-  {
-    fish_name: "광어",
-    ranked: 57,
-    src: photo,
-    size: 5,
-    createdAt: "20220220",
-    fishId: 40,
-  },
-  {
-    fish_name: "도다리",
-    ranked: 57,
-    src: photo,
-    size: 5,
-    createdAt: "20220220",
-    fishId: 2,
-  },
-];
-
-const result = [
-  {
-    fish_name: "도다리",
     ranked: 0,
     src: photo,
     size: 30,
@@ -301,7 +258,7 @@ const fishboardData = () => {
   }
 };
 
-return <div>{load()}</div>;
+// return <div>{load()}</div>;
 
 const mapStateToProps = (state) => {
   // console.log(state,'88888')
