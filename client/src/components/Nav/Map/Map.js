@@ -25,6 +25,9 @@ const Pagenation = styled.div`
 const Page = styled.h4`
     padding:3px
 `
+const Ta = styled.div`
+    background-color: red;
+`
 
 function Map({userInfo}) {
 
@@ -32,6 +35,8 @@ function Map({userInfo}) {
     const [render, rerender] = useState(false)
     const mapApp = () => {
         let mapContainer = document.getElementById('map') //지도를 표시할 div
+
+
 
 
         //* 초기 지도 지도 옵션 설정 후 지도 생성
@@ -58,7 +63,7 @@ function Map({userInfo}) {
                         let lon = position.coords.longitude; // 경도
                         
                         let locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-                           message = '<div style="padding:7px;">현재 내 위치</div>'; // 인포윈도우에 표시될 내용입니다
+                           message = '<Ta style="padding:7px;">현재 내 위치</Ta> <div>hi</div>'; // 인포윈도우에 표시될 내용입니다
         //⭐️ message를 작성해야할것같고..
                         // 마커와 인포윈도우를 표시합니다
                          displayMarker(locPosition, message);
