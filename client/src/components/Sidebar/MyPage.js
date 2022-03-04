@@ -90,38 +90,26 @@ function MyPage({ type }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+
     console.log('핸들서브밋 인풋', inputValue);
+
     formData.append("nickname", inputValue.nickname);
     formData.append("password", inputValue.password);
     formData.append('email', email)
-    console.log('폼데이터에 닉네임 가져와',formData.get('nickname'))
-    console.log('폼데이터에 패스워드 가져와',formData.get('password'))
-    console.log('폼데이터에 이메일 가져와', formData.get('email'))
-    // axios({
-    //   url:'https://localhost:5000/user/mypage',
-    //   method: 'put',
-    //   headers: {
-    //     "content-type": "multipart/form-data",
-    //     'AuthorizationToken': accessToken,
-    //   },
-    //   data: formData
-    // }).then(result => {
-    //   console.log('포스트 결과',result)
-    // }).catch((err)=>{
-    //   console.log(err)
-    // })
-    try {
+
+    // console.log('폼데이터에 닉네임 가져와',formData.get('nickname'))
+    // console.log('폼데이터에 패스워드 가져와',formData.get('password'))
+    // console.log('폼데이터에 이메일 가져와', formData.get('email'))
+
       const res = await mypageApi.modifyUserInfo(
         accessToken,
         formData
-      );
-   
-      console.log('풋한 결과를 보여주세요',res)
-      dispatch(updateInfoAction(res));
-      setIsEditMode(false);
-    } catch (err) {
-      console.log(err);
-    }
+      ).then((result) => {
+        console.log('풋한 결과를 보여주세요',result.data)
+        dispatch(updateInfoAction(result.data));
+        setIsEditMode(false);
+      })
+
   };
 
   const handleCancelClick = (prev) => ({
