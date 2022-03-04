@@ -22,9 +22,14 @@ import { useState } from "react";
 
 const Box = styled.div`
   display: flex;
+  border: 1px red;
+
 `;
 
-const Div = styled.div``;
+const Div = styled.div`
+  display: block;
+  width: 100%;
+`;
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); //로그인 여부
@@ -65,9 +70,9 @@ function App() {
     <div className="App">
       <Router>
         <Box>
-          <Div>
             <Sidebar isLogin={isLogin} userInfo={userInfo} />
-          </Div>
+          {/* <Div>
+          </Div> */}
           <Div>
             <Nav />
             <Routes>

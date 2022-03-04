@@ -3,7 +3,10 @@
 .App {
   text-align: center;
   font-family: 'Gowun Dodum', sans-serif;
-}
+  background-color:#FFFAFA;
+  width:100vw;
+  height: 100vh;
+  } 
 
 .App-logo {
   height: 40vmin;

@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../img/logo.png'
 import Sidebar from '../Sidebar/Sidebar';
 //import logo from '../../img/fishmarker.png'
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const Navi = styled.nav`
@@ -14,8 +15,6 @@ const Navi = styled.nav`
     justify-content: space-between;
     color: #92BBFF;
     padding:0 3vw;
-    
-      
 `
 const Div = styled.div`
     font-size: 1em;

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 
 
 const Div = styled.div`
-   /*  background-color: #ABCCFF; */
+    background-color: #ABCCFF;
     height:70vh;
     width:70vw; 
 `

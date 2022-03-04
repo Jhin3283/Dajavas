@@ -108,7 +108,7 @@ function Home() {
   });
 
   return (
-    <>
+    <HomeContainer>
       <div>
         {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
           설명 문구, 사이드바 숨기는거 토글메뉴 다른거 할거 받아오기 */}
@@ -138,7 +138,7 @@ function Home() {
         </Bigdiv>
         <Footer />
       </div>
-    </>
+    </HomeContainer>
   );
 }
 export default Home;

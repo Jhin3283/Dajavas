@@ -17,6 +17,17 @@ import {
 import userApi from "../../API/user";
 import userReducer from "../../redux/store/reducers/userReducer/userReducer";
 
+const Div = styled.div`
+  display: flex;
+  background-color: #FFFAFA;
+  /* background-color: #88BECE; */
+  /* background-color: #D8D7D8; */
+  /* background-color: #F3B178; */
+  /* background-color: #F9B10B;  */
+  /* background-color: #2AA1B7; */
+
+`
+
 function Login({ type }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -120,7 +131,7 @@ function Login({ type }) {
     console.log(error);
   };
   return (
-    <>
+    <Div>
       <div className="loginInputContainer">
         login
         <form id="login">
@@ -165,7 +176,7 @@ function Login({ type }) {
         회원가입
       </button>
       <div>{errorMessage}</div>
-    </>
+    </Div>
   );
 }
 export default Login;
