@@ -13,26 +13,72 @@ import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import  { keyframes } from 'styled-components';
 
-
+const FishCard = styled.div`
+text-shadow: 3px 3px #D8D7D8;
+    transition: transform 0.5s ease-in-out;
+    &:hover {                
+        transform: scale(1.02);
+    }
+`
 
 const Div = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     margin: 1rem;
+   
     
 `
 
 const Img = styled.img`
-    width: 10vw;
+    width: 15vw;
+    height: 50vh;
+    border-radius: 2%;
+    background-color: #EBF1F1;
+     
 `
-
-
 const Box = styled.div`
     margin-right:10px;
+    transition: all 0.5s ease-in-out ;
+    &:hover {                
+        transform: scale(1.5);
+        cursor: pointer;
+    }
+`
+const Moving = keyframes`
+   
+    0% {
+        transform: rotateY(0);
+    }
+    50% {
+        transform:  translateY(-100px);
+    }
+    100%{
+        transform: rotateY(0);
+    }
 `
 
+const Crown = styled.div`
+    top: 10vh;
+    right: 20px;
+    padding: ${props => (props.width ? '24px': 0 )};
+    animation-duration: infinite;
+    animation-timing-function: ease-in-out;
+    animation-name: ${Moving};
+    animation-fill-mode: forwards;
+`
+const Card = styled.div`
+    background-color:#D8D7D8 ;
+    border-radius: 8px;
+    padding-bottom: 5px;
+    border: gray 0.1px solid;
+`
+const Blank= styled.div`
+    width: 10px;
+    height: 15px;
+`
 
 function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard, userInfo, result, targetFind,render,rerender}) {
   
@@ -82,16 +128,22 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
 
     const ranking = () => {
         if(ranked === 1) {
-            return <><FontAwesomeIcon icon={faCrown} size="2x" color='gold'/></>
+            return <Crown><FontAwesomeIcon icon={faCrown} size="3x" color='gold'/></Crown>
         } else {
-            return <></>
+            return <Crown width/>
         }
     }
     
     return (
         <>
         {userInfo.isLogin === false ?
-            <Div>
+            
+            <FishCard>
+                <div>   
+                    {ranking()}
+                </div>
+              <Card>  
+                  <Blank></Blank>
                 <Img src={src} />  
                 <div>
                     {fish_name}             
@@ -102,9 +154,7 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
                 <div>
                     {createdAt}
                 </div> 
-                <div>   
-                    {ranking()}
-                </div> 
+                 
                 <Div>
                     <Box>
                     <FontAwesomeIcon onClick={goHome} icon={faPencil} size="2x" color='skyblue' margin='10px'/> 
@@ -114,9 +164,15 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
                     </Box>
                         
                 </Div>
-            </Div>
+                </Card>
+            </FishCard>
             :
-            <Div>
+            <FishCard>
+                <div>    
+                    {ranking()}
+                </div> 
+                <Card>
+                <Blank></Blank>
                 <Img src={src} />  
                 <div>
                     {fish_name}           
@@ -126,9 +182,6 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
                 </div> 
                 <div>
                     {date}
-                </div> 
-                <div>    
-                    {ranking()}
                 </div> 
                 <Div>
                 
@@ -140,7 +193,8 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
                     </Box>
                         
                 </Div>
-            </Div>
+                </Card>
+            </FishCard>
         }
         </>   
     )

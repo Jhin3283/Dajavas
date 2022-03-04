@@ -110,9 +110,10 @@ function Map({userInfo}) {
         
         //⭐️ '현재 내 위치를 찾는중입니다' 라는 메세지 1초 정도 띄워주자
         
-        
-         //*내 위치 확인(현재 위치 '위도' '경도' 확인) */
-                          
+    
+
+
+
                 if (navigator.geolocation) {
                     
                     // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -178,7 +179,12 @@ function Map({userInfo}) {
 
 
                 }  
-        
+
+
+
+
+
+            
         //* 전국 낚시터 장소 데이터 가져와 여러개의 마커 찍기
         console.log(options.positions,'😂')
         let result = []
@@ -221,8 +227,8 @@ function Map({userInfo}) {
                 
                 
                 // 마커 이미지의 이미지 주소입니다
-                let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-                    
+                
+                let imageSrc = "https://cdn.discordapp.com/attachments/940156388917796914/948902379019993118/fishing_1.png"; 
                 for (let i = 0; i < result.length; i ++) {
                     
                     // 마커 이미지의 이미지 크기 입니다
@@ -488,7 +494,8 @@ const click = () => {
     .catch(error => console.log(error))
     
   
-    setBookmark(!setAddBookmark) 
+    setBookmark(!setAddBookmark)
+    bookmark() 
 
   
     

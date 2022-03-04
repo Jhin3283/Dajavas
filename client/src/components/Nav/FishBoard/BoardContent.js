@@ -6,31 +6,69 @@ import Modal from "../../Modal/Modal";
 import { useNavigate } from "react-router-dom";
 const AWS = require("aws-sdk/dist/aws-sdk-react-native");
 
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+`
+
 const Div = styled.div`
-  /*  background-color: #ABCCFF; */
-  height: 70vh;
-  width: 70vw;
+    background-color: #ABCCFF; 
+    height: 60vh;
+    width: 50vw;
+   /*  padding: 10px;
+    border-radius: 5%;
+   background-color: #EBF1F1;
+    border: solid gray 2px; */
+    background-color:#D8D7D8 ;
+    border-radius: 8px;
+    padding-bottom: 5px;
+    border: gray 0.1px solid;
+  
 `;
 const Day = styled.div`
-  border: dotted black 2px;
+  
   margin: 1rem;
-  padding: 1rem;
+  /* padding: 1rem; */
+  font-size:x-large;
 `;
 const File = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid green;
+  border-bottom: solid 1px gray;;
+  border-top: solid 1px gray;
   margin: 0 1rem;
+  opacity: 0.6;
 `;
 const Input = styled.input`
   padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    
 `;
+
+const Label = styled.label`
+    display: inline-block;
+    padding: 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+    border-radius: 8;
+
+`
 const Photo = styled.img`
-  border: dotted red 2px;
+  border: solid gray 2px;
+  opacity: 0.6;
   margin: 0.8rem;
   padding: 2rem;
   width: 20rem;
@@ -44,11 +82,27 @@ const Fish = styled.div`
   justify-content: space-evenly;
   padding: 1rem;
   margin: 1rem;
-  border: dotted black 2px;
+  border-bottom: solid 1px gray;
+  border-top: solid 1px gray;
+  opacity: 0.6;
 `;
 const Span = styled.span`
   margin: 0.3rem;
+  font-size: large;
+  font-weight: bold;
+  color:black;
+  opacity: 1;
 `;
+const Btn = styled.div`
+    font-size: large;
+    font-weight: bold;
+    transition: all 0.5s ease-in-out ;
+    &:hover {                
+        transform: scale(1.5);
+        cursor: pointer;
+    }
+    opacity: 0.7;
+`
 
 function BoardContent({ userInfo }) {
   console.log(userInfo, "유저정보");
@@ -162,24 +216,28 @@ const save = (e) => {
   };
 
   return (
-    <>
+      <>
       <Modal text="내가 잡은 물고기를 기록해보아요" />
-      <h1>기록</h1>
-      <Div>
+    <h1>기록</h1>
+    <Container>
+    <Div>
         <form onSubmit={save}>
-          <Day>
-            {year}년 {todayMonth}월 {today}일 {dayOfWeek}요일
-          </Day>
-          <File>
-            <Photo src={photo} alt='사진'/>
-            <Input
-              type="file"
-              name="file"
-              // accept="image/*"
-              onChange={firstImgHandle}
-            />
-          </File>
-          <Fish>
+            <Day>
+                {year}년 {todayMonth}월 {today}일 {dayOfWeek}요일
+            </Day>
+            <File>
+                <Photo src={photo} alt='사진'/>
+                <Label for='file'>파일찾기</Label>   
+                <Input
+                type="file"
+                name="file"
+                // accept="image/*"
+                onChange={firstImgHandle}
+                />
+                
+                
+            </File>
+            <Fish>
             <div>
               <Span>어종 선택 </Span>
               <select onChange={(e) => setfishname(e)}>
@@ -195,20 +253,21 @@ const save = (e) => {
               <input type="text" onChange={(e) => setsize(e)}></input>
               <Span>cm</Span>
             </div>
-          </Fish>
-          {userInfo.isLogin === false ? (
+            </Fish>
+            {userInfo.isLogin === false ? (
             <>
-              <button onClick={goHome}>기록 저장</button>
-              <button onClick={goHome}>확인</button>
+              <Btn onClick={goHome}>기록 저장</Btn>
+              
             </>
           ) : (
             <>
-              <button onSubmit={(e) => save(e)}>기록 저장</button>
+              <Btn onSubmit={(e) => save(e)}>기록 저장</Btn>
              
             </>
           )}
         </form>
       </Div>
+    </Container>
     </>
   );
 }

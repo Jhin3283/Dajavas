@@ -12,30 +12,57 @@ import LoadingPage from '../../../LoadingPage';
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom"
-//import { faCrown } from "@fortawesome/free-regular-svg-icons"
+import { faClipboard } from "@fortawesome/free-regular-svg-icons"
 
+
+const Background = styled.div`
+
+        background-color:#FFFAFA;
+        //#88BECE;  
+        //  background-color: #D8D7D8;  
+       //background-color: #F3B178;  
+      //  background-color: #F9B10B; 
+      // background-color: #2AA1B7;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
 
 const Div = styled.div`
     height: 100vh;
     width:100vw;
     margin-bottom: 2rem;
     margin-top: 1rem;
+    
+  
 `
 
 const Title = styled.div`
+    /* text-shadow: 3px 3px #D8D7D8; */
     display: flex;
     justify-content: center;
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
+    transition: all 0.7s ease-in-out ;
+    &:hover {                
+        transform: scale(1.1);
+    }
     
 `
-const Btn = styled.button`
-    width:10em;
-    height:5em;
+const Span = styled.span`
+    text-align: center;
+`
+const Btn = styled.div`
+    width:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: red;
     
 `
 const Container = styled.div`
     display:flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     margin:1rem;
 `
@@ -45,8 +72,13 @@ const Pagenation = styled.div`
     align-items: center;
 `
 
-const Page = styled.h4`
-    padding:3px
+const Page = styled.h3`
+    padding: 6px;
+    transition: all 0.5s ease-in-out ;
+    &:hover {                
+        transform: scale(1.5);
+        cursor: pointer;
+    }
 `
 
 function FishBoard({userInfo, myFishBoard, fishBoard}) {
@@ -109,14 +141,13 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
         
     const load = () => {
         if(loading === false) {
-            return <><LoadingPage /></> 
+            return <Div><LoadingPage /></Div> 
         }
         return <>
             <Modal text='회원님이 잡은 물고기 목록을 볼 수 있습니다.'/>
             <Div>   
                 <Title>
-                <h1>나의 월척~</h1>
-                <Btn><Link to='/record' style={{ textDecoration: 'none', color: 'black',fontWeight:'bolder' }}>기록하기</Link></Btn>
+                    <h1><Link to='/record' style={{ textDecoration: 'none', color:'#0E3B5B',fontWeight:'bolder' }}>기록하기<FontAwesomeIcon icon={faClipboard} /></Link></h1>
                 </Title>
                 {fishboardData()}
             </Div>
@@ -126,28 +157,10 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
     const fishboardData = () => {
         if(userInfo.isLogin === false) {
             return <>
+               
                 <Container>
-                    <h2>
-                        사진
-                    </h2>
-                    <h2>
-                        물고기 이름            
-                    </h2>    
-                    <h2>
-                        사이즈(cm)
-                    </h2> 
-                    <h2>
-                        날짜
-                    </h2> 
-                    <h2>
-                        <FontAwesomeIcon icon={faCrown} size="2x" color='gold' color='gold' />
-                    </h2> 
-                    <h2>
-                        수정/삭제
-                        
-                    </h2>
-                </Container> 
                 {result.map(el => <FishList key={el.fishId} {...el} />)} 
+                </Container>
                     <Pagenation>
             
                         <Page onClick={goHome}>1</Page>
@@ -164,28 +177,9 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
                 } 
                 else if (myFishBoard.data.data.realResult) {
                     return <> 
-                        <Container>
-                            <h2>
-                                사진
-                            </h2>
-                            <h2>
-                                물고기 이름            
-                            </h2>    
-                            <h2>
-                                사이즈(cm)
-                            </h2> 
-                            <h2>
-                                날짜
-                            </h2> 
-                            <h2>
-                                <FontAwesomeIcon icon={faCrown} size="2x" color='gold'/>
-                            </h2> 
-                            <h2>
-                                수정/삭제
-                            </h2>
-                        </Container>    
+                        <Container> 
                             {myFishBoard.data.data.realResult.map(el => <FishList key={el.fishId} {...el} render={render} rerender={rerender}/>)}
-
+                        </Container> 
                         <Pagenation>
                         
                             <Page onClick ={() => setPage(1)}>1</Page>
@@ -201,10 +195,10 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
     }
       
     return (
-       <div>
+       <Background>
            {load()}
  
-       </div>
+       </Background>
     )
 }
 
