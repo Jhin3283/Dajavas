@@ -1,5 +1,11 @@
 import React from "react";
 
+export const col = [
+  { accessor: "name", Header: "품종" },
+  { accessor: "구분", Header: "구분" },
+  { accessor: "방생기준", Header: "방생기준" },
+];
+
 export const seaFish = [
   {
     name: "개서대",
