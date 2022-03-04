@@ -21,9 +21,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const Box = styled.div`
-  display: flex;
-  border: 1px red;
-
+  /* display: flex; */
 `;
 
 const Div = styled.div`
@@ -70,7 +68,7 @@ function App() {
     <div className="App">
       <Router>
         <Box>
-            <Sidebar isLogin={isLogin} userInfo={userInfo} />
+            <Sidebar/>
           {/* <Div>
           </Div> */}
           <Div>

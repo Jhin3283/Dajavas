@@ -15,6 +15,8 @@ const Navi = styled.nav`
     justify-content: space-between;
     color: #92BBFF;
     padding:0 3vw;
+    border-bottom: gray solid 1px ;
+      
 `
 const Div = styled.div`
     font-size: 1em;
