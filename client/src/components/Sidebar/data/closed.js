@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
 
-function closed() {
-  return (
-    <div>closed</div>
-  )
-}
+export const col = [
+  { accessor: "name", Header: "품종" },
+  { accessor: "금어기간", Header: "금어기간" },
+];
 
-export default closed
+export const closedfish = [{}];
