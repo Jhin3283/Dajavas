@@ -8,6 +8,8 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   border: dotted red 2px;
+  flex-direction: column;
+  width:30%
 `
 
 

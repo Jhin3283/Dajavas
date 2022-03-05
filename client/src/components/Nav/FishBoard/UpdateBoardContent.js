@@ -10,9 +10,11 @@ const AWS = require("aws-sdk/dist/aws-sdk-react-native");
 
 
 const Div = styled.div`
-   /*  background-color: #ABCCFF; */
+
     height:60vh;
     width:50vw; 
+    
+    margin-bottom:5px;
 `
 const Day = styled.div`
     border: dotted black 2px;
@@ -24,7 +26,7 @@ const File = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid green;
+    border: gray 0.1px solid;
     margin: 0 1rem;
 
 `
@@ -35,7 +37,7 @@ const Input = styled.input`
     align-items: center;
 `
 const Photo = styled.img`
-    border: dotted red 2px; 
+    border: gray 0.1px solid;
     margin:0.8rem;
     padding:2rem;
     width: 20rem;
@@ -50,21 +52,46 @@ const Fish = styled.div`
     justify-content: space-evenly;
     padding: 1rem;
     margin: 1rem;
-    border: dotted black 2px;
+    border: gray 0.1px solid;
     
 `
+const Text = styled.div`
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: gray;
+    opacity: 0.9;
+`
+
 const Span = styled.span`
-    margin: 0.3rem;
+    outline: none;
+    border:0;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: gray;
+    opacity: 0.9;
 `
 const Btn = styled.button`
-    background-color: #4087FE;
+    background-color: #8BBAC2;
     text-decoration: none;
     border: none;
     padding: 20px;
     color: white;
     border-radius: 30px;
-    cursor: grab;
+    &:hover{
+        cursor: pointer;
+        background-color: coral;
+    }
+    box-shadow: 0 10px 25px #3c4a5645;
+    
+`
+const Size = styled.input`
+    border:0 ;
+    outline: none;
+`
 
+const Select = styled.select`
+    border:0 ;
+    outline: none;
 `
 
 function UpdateBoardContent({targetFish,userInfo,navigation}) {
@@ -175,11 +202,14 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
    
 
     return (
-        
         <Div>
+            
             <form  onSubmit={save} >
                 <File> 
-                    <div>선택한 사진 주소: {photo}</div>   
+                    <div>
+                        <Text style={{fontWeight:'bolder'}}>선택한 사진 주소</Text>
+                        <div> {photo}</div>  
+                    </div> 
                     <Photo src={photo} alt='사진'/>
                     <Input
                         type="file"
@@ -190,17 +220,17 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                 </File>
                 <Fish>
                     <div>
-                        <div>
-                            내가 선택한 어종: {fishName}
-                        </div>
+                        <Text>
+                            내가 선택한 어종: <span style={{fontWeight:'bolder'}}>{fishName} </span>
+                        </Text>
                         <Span>어종 선택 </Span>
-                        <select onChange={(e)=>setFishName(e.target.value)}>
+                        <Select onChange={(e)=>setFishName(e.target.value)}>
                             {fishList.map((el,idx) => <option value={el} key={idx}>{el}</option>)}
-                        </select>
+                        </Select>
                     </div>
                     <div>     
                         <Span>크기</Span>
-                        <input type='text' value={size} onChange={(e)=>setSize(e.target.value)}></input><Span>cm</Span>
+                        <Size type='text' value={size} onChange={(e)=>setSize(e.target.value)}></Size><Span>cm</Span>
                     </div>
                 </Fish>
                     <Btn onClick={save}>기록 저장</Btn>

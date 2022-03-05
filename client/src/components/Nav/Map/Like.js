@@ -10,6 +10,16 @@ import { useState } from 'react'
 
 const Div = styled.div`
     border: solid 1px wheat;
+    border-radius: 2%;
+    margin: 2px;
+    margin-right:10px;
+    margin-left: 10px;
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+        
+    }
+    
 `
 
 function Like({location_name, long, lat, bookmarkList, id, userInfo, bookmark }) {

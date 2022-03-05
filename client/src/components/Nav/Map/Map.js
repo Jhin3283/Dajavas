@@ -1,20 +1,43 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+import Footer from '../../Footer/Footer';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
 import axios from 'axios';
 import Like from './Like';
 import { useNavigate } from "react-router-dom";
 const {kakao} = window;
-
 //import KakaoMap from '../../../API/KakaoMap'
+
+const Background = styled.div`
+    background-color:#8bbac2;  
+    width: 100vw;
+    height: 90vh;
+`
 
 const Div = styled.div`
     display:flex;
+    justify-content: space-around;
+    
+`
+const Category = styled.div`
+    display:flex;
+    justify-content: space-evenly
+
+`
+const Spot = styled.div`
+    flex: 1 1 auto;
+    margin-right: 1rem;
 `
 const Box = styled.div`
-    border: 2px solid green;
-    padding:10wh
+    width: 28vw;
+    padding:10wh;
+    border: 0;
+    background-color: #8BBAC2;
+    padding-top: 3px;
+    box-shadow: 3px 3px #D8D7D8; 
+    text-shadow: 0 10px 25px #3c4a5645;
+
 `
 const Pagenation = styled.div`
     display: flex;
@@ -23,9 +46,67 @@ const Pagenation = styled.div`
 `
 
 const Page = styled.h4`
-    padding:3px
+    padding:3px;
+`
+const Btn = styled.h4`
+    font-weight: bolder;
+    box-shadow: 3px 3px #D8D7D8;
+    color:  #04A1A1;
+    opacity: 0.9;
+    padding: 14px;
+    padding-top:20px;
+    padding-bottom: 20px;
+    border:0;
+    background-color: #8DD1B4;
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+        color:coral;
+    }
+    margin-top:${props => (props.save ? '30px' : '10')};
+    font-size: ${props => (props.save ? '1rem' : '1.8rem')};
+    border-radius: 45%;
+    box-shadow: 0 10px 30px #3c4a5645;
+    box-shadow: 3px 3px #D8D7D8;
+    box-shadow: ${props => (props.save ? '0 10px 30px #3c4a5645': '3px 3px #D8D7D8')}
 `
 
+
+const List = styled.div`
+    padding: 1rem;
+    border: 0;
+    background-color:#D8D7D8;
+    border-radius: 4%;
+    width: 20vw;
+    height: 28vh;
+    color: #04A1A1;
+    font-weight: bolder;
+    text-align: start;
+    font-weight: bolder;
+    color:gray;
+    opacity: 4;
+    font-size: 1.4rem;
+    box-shadow: 0 10px 30px #3c4a5645;
+
+    
+    
+
+`
+
+const Loc = styled.div`
+    font-size: 1.2rem;
+    margin-top: ${props => (props.long ? '15px' : '4px')};
+    margin-left: 10px;
+`
+const Input = styled.input`
+    border: 0;
+    border-radius: 6%;
+    background-color:#D8D7D8;
+    border-bottom: gray 2px solid;
+    /* outline: 2px solid #d50000;  */
+    outline: none; 
+    cursor: pointer;
+`
 
 function Map({userInfo}) {
     //selsctedLocation 포인트 찍은것
@@ -172,11 +253,6 @@ function Map({userInfo}) {
                     
                     // 지도 중심좌표를 접속위치로 변경합니다
                     map.setCenter(locPosition);   
-
-                    
-
-
-
 
                 }  
 
@@ -548,44 +624,43 @@ const click = () => {
     }
 
     return (
-        <div>
-            
-            <h1>지도 앱</h1>
-            
+        <>
+        <Background>
             <Div>
-                <div id ='map'    
-                style ={{
-                    width:'500px',
-                    height:'500px'
-                }}
-                >               
-                </div>
                 {userInfo.isLogin === false ? 
                     <>
                     <Box>
-                    <div>
-                        <button onClick={goHome}>즐겨찾기</button>
-                        <button onClick={goHome}>즐겨찾기 추가</button>
-                    </div>
+                    <Category>
+                        <Btn onClick={goHome}>즐겨찾기</Btn>
+                        <Btn onClick={goHome}>위치 추가</Btn>
+                    </Category>
                     <div>로그인 후 이용 가능합니다</div>
                     </Box>
                     </>
                     :
                 <Box>
-                    <div>
-                        <button onClick={bookmark}>즐겨찾기</button>
-                        <button onClick={addBookmark}>즐겨찾기 추가</button>
-                    </div>
+                    <Category>
+                        <Btn onClick={bookmark}>즐겨찾기</Btn>
+                        <Btn onClick={addBookmark}>위치 추가</Btn>
+                    </Category>
                     {setAddBookmark === false ? 
-                        <>
-                        <ul>
+                        <Div>
                             
-                            타이틀:<input type='text' placeholder='제목없음' onChange={onChange} ></input>
-                            <div>경도: {selectedLocation.long}</div>
-                            <div>위도:{selectedLocation.lat}</div>
-                            <button onClick={click}>저장</button>
-                        </ul> 
-                        </> 
+                            <List>
+                                <Div>
+                                <div>
+                                    위치 이름  : 
+                                </div>
+                                <Input type='text' placeholder='제목없음' onChange={onChange} />
+                                </Div>
+                                <Loc long>경도: {selectedLocation.long}</Loc>
+                                <Loc>위도:{selectedLocation.lat}</Loc>
+                                <Div>
+                                <Btn save onClick={click}>저장</Btn>
+                                </Div>
+                            </List> 
+                            
+                        </Div> 
                         : 
                         <>북마크된 목록을 보여줍니다
                         <Like {...bookmarkList[0]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
@@ -606,9 +681,18 @@ const click = () => {
                         </>
                     }
                 </Box>
-            }
+                }
+                <Spot id ='map'    
+                style ={{
+                    width:'70vw',
+                    height:'90vh'
+                }}
+                >               
+                </Spot >
             </Div>
-        </div>
+            </Background>
+            <Footer />
+        </>
     )
 
     

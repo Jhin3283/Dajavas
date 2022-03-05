@@ -13,36 +13,39 @@ import { faCrown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom"
 import { faClipboard } from "@fortawesome/free-regular-svg-icons"
+import Footer from '../../Footer/Footer';
 
 
 const Background = styled.div`
-
-        background-color:#FFFAFA;
-        //#88BECE;  
-        //  background-color: #D8D7D8;  
-       //background-color: #F3B178;  
-      //  background-color: #F9B10B; 
-      // background-color: #2AA1B7;   
+    background-color:#8bbac2;   
     display: flex;
     justify-content: center;
     align-items: center;
 `
 
 const Div = styled.div`
-    height: 100vh;
+    height: 110vh;
     width:100vw;
     margin-bottom: 2rem;
     margin-top: 1rem;
+    
     
   
 `
 
 const Title = styled.div`
     /* text-shadow: 3px 3px #D8D7D8; */
+    margin-top:10px;
+    font-size: 2rem;
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
-    transition: all 0.7s ease-in-out ;
+    margin-bottom: 5px;
+    transition: all 0.7s ease-in-out;
+    border-radius: 5%;
+    margin-left: 35rem;
+    margin-right: 35rem;
+    background-color: #8DD1B4;
+    box-shadow: 3px 3px #D8D7D8;
     &:hover {                
         transform: scale(1.1);
     }
@@ -72,12 +75,15 @@ const Pagenation = styled.div`
     align-items: center;
 `
 
-const Page = styled.h3`
+const Page = styled.h2`
+    color: black;
+    opacity: 0.7;
     padding: 6px;
     transition: all 0.5s ease-in-out ;
     &:hover {                
         transform: scale(1.5);
         cursor: pointer;
+        color: coral;
     }
 `
 
@@ -147,7 +153,7 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
             <Modal text='회원님이 잡은 물고기 목록을 볼 수 있습니다.'/>
             <Div>   
                 <Title>
-                    <h1><Link to='/record' style={{ textDecoration: 'none', color:'#0E3B5B',fontWeight:'bolder' }}>기록하기<FontAwesomeIcon icon={faClipboard} /></Link></h1>
+                    <div><Link to='/record' style={{ textDecoration: 'none', color:'#0E3B5B',fontWeight:'bolder' }}>기록하기<FontAwesomeIcon icon={faClipboard} /></Link></div>
                 </Title>
                 {fishboardData()}
             </Div>
@@ -195,10 +201,13 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
     }
       
     return (
+        <>
        <Background>
            {load()}
  
        </Background>
+           <Footer/>
+        </>   
     )
 }
 

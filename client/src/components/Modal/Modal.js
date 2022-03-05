@@ -20,6 +20,9 @@ const ModalContainer = styled.div`
     width: 20rem;
     height: 20rem;
     border: solid 2px #ABCCFF;
+    background-color:#EBF1F1 ;
+    opacity: 0.8;
+   
     border-radius: 12%;
     display: flex; 
     justify-content: center;
@@ -27,13 +30,20 @@ const ModalContainer = styled.div`
   
 `
 const Btn = styled.button`
-    background-color: #4087FE;
+    background-color: #8BBAC2;;
     text-decoration: none;
     border: none;
     padding: 20px;
     color: white;
     border-radius: 30px;
-    cursor: grab;
+    font-weight: bolder;
+    
+    &:hover{
+        cursor: pointer;
+        background-color: coral;
+        cursor: pointer;
+    }
+    box-shadow: 0 10px 25px #3c4a5645;
 
 `
 

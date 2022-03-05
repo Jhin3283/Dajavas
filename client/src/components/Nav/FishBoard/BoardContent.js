@@ -1,35 +1,45 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Footer from "../../Footer/Footer";
 import { connect } from "react-redux";
 import Modal from "../../Modal/Modal";
 import { useNavigate } from "react-router-dom";
 const AWS = require("aws-sdk/dist/aws-sdk-react-native");
 
+const Background = styled.div`
+  background-color:#8bbac2;
+  width: 100vw;
+  height: 80vh;
+`
+
 const Container = styled.div`
     display: flex;
     justify-content: center;
+    
+`
+
+const Blank = styled.div`
+  
 `
 
 const Div = styled.div`
     background-color: #ABCCFF; 
     height: 60vh;
-    width: 50vw;
-   /*  padding: 10px;
-    border-radius: 5%;
-   background-color: #EBF1F1;
-    border: solid gray 2px; */
-    background-color:#D8D7D8 ;
+    width: 40vw;
+    background-color:#EBF1F1;
     border-radius: 8px;
     padding-bottom: 5px;
     border: gray 0.1px solid;
+    box-shadow: 0 10px 25px #3c4a5645;
+    margin-top: 3.5rem;
   
 `;
 const Day = styled.div`
-  
-  margin: 1rem;
-  /* padding: 1rem; */
-  font-size:x-large;
+    margin: 1rem;
+    font-size: large;
+    font-weight: bold;
+    opacity: 0.7; 
 `;
 const File = styled.div`
   display: flex;
@@ -51,20 +61,36 @@ const Input = styled.input`
     padding: 0;
     overflow: hidden;
     border: 0;
+   
     
 `;
 
+const Size = styled.input`
+   border:0 solid black;
+   outline: none;
+   
+`
+
 const Label = styled.label`
     display: inline-block;
-    padding: 20px;
+    padding: 10px;
     color: #fff;
     vertical-align: middle;
-    background-color: #999999;
+    background-color: #04A1A1;
     cursor: pointer;
-    height: 40px;
+    width:70px;
+    height: 23px;
     margin-left: 10px;
-    border-radius: 8;
+    border-radius: 10;
+    &:hover {
+        background-color: coral;
+    }
+    box-shadow: 0 10px 25px #3c4a5645;
+`
 
+const Select = styled.select`
+    border:0 ;
+    outline: none;
 `
 const Photo = styled.img`
   border: solid gray 2px;
@@ -94,14 +120,17 @@ const Span = styled.span`
   opacity: 1;
 `;
 const Btn = styled.div`
+    margin-top: 2.2rem;
     font-size: large;
     font-weight: bold;
-    transition: all 0.5s ease-in-out ;
+    opacity: 0.7; 
+    transition: all 0.3s ease-in-out ;
     &:hover {                
         transform: scale(1.5);
         cursor: pointer;
+        color: coral;
     }
-    opacity: 0.7;
+    
 `
 
 function BoardContent({ userInfo }) {
@@ -216,9 +245,10 @@ const save = (e) => {
   };
 
   return (
-      <>
+    <>
+    <Background>
       <Modal text="내가 잡은 물고기를 기록해보아요" />
-    <h1>기록</h1>
+    
     <Container>
     <Div>
         <form onSubmit={save}>
@@ -240,17 +270,17 @@ const save = (e) => {
             <Fish>
             <div>
               <Span>어종 선택 </Span>
-              <select onChange={(e) => setfishname(e)}>
+              <Select onChange={(e) => setfishname(e)}>
                 {fishList.map((el, idx) => (
                   <option value={el} key={idx}>
                     {el}
                   </option>
                 ))}
-              </select>
+              </Select>
             </div>
             <div>
               <Span>크기</Span>
-              <input type="text" onChange={(e) => setsize(e)}></input>
+              <Size box type="text" onChange={(e) => setsize(e)}></Size>
               <Span>cm</Span>
             </div>
             </Fish>
@@ -268,7 +298,9 @@ const save = (e) => {
         </form>
       </Div>
     </Container>
-    </>
+    </Background>
+    <Footer/>
+  </>
   );
 }
 

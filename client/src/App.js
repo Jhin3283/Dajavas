@@ -19,9 +19,12 @@ import styled from "styled-components";
 
 import axios from "axios";
 import { useState } from "react";
+import LoadingPage from "./LoadingPage";
 
 const Box = styled.div`
-  /* display: flex; */
+   display: flex; 
+   width: 100%;
+   height:130vh;
 `;
 
 const Div = styled.div``;
@@ -66,8 +69,8 @@ function App() {
       <Router>
         <Box>
           {/* <Div>
-            <Sidebar isLogin={isLogin} userInfo={userInfo} />
-          </Div> */}
+            <Sidebar />
+          </Div>  */}
           <Div>
             <Nav />
             <Routes>
@@ -92,6 +95,7 @@ function App() {
               />
               <Route exact path="/record" element={<BoardContent />} />
               <Route exact path="/errorpage" element={<ErrorPage />} />
+              <Route exact path="/loadingPage" element={<LoadingPage />} />
               <Route
                 exact
                 path="/login"

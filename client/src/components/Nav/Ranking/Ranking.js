@@ -5,23 +5,33 @@ import photo from '../../../img/월척.png'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios';
-// import { fishBones} from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+ import { faFish } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCrown}  from "@fortawesome/free-solid-svg-icons";
+import Wave from "react-wavify";
+import Footer from '../../Footer/Footer';
 
-
+const Background = styled.div`
+    background-color: #8bbac2;
+    height: 155vh;
+    width:  100vw;
+    box-shadow: 0 25px 25px #3c4a5645;
+`
 const Data = styled.div`
-    border: 2px dotted red;
     padding: 1em;
 `
 const Box = styled.div`    
-    padding: 0.5em;
+    
+    
+
 `
 const Rank = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    border: 2px dotted blue;
-    padding: 0.5em;
+    margin-top: 0;
+    padding: 0;
+    
     
 `
 const List = styled.div`
@@ -29,11 +39,26 @@ const List = styled.div`
     flex-direction:column; 
     justify-content: center;
     align-items: center;
-    margin: 1em;    
-    border: 2px dotted red;
+    margin: 0 0.3rem;   
+    border: 2px solid gray;
+    border-radius: 2%;
+    background-color: #EEE9BF;
+    box-shadow: 0 10px 25px #3c4a5645;
+    transition: all 0.5s ease-in-out ;
+    &:hover {                
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+    font-size: large;
+    padding-bottom: 10px;
+
 `
 const Img = styled.img`
     width: 17vw;
+    background-color:#EBF1F1 ;
+    border-radius: 2%;
+    height: 25vh;
+    padding:10px;
   
 `
 const MyRank = styled.div`
@@ -45,13 +70,50 @@ const Pagenation = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 1rem;
 `
 
-const Page = styled.h4`
-    padding:3px
+const Page = styled.h2`
+    color: black;
+    opacity: 0.7;
+    padding: 6px;
+    transition: all 0.5s ease-in-out ;
+    &:hover {                
+        transform: scale(1.5);
+        cursor: pointer;
+        color: coral;
+    }
+`
+const Blank = styled.div`
+    width: 10px;
+    height: 15px;
+`
+const Title = styled.h1`
+margin: 10px;
+padding: 10px;
+color: #1B5A5D;
 `
 
 
+const Select = styled.select`
+    border:0px solid black;
+    outline: none;
+    padding:10px;
+    background-color:#62B994;
+    border-radius: 8%;
+    box-shadow: 0 10px 25px #3c4a5645;
+    font-weight: bolder;
+    font-size: 1.3rem;
+    
+`
+const Text = styled.div`
+    font-size: 1.3rem;
+    font-weight: bolder;
+    color: gray;
+    opacity: 4;
+    margin: 0.4rem;
+    
+`
 // 닉네임을 반환해야할것같다
 
 function Ranking({userInfo}) {
@@ -92,58 +154,82 @@ function Ranking({userInfo}) {
 
     const rankingList = () => {
         if (fishNamed === "선택하세요") {
-            return <><h1>텅</h1></>
+            return <>
+                    <Blank/>
+                    <Blank/>
+                    <Blank/>
+                    <Title><FontAwesomeIcon icon={faFish}/> 어류를 선택해주세요 <FontAwesomeIcon icon={faFish}/></Title> 
+                    <Blank/>
+                    <Blank/>
+                    <Wave
+                        fill = '#1277b0'
+                        paused={false}
+                        options={{
+                            height: 10,
+                            amplitude: 18,
+                            speed: 0.30,
+                            points: 8
+                        }}
+
+                    /> 
+                    </>
         } else if(paged === 1) {       
             return  <div>
                 <Box>  
                     <Rank>
-                        <List>
+                        <List second>
                         {selectedFishData[1] === undefined ? 
-                        <>
+                        <>  
+                            <Blank></Blank>
                             <Img src={photo} />
-                            <h3>2등</h3>
-                            <h4>정보 없음</h4>
+                            <Text>2등</Text>
+                            <Text>정보 없음</Text>
                         </>    
                         :
                         <>
-                            <Img src={photo} />
-                            <h3>2등</h3>
-                            <h4>{selectedFishData[1].nickname}</h4>
-                            <div>{selectedFishData[1].size}cm</div> 
+                            <Blank></Blank>
+                            <Img src={selectedFishData[1].src} />
+                            <Text>2등</Text>
+                            <Text>{selectedFishData[1].nickname}</Text>
+                            <Text>{selectedFishData[1].size}cm</Text> 
                         </>
                         }    
                         
                         </List>
-                        <List>
+                        <List >
                         {selectedFishData[0] === undefined ? 
                         <>
+                            <Blank></Blank>
                             <Img src={photo} />
-                            <h2>1등</h2>
-                            <h4>정보 없음</h4>
+                            <Text>1등</Text>
+                            <Text>정보 없음</Text>
                         </>    
                         :
                         <>
-                            <Img src={photo} />
-                            <h2>1등</h2>
-                            <h4>{selectedFishData[0].nickname}</h4>
-                            <div>{selectedFishData[0].size}cm</div> 
+                            <Blank></Blank>
+                            <Img src={selectedFishData[0].src} />
+                            <Text>1등</Text>
+                            <Text>{selectedFishData[0].nickname}</Text>
+                            <Text>{selectedFishData[0].size}cm</Text> 
                         </>
                         }
                         </List>
 
-                        <List>
+                        <List third>
                         {selectedFishData[2] === undefined ? 
                         <>
+                            <Blank></Blank>
                             <Img src={photo} />
-                            <h3>3등</h3>
-                            <h4>정보 없음</h4>
+                            <Text>3등</Text>
+                            <Text>정보 없음</Text>
                         </>    
                         :
                         <>
-                            <Img src={photo} />
-                            <h3>3등</h3>
-                            <h4>{selectedFishData[2].nickname}</h4>
-                            <div>{selectedFishData[2].size}cm</div> 
+                            <Blank></Blank>
+                            <Img src={selectedFishData[1].src} />
+                            <Text>3등</Text>
+                            <Text>{selectedFishData[2].nickname}</Text>
+                            <Text>{selectedFishData[2].size}cm</Text> 
                         </>
                         }
                         </List>
@@ -154,7 +240,6 @@ function Ranking({userInfo}) {
                         <RankingList {...selectedFishData[3]}/>
                         <RankingList {...selectedFishData[4]}/>
                     </div>
-                
                 </Box>
             </div>
             }else {
@@ -166,8 +251,8 @@ function Ranking({userInfo}) {
                         <RankingList {...selectedFishData[2]}/>
                         <RankingList {...selectedFishData[3]}/>
                         <RankingList {...selectedFishData[4]}/>
-                        /* {selectedFishData.map((el,idx) => {<RankingList key={idx} {...el}/>} ) } */
                     </div>
+                    
                 </Box>
                 </>
             }
@@ -177,12 +262,13 @@ function Ranking({userInfo}) {
 
     return (
         <>
+        <Background>
             <Box>
                 <Data>
-                    <span>어종 선택: </span>
-                    <select onChange={(e)=> setFishName(e.target.value)}>
+                    <Title><FontAwesomeIcon icon={faCrown} color='gold' /> Ranking <FontAwesomeIcon icon={faCrown} color='gold' /></Title>
+                    <Select onChange={(e)=> setFishName(e.target.value)}>
                             {fishList.map((el,idx) => <option value={el} key={idx}>{el}</option>)}
-                    </select>   
+                    </Select>   
                            
                 </Data>
             </Box>
@@ -197,12 +283,14 @@ function Ranking({userInfo}) {
                 <Page onClick={() => setPage(5)}>5</Page>
             
             </Pagenation>
-        </>
+            
+        </Background>
+        <Footer />
+        </> 
     )
 }
 
 const mapStateToProps = (state) => {
-    //console.log(state,'++++++++++++++++++++++++') 
      return {
       userInfo: state.userReducer, 
       

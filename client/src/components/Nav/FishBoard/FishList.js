@@ -16,25 +16,27 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import  { keyframes } from 'styled-components';
 
 const FishCard = styled.div`
-text-shadow: 3px 3px #D8D7D8;
+    
+    text-shadow: 3px 3px #D8D7D8;
     transition: transform 0.5s ease-in-out;
     &:hover {                
         transform: scale(1.02);
     }
+    
 `
 
 const Div = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem;
+    margin: 0.6rem;
    
     
 `
 
 const Img = styled.img`
     width: 15vw;
-    height: 50vh;
+    height: 40vh;
     border-radius: 2%;
     background-color: #EBF1F1;
      
@@ -74,10 +76,18 @@ const Card = styled.div`
     border-radius: 8px;
     padding-bottom: 5px;
     border: gray 0.1px solid;
+    box-shadow: 0 10px 10px #3c4a5645;
 `
 const Blank= styled.div`
     width: 10px;
     height: 15px;
+`
+
+const Text = styled.div`
+    font-size: 1.3rem;
+    font-weight: bolder;
+    color: gray;
+    opacity: 4;
 `
 
 function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard, userInfo, result, targetFind,render,rerender}) {
@@ -145,15 +155,15 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
               <Card>  
                   <Blank></Blank>
                 <Img src={src} />  
-                <div>
+                <Text>
                     {fish_name}             
-                </div>    
-                <div>
+                </Text>    
+                <Text>
                     {size}cm
-                </div> 
-                <div>
+                </Text> 
+                <Text>
                     {createdAt}
-                </div> 
+                </Text> 
                  
                 <Div>
                     <Box>
@@ -174,15 +184,15 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
                 <Card>
                 <Blank></Blank>
                 <Img src={src} />  
-                <div>
+                <Text>
                     {fish_name}           
-                </div>    
-                <div>
+                </Text>    
+                <Text>
                     {size}cm
-                </div> 
-                <div>
+                </Text> 
+                <Text>
                     {date}
-                </div> 
+                </Text> 
                 <Div>
                 
                     <Box>
