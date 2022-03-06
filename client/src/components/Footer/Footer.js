@@ -3,8 +3,9 @@ import styled from "styled-components";
 import Logo from "../../img/javas.png";
 
 const Bdiv = styled.div`
-  margin-top: 30px;
+  margin-top: 10px;
   display: flex;
+  box-shadow: 10 10px 0px #3c4a5645;
 `;
 
 const Div = styled.div`

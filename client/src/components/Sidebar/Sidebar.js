@@ -1,32 +1,32 @@
 import React from 'react'
-import { useState, useRef, useEffect} from 'react'
-import { Link, NavLink} from 'react-router-dom'
-// import styles from './sidebar.module.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faBars  } from '@fortawesome/free-solid-svg-icons';
+import { useRef} from 'react'
+import { NavLink} from 'react-router-dom'
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { sideBarOn, sideBarOff  } from '../../redux/store/actions';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Container = styled.div`
 
   background-color: #D8D7D8;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  height: 1000vh;
-  /* position: sticky; */
+  padding: 2rem 1rem;
+  height: 100vh;
   top: 0;
-  width: 20vw;
-  /* border-bottom: 1px solid red; */
+  /* width: 15vw; */
+  border-bottom: 1px solid red;
   /* z-index: 10; */
-  /* text-decoration: none; */
-
+  /* text-decoration: none;*/
+  display: ${props => props.btnClicked ? 'block' : 'none'};
+  /* display: block; */
 `
 
 const Div = styled.div`
   border: dotted red 2px;
   margin: 10px 0px;
-  /* display: block; */
+  display: block;
 `
 
 const StyledNavLink = styled(NavLink)`
@@ -34,10 +34,12 @@ const StyledNavLink = styled(NavLink)`
   align-items: center;
   border-radius: 0.5rem;
   font-size: 1rem;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
+  padding: 1rem 0;
+  /* margin-right: 0.5rem; */
   text-decoration: none;
-  /* transition: background-color, color 100ms ease-out; */
+  transition: background-color, color 100ms ease-out;
+  color: #2AA1B7;
+  font-size: 16px;
 
   :hover {
     color: antiquewhite;
@@ -49,12 +51,14 @@ const Menu = styled.div`
         color: #F3B178;
         background-color: #2AA1B7;
     }
+    font-size: 20px;
 `
 
 
-const Sidebar = () => {
-    const { isLogin, login_method, email, nickname, password, accessToken } =  useSelector(({ userReducer }) => userReducer);
-
+const Sidebar = ({btn, setBtn}) => {
+    const { isLogin, nickname,} =  useSelector(({ userReducer }) => userReducer);
+    const { isSideBar } = useSelector(({sideBarReducer}) => sideBarReducer);
+    const dispatch = useDispatch();
     const [isOpen, setOpen] = useState(false);
     // const [xPosition, setX] = useState(width);
     const side = useRef();
@@ -71,25 +75,27 @@ const Sidebar = () => {
     // };
     
     // 사이드바 외부 클릭시 닫히는 함수
-    // const handleClose = async e => {
-    //   let sideArea = side.current;
-    //   let sideCildren = side.current.contains(e.target);
-    //   if (isOpen && (!sideArea || !sideCildren)) {
-    //     await setX(width); 
-    //     await setOpen(false);
-    //   }
-    // }
+    const handleClose = async e => {
+      let sideArea = side.current;
+      let sideCildren = side.current.contains(e.target);
+      if ( btn && (!sideArea || !sideCildren)) {
+        dispatch(sideBarOff);
+        setBtn(false)
+        console.log('비티앤 사이드바쪽',btn)
+      }
+    }
   
-    // useEffect(()=> {
-    //   window.addEventListener('click', handleClose);
-    //   return () => {
-    //     window.removeEventListener('click', handleClose);
-    //   };
-    // })
+    useEffect(()=> {
+      window.addEventListener('click', handleClose);
+      return () => {
+        window.removeEventListener('click', handleClose);
+      };
+    })
+
   
 
     return (
-        <Container>
+        <Container btnClicked={btn} ref={side}>
             <Div>
                 {
                   isLogin === true ?

@@ -6,7 +6,7 @@ import mypageApi from "../../API/mypage";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-// import handleInputChange from '../Login/Signup'
+import modalReducer from "../../redux/store/reducers/modalReducer/modalReducer";
 
 import {
   loginAction,
@@ -14,10 +14,25 @@ import {
   confirmModalOnAction,
   modalOffAction,
 } from "../../redux/store/actions";
+import styled from "styled-components";
+
+const Container = styled.div`
+  justify-content: center;
+  align-items: center;
+`
+
+const Text = styled.div`
+  justify-content: center;
+  align-items: center;
+  padding: 10rem;
+  border: 2px solid peachpuff;
+`
+
 
 function MyPage({ type }) {
-  const { isLogin, login_method, email, nickname, password, accessToken } =
-    useSelector(({ userReducer }) => userReducer);
+  const { isLogin, login_method, email, nickname, password, accessToken } =  useSelector(({ userReducer }) => userReducer);
+  const { isConfirmModal } = useSelector(({modalReducer}) => modalReducer);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
@@ -116,6 +131,10 @@ function MyPage({ type }) {
     ...prev
   });
 
+  // const handleLogout = () => ({
+  //   const res = await mypageApi.
+  // })
+
   const handleDeleteAccount = async() => {
     try{
       const res = await mypageApi.deleteUserInfo(email, login_method, accessToken);
@@ -126,6 +145,11 @@ function MyPage({ type }) {
       console.log(err);
     }
   };
+
+  const func = () => {
+    dispatch(confirmModalOnAction);
+    console.log('컨펌모달 켜졌나요?',isConfirmModal)
+  }
 
   useEffect(() => {
     if(!isLogin){
@@ -145,15 +169,15 @@ function MyPage({ type }) {
   }, []);
 
   return (
-    <>
+    <Container>
       MyPage
       {isLogin === false ? (
-        <>
+        <Text>
           <div> 로그인이 필요한 서비스입니다 </div>
           <div>
             <Link to="/login">로그인페이지로 이동</Link>
           </div>
-        </>
+        </Text>
       ) : isEditMode === true ? (
         <>
           <form onSubmit={handleSubmit}>
@@ -207,12 +231,23 @@ function MyPage({ type }) {
               >
               취소
             </button>
-            <label
-              htmlFor='submitdata'
-              type='submit'
-              >
-              저장
-            </label>
+            <button>
+              <label
+                htmlFor='submitdata'
+                type='submit'
+                >
+                저장
+              </label>
+            </button>
+          </div>
+          <div>
+            <button
+              type='button'
+              className="logout"
+              onClick={func}
+            >
+              로그아웃
+            </button>
           </div>
           <div>
             <button
@@ -223,7 +258,6 @@ function MyPage({ type }) {
               회원탈퇴
             </button>
           </div>
-
         </>
       ) : (
         <>
@@ -241,7 +275,7 @@ function MyPage({ type }) {
           <button>회원탈퇴</button> */}
         </>
       )}
-    </>
+    </Container>
   );
 }
 

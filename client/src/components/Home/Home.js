@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import userApi from "../../API/user";
 import { loginAction } from "../../redux/store/actions";
 import LoadingPage from "../../LoadingPage";
-//import LoadingPage from "../../LoadingPage";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -20,7 +19,7 @@ import "aos/dist/aos.css";
 // `
 
 const HomeContainer = styled.div`
-  width: 100%;
+  /* width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -40,7 +39,7 @@ const HomeContainer = styled.div`
     ${media.lessThan("medium")`
       display: block;
     `}
-  }
+  } */
 `;
 
 const Bigdiv = styled.div`
