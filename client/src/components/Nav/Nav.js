@@ -4,9 +4,8 @@ import styled from "styled-components";
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../img/logo.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { sideBarOn, sideBarOff } from '../../redux/store/actions';
-import sideBarReducer from '../../redux/store/reducers/sideBarReducer/sideBarReducer'
-import { useSelector, useDispatch } from 'react-redux';
+import { sideBarOn } from '../../redux/store/actions';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
     display: flex;
@@ -54,10 +53,7 @@ const Icon = styled.div`
 `
 
 function Nav ({btn, setBtn}) {
-  const { isSideBar } = useSelector(({ sideBarReducer })=> sideBarReducer );
   const dispatch = useDispatch();
-//   const [btn, setBtn] = useState(false);
-
 
     const handleSideBarClick = () => {
         dispatch(sideBarOn);

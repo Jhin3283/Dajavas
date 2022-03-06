@@ -3,8 +3,7 @@ import { useRef} from 'react'
 import { NavLink} from 'react-router-dom'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { sideBarOn, sideBarOff  } from '../../redux/store/actions';
-import { useState } from 'react';
+import { sideBarOff  } from '../../redux/store/actions';
 import { useEffect } from 'react';
 
 const Container = styled.div`
@@ -15,12 +14,8 @@ const Container = styled.div`
   padding: 2rem 1rem;
   height: 100vh;
   top: 0;
-  /* width: 15vw; */
   border-bottom: 1px solid red;
-  /* z-index: 10; */
-  /* text-decoration: none;*/
   display: ${props => props.btnClicked ? 'block' : 'none'};
-  /* display: block; */
 `
 
 const Div = styled.div`
@@ -35,7 +30,6 @@ const StyledNavLink = styled(NavLink)`
   border-radius: 0.5rem;
   font-size: 1rem;
   padding: 1rem 0;
-  /* margin-right: 0.5rem; */
   text-decoration: none;
   transition: background-color, color 100ms ease-out;
   color: #2AA1B7;
@@ -57,22 +51,8 @@ const Menu = styled.div`
 
 const Sidebar = ({btn, setBtn}) => {
     const { isLogin, nickname,} =  useSelector(({ userReducer }) => userReducer);
-    const { isSideBar } = useSelector(({sideBarReducer}) => sideBarReducer);
     const dispatch = useDispatch();
-    const [isOpen, setOpen] = useState(false);
-    // const [xPosition, setX] = useState(width);
     const side = useRef();
-    
-    // button 클릭 시 토글
-    // const toggleMenu = () => {
-    //   if (xPosition > 0) {
-    //     setX(0);
-    //     setOpen(true);
-    //   } else {
-    //     setX(width);
-    //     setOpen(false);
-    //   }
-    // };
     
     // 사이드바 외부 클릭시 닫히는 함수
     const handleClose = async e => {
