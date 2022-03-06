@@ -54,7 +54,7 @@ const Btn = styled.div`
         background-color: rgb(222, 247, 243);
         color:coral; 
     }
-    margin-top:${props => (props.save ? '8vh' : '10')};
+    margin-top:${props => (props.save ? '1.7rem' : '10')};
     font-size: ${props => (props.save ? '1rem' : '1.8rem')};
     margin-left: ${props => (props.save ? '13rem' : '0')};
     justify-content:${props => (props.save ? 'flex-end' : 'center')}; ;

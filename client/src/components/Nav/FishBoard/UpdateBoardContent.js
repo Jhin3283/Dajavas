@@ -244,7 +244,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                         {rank === false ? '': <FontAwesomeIcon icon={faCrown} size="3x" color='gold'/> }
                     </div>
                 </Fish>
-                    <Btn onClick={save}>기록 저장</Btn>
+                    <Btn onClick={(e) => save(e)}>기록 저장</Btn>
                     
             </form>   
         </Div>

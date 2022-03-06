@@ -25,7 +25,7 @@ const Blank = styled.div`
 
 const Div = styled.div`
     background-color: #ABCCFF; 
-    height: 60vh;
+    height: 65vh;
     width: 40vw;
     background-color:#EBF1F1;
     border-radius: 8px;
