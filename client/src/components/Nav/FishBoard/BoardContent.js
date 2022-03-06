@@ -94,6 +94,7 @@ function BoardContent({ userInfo }) {
   // ADD
   const save = (e) => {
     e.preventDefault();
+    console.log(fishName, size, "@@@@@@@@@@@");
     if (!photo || !fishName || !size) {
       console.log(error);
       alert("모두 입력해주세요");
@@ -128,6 +129,12 @@ function BoardContent({ userInfo }) {
     alert("로그인을 하세요");
     navigate("/login");
   };
+  const setfishname = (e) => {
+    setFishName(e.target.value);
+  };
+  const setsize = (e) => {
+    setSize(e.target.value);
+  };
 
   return (
     <>
@@ -150,7 +157,7 @@ function BoardContent({ userInfo }) {
           <Fish>
             <div>
               <Span>어종 선택 </Span>
-              <select onChange={(e) => setFishName(e.target.value)}>
+              <select onChange={(e) => setfishname(e)}>
                 {fishList.map((el, idx) => (
                   <option value={el} key={idx}>
                     {el}
@@ -160,10 +167,7 @@ function BoardContent({ userInfo }) {
             </div>
             <div>
               <Span>크기</Span>
-              <input
-                type="text"
-                onChange={(e) => setSize(e.target.value)}
-              ></input>
+              <input type="text" onChange={(e) => setsize(e)}></input>
               <Span>cm</Span>
             </div>
           </Fish>
