@@ -27,6 +27,7 @@ const Box = styled.div`
 const Div = styled.div``;
 
 function App() {
+
   const [isLogin, setIsLogin] = useState(false); //로그인 여부
   const [userInfo, setUserInfo] = useState({
     id: "",
@@ -115,6 +116,7 @@ function App() {
       </Router>
     </div>
   );
+
 }
 
 export default App;
