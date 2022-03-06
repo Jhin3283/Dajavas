@@ -55,12 +55,13 @@ const Input = styled.input`
   display: flex;
   justify-content: center;
   align-items: center;
+
   position: absolute;
-    width: 0;
+    /* width: 0;
     height: 0;
     padding: 0;
     overflow: hidden;
-    border: 0;
+    border: 0; */ 
    
     
 `;
@@ -257,7 +258,6 @@ const save = (e) => {
             </Day>
             <File>
                 <Photo src={photo} alt='사진'/>
-                <Label for='file'>파일찾기</Label>   
                 <Input
                 type="file"
                 name="file"
@@ -267,6 +267,7 @@ const save = (e) => {
                 
                 
             </File>
+             
             <Fish>
             <div>
               <Span>어종 선택 </Span>
@@ -289,9 +290,11 @@ const save = (e) => {
               <Btn onClick={goHome}>기록 저장</Btn>
               
             </>
-          ) : (
+          ) 
+          : 
+          (
             <>
-              <Btn onSubmit={(e) => save(e)}>기록 저장</Btn>
+              <Btn onClick={(e) => save(e)}>기록 저장</Btn>
              
             </>
           )}
@@ -314,3 +317,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardContent);
+

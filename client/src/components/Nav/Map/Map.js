@@ -56,7 +56,7 @@ const Btn = styled.div`
     }
     margin-top:${props => (props.save ? '8vh' : '10')};
     font-size: ${props => (props.save ? '1rem' : '1.8rem')};
-    margin-left: ${props => (props.save ? '15rem' : '0')};
+    margin-left: ${props => (props.save ? '13rem' : '0')};
     justify-content:${props => (props.save ? 'flex-end' : 'center')}; ;
     border-radius: 6%;
     padding: 8px;
@@ -112,7 +112,8 @@ const Input = styled.input`
     border: 0;
     border-radius: 6%;
     background-color:#D8D7D8;
-    border-bottom: gray 2px solid;
+   margin-left:0px;
+   border-bottom: solid 2px #04A1A1;
     /* outline: 2px solid #d50000;  */
     outline: none; 
     cursor: pointer;
@@ -140,7 +141,7 @@ function Map({userInfo}) {
     const [paged, setPage] = useState(1)
     const [setAddBookmark, setBookmark] = useState(false) // POST
 
-    let positions = [
+   /*  let positions = [
                      {
                         title: '<div>봉림낚시터</div>', 
                         latlng: new kakao.maps.LatLng(37.69288833337533, 126.89940541326011),
@@ -157,9 +158,9 @@ function Map({userInfo}) {
                         content: '너무 좋은장소'
                     } 
                     
-                ]; 
+                ];  */
                  
- const getMap = () => {
+     const getMap = () => {
         console.log('겟요청 간거임???', paged, "paged")
     
         axios.get(`https://localhost:5000/map?email=${userInfo.email}&&page=${paged}`, {
@@ -181,16 +182,14 @@ function Map({userInfo}) {
         })
         .catch(error => console.log(error)) 
          
-        console.log(positions,'😂')
+        /* console.log(positions,'😂') */
     }
     
-
-   
 
     const mapApp = () => {
         let mapContainer = document.getElementById('map') //지도를 표시할 div
         //* 초기 지도 지도 옵션 설정 후 지도 생성
-        console.log(positions,'+++++++++++++')
+       /*  console.log(positions,'+++++++++++++') */
                 let options = {
                     /* center: new kakao.maps.LatLng(34.320861, 126.490931),
                     level: 10 // 지도 확대 레벨 */
@@ -204,10 +203,6 @@ function Map({userInfo}) {
                 let map = new kakao.maps.Map(mapContainer, options);  //** */ 지도를 생성한다.
         
         //⭐️ '현재 내 위치를 찾는중입니다' 라는 메세지 1초 정도 띄워주자
-        
-    
-
-
 
                 if (navigator.geolocation) {
                     
@@ -791,7 +786,11 @@ const click = () => {
     }
 
     console.log(bookmarkList) 
-    useEffect(() => {getMap()}, [paged])
+    useEffect(() => {
+        if(userInfo.isLogin === true) {
+            getMap()
+        }
+    }, [paged])
 
     const navigate = useNavigate()
     const goHome = () => {
@@ -829,9 +828,9 @@ const click = () => {
                             
                             <List>
                                 <Div>
-                                <div>
-                                    위치 이름  : 
-                                </div>
+                                <Loc>
+                                    위치 이름: 
+                                </Loc>
                                 <Input type='text' placeholder='제목없음' onChange={onChange} />
                                 </Div>
                                 <Loc long>경도: {selectedLocation.long}</Loc>

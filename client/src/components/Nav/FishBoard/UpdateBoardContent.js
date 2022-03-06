@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components';
 import { useState, useEffect } from 'react'
+import { faCrown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import {connect} from 'react-redux'
 import Modal from '../../Modal/Modal'
@@ -106,12 +108,19 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
     const [record, setRecord] = useState(targetFish)
     const [photo, setPhoto] = useState(record.src)
     const [size, setSize] = useState(record.size)
-    
+    const [rank, ranked] = useState(false)
     const fishList = ['변경안함','광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대']
     const [fishName, setFishName] = useState(record.fish_name)
 
   
-   
+   const selectRank = () => {
+       ranked(!rank)
+       if(rank === true) {
+           return 1
+       }else {
+           return 0
+       }
+   }
   
 
     
@@ -169,7 +178,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                     ...record, 
                     src: photo,
                     size: size,
-                    ranked: 1,
+                    ranked: rank,
                     userId: userInfo.id
                 }
             })
@@ -184,7 +193,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                     fish_name: fishName,
                     src: photo,
                     size: size,
-                    ranked: 1,
+                    ranked: rank,
                     userId: userInfo.id
                 }
         })
@@ -231,6 +240,8 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                     <div>     
                         <Span>크기</Span>
                         <Size type='text' value={size} onChange={(e)=>setSize(e.target.value)}></Size><Span>cm</Span>
+                        <Text onClick={() => selectRank()}>랭크 등록</Text>
+                        {rank === false ? '': <FontAwesomeIcon icon={faCrown} size="3x" color='gold'/> }
                     </div>
                 </Fish>
                     <Btn onClick={save}>기록 저장</Btn>
