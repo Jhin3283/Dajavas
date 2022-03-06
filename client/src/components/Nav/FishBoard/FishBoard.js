@@ -160,7 +160,7 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
         </>
         }
 
-    const fishboardData = () => {
+        const fishboardData = () => {
         if(userInfo.isLogin === false) {
             return <>
                

@@ -10,11 +10,10 @@ const {kakao} = window;
 //import KakaoMap from '../../../API/KakaoMap'
 
 const Background = styled.div`
-    background-color:#8bbac2;  
+    background-color: white;  
     width: 100vw;
-    height: 90vh;
+    height: 120vh;
 `
-
 const Div = styled.div`
     display:flex;
     justify-content: space-around;
@@ -28,51 +27,63 @@ const Category = styled.div`
 const Spot = styled.div`
     flex: 1 1 auto;
     margin-right: 1rem;
+    background-color:soild, 2px rgb(245,250,250);
+    border:0;
 `
 const Box = styled.div`
     width: 28vw;
     padding:10wh;
     border: 0;
-    background-color: #8BBAC2;
+    background-color: rgb(245,250,250);
+   /*  border: solid 1px gray; */
     padding-top: 3px;
     box-shadow: 3px 3px #D8D7D8; 
     text-shadow: 0 10px 25px #3c4a5645;
 
 `
+
+
+const Btn = styled.div`
+    font-weight: bolder;
+    color: #04A1A1;
+    padding-top:0px;
+    padding-bottom: 20px;
+    border:0;
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(222, 247, 243);
+        color:coral; 
+    }
+    margin-top:${props => (props.save ? '8vh' : '10')};
+    font-size: ${props => (props.save ? '1rem' : '1.8rem')};
+    margin-left: ${props => (props.save ? '15rem' : '0')};
+    justify-content:${props => (props.save ? 'flex-end' : 'center')}; ;
+    border-radius: 6%;
+    padding: 8px;
+    margin-bottom: 0.2rem;
+   
+`
 const Pagenation = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 1rem;
 `
 
-const Page = styled.h4`
-    padding:3px;
-`
-const Btn = styled.h4`
-    font-weight: bolder;
-    box-shadow: 3px 3px #D8D7D8;
-    color:  #04A1A1;
-    opacity: 0.9;
-    padding: 14px;
-    padding-top:20px;
-    padding-bottom: 20px;
-    border:0;
-    background-color: #8DD1B4;
-    &:hover {
-        transform: scale(1.1);
+const Page = styled.h2`
+    color: black;
+    opacity: 0.7;
+    padding: 6px;
+    transition: all 0.5s ease-in-out ;
+    &:hover {                
+        transform: scale(1.5);
         cursor: pointer;
-        color:coral;
+        color: coral;
     }
-    margin-top:${props => (props.save ? '30px' : '10')};
-    font-size: ${props => (props.save ? '1rem' : '1.8rem')};
-    border-radius: 45%;
-    box-shadow: 0 10px 30px #3c4a5645;
-    box-shadow: 3px 3px #D8D7D8;
-    box-shadow: ${props => (props.save ? '0 10px 30px #3c4a5645': '3px 3px #D8D7D8')}
 `
-
 
 const List = styled.div`
+    margin-top: 2rem;
     padding: 1rem;
     border: 0;
     background-color:#D8D7D8;
@@ -80,7 +91,6 @@ const List = styled.div`
     width: 20vw;
     height: 28vh;
     color: #04A1A1;
-    font-weight: bolder;
     text-align: start;
     font-weight: bolder;
     color:gray;
@@ -88,9 +98,9 @@ const List = styled.div`
     font-size: 1.4rem;
     box-shadow: 0 10px 30px #3c4a5645;
 
-    
-    
-
+`
+const LikeContainer = styled.div`
+  
 `
 
 const Loc = styled.div`
@@ -106,6 +116,9 @@ const Input = styled.input`
     /* outline: 2px solid #d50000;  */
     outline: none; 
     cursor: pointer;
+    font-weight: bolder;
+    color: #04A1A1;
+   
 `
 
 function Map({userInfo}) {
@@ -117,9 +130,10 @@ function Map({userInfo}) {
   /*   useEffect (() => {
         mapApp()
     }, [bookmarkList])  */
-
+    
     const [selectedLocation, setSelectedLocation] = useState("") // 포인트 찍은것
     
+  
     
     // 👉 메세지 설정해주고 싶으면 변수 설정해주고, 옵션스에 집어 넣어주고 ma에 할당해주자
     const [bookmarkList, setBookmarkList] = useState([]) //*null로 넣으면 왜 안된느거지?//
@@ -357,9 +371,176 @@ function Map({userInfo}) {
                         infowindow.close();
                     };
                 }
+
+
+//*🍯 
+        let rec = [
+                    {
+                        title: '<div>봉림낚시터</div>', 
+                        latlng: new kakao.maps.LatLng(37.69288833337533, 126.89940541326011),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '백두산낚시터', 
+                        latlng: new kakao.maps.LatLng(37.688846549951634, 126.91131382960324),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '어수정낚시터', 
+                        latlng: new kakao.maps.LatLng(37.69708755322472, 126.88958870405052),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '대부도 사회방조제', 
+                        latlng: new kakao.maps.LatLng(37.311864, 126.608228),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '여흥도 선착장', 
+                        latlng: new kakao.maps.LatLng(37.255221,  126.498511),
+                        content: '너무 좋은장소' 
+                    },
+                    {
+                        title: '궁평항', 
+                        latlng: new kakao.maps.LatLng(37.115428,  126.677909),
+                        content: '우럭, 망둥어, 농어(깔따구급), 삼치, 숭어, 전어'
+                    },
+                    {
+                        title: '신진도 마도 방파제', 
+                        latlng: new kakao.maps.LatLng(36.679112, 126.126789),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '충남 천리포 방파제', 
+                        latlng: new kakao.maps.LatLng(36.803869, 126.147613),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '안면도 연육교', 
+                        latlng: new kakao.maps.LatLng(36.598974, 126.321829),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '송악저수지낚시터', 
+                        latlng: new kakao.maps.LatLng(36.720030, 126.992546),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '군산 낚시터', 
+                        latlng: new kakao.maps.LatLng(35.938777, 126.529489),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '격포 왕등도 대구섬', 
+                        latlng: new kakao.maps.LatLng(37.69708755322472, 126.88958870405052),
+                        content: '너무 좋은'
+                    },
+                    {
+                        title: '홀통 선장', 
+                        latlng: new kakao.maps.LatLng(35.040415, 126.321824),
+                        content: '감성돔'
+                    },
+                    {
+                        title: '진도 독거도', 
+                        latlng: new kakao.maps.LatLng(34.239647,  126.178684),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '신리 방파제', 
+                        latlng: new kakao.maps.LatLng(35.343087, 129.319678),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '완도해경방파제', 
+                        latlng: new kakao.maps.LatLng(34.315460, 126.770368),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '부산 다대포 쥐섬', 
+                        latlng: new kakao.maps.LatLng(35.028269, 128.974633),
+                        content: '너무 좋은장소'
+                    },
+                    {
+                        title: '욕지도좌대', 
+                        latlng: new kakao.maps.LatLng(34.636871, 128.273861),
+                        content: '너무 좋은장소'
+                    },{
+                        title: '구산 해수욕장', 
+                        latlng: new kakao.maps.LatLng(36.751340, 129.468264),
+                        content: '가자미, 보리멸'
+                    },
+                    {
+                        title: '안목 해변', 
+                        latlng: new kakao.maps.LatLng(37.772613, 128.948302),
+                        content: '너무 좋은장소'
+                    },{
+                        title: '양양 수산방파제', 
+                        latlng: new kakao.maps.LatLng(38.080599,  128.673614),
+                        content: '임연수어, 살감성돔, 가자미, 노래미, 학공치'
+                    }
+                    
+                ];
+                console.log(rec, 'rec')
+                // 마커 이미지의 이미지 주소입니다
+                 imageSrc = 'https://cdn.discordapp.com/attachments/940156388917796914/948902379263234058/fishing.png'; 
+                    
+                for (let i = 0; i < rec.length; i ++) {
+                    
+                    // 마커 이미지의 이미지 크기 입니다
+                    let imageSize = new kakao.maps.Size(24, 35); 
+                    
+                    // 마커 이미지를 생성합니다    
+                    let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+                    
+                    // 마커를 생성합니다
+                    let marker = new kakao.maps.Marker({
+                        map: map, // 마커를 표시할 지도
+                        position: rec[i].latlng, // 마커를 표시할 위치
+                        title : rec[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                        image : markerImage, // 마커 이미지 
+                        
+                    });
+                    console.log(marker, 'marker')
         
-         //* 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다. 그리고 클릭한 곳의 위도 경도를 볼 수 있습니다.
-                kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+                     //* 낚시터 데이터 마커에 표시할 인포윈도우를 생성합니다 
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: rec[i].title,
+                        // 인포윈도우에 표시할 내용
+                    });
+        
+                // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+                // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+                // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+                 kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); 
+        
+                kakao.maps.event.addListener(marker, 'click', () => {
+            
+                    console.log('클릭한 위치의 위도',rec[i].latlng.La, '경도는',rec[i].latlng.Ma )
+                  
+                            
+                });
+        
+                }
+        
+        
+                // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+                function makeOverListener(map, marker, infowindow) {
+                    return function() {
+                        infowindow.open(map, marker);
+                    };
+                }
+        
+                // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+                function makeOutListener(infowindow) {
+                    return function() {
+                        infowindow.close();
+                    };
+                }
+
+                
+                //* 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다. 그리고 클릭한 곳의 위도 경도를 볼 수 있습니다.
+                          kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
                     // 클릭한 위치에 마커를 표시합니다 
                     var latlng = mouseEvent.latLng;
                     addMarker(mouseEvent.latLng); 
@@ -634,7 +815,7 @@ const click = () => {
                         <Btn onClick={goHome}>즐겨찾기</Btn>
                         <Btn onClick={goHome}>위치 추가</Btn>
                     </Category>
-                    <div>로그인 후 이용 가능합니다</div>
+                    <h3>로그인 후 이용 가능합니다</h3>
                     </Box>
                     </>
                     :
@@ -662,13 +843,14 @@ const click = () => {
                             
                         </Div> 
                         : 
-                        <>북마크된 목록을 보여줍니다
-                        <Like {...bookmarkList[0]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
-                        <Like {...bookmarkList[1]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
-                        <Like {...bookmarkList[2]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
-                        <Like {...bookmarkList[3]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
-                        <Like {...bookmarkList[4]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
-
+                        <>
+                        <LikeContainer>
+                            <Like {...bookmarkList[0]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                            <Like {...bookmarkList[1]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                            <Like {...bookmarkList[2]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                            <Like {...bookmarkList[3]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                            <Like {...bookmarkList[4]} bookmarkList={bookmarkList} key={bookmarkList.id}  bookmark={bookmark}/>
+                        </LikeContainer>
                          <Pagenation>
                 
                             <Page onClick ={() => setPage(1)}>1</Page>
@@ -685,7 +867,7 @@ const click = () => {
                 <Spot id ='map'    
                 style ={{
                     width:'70vw',
-                    height:'90vh'
+                    height:'120vh'
                 }}
                 >               
                 </Spot >

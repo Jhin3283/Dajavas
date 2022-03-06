@@ -9,11 +9,13 @@ import { useState } from 'react'
 
 
 const Div = styled.div`
-    border: solid 1px wheat;
-    border-radius: 2%;
+    border:0;
+    background-color:#EBF1F1;
+    box-shadow: 0 10px 40px #3c4a5645;
+    border-radius: 1%;
     margin: 2px;
-    margin-right:10px;
-    margin-left: 10px;
+    margin-right:1.0rem;
+    margin-left: 1.0rem;
     &:hover {
         transform: scale(1.1);
         cursor: pointer;
@@ -21,9 +23,51 @@ const Div = styled.div`
     }
     
 `
+const Input = styled.input`
+    border: 0;
+    border-radius: 6%;
+    background-color: #EBF1F1;
+   text-align: center;
+    outline: none; 
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bolder;
+    font-size: x-large;
+    color: #04A1A1;
+    padding:15px;
+`
+
+const Title = styled.div`
+    font-size: x-large;
+    font-weight: bolder;
+    color: #04A1A1;
+    padding:10px;
+    padding-bottom: 0;
+`
+
+const Loc = styled.div`
+    opacity: 0.7; 
+`
+const IconContainer = styled.div`
+    display:flex;
+    justify-content: center;
+`
+const Icon = styled.div`
+   margin-right: 10px;
+   padding: 3px;
+   font-size: 1.3rem;
+   &:hover {
+       cursor: pointer;
+       transform: scale(1.1);
+       color: coral;
+       opacity: 0.7;
+   }
+`
+
+
 
 function Like({location_name, long, lat, bookmarkList, id, userInfo, bookmark }) {
-    console.log(location_name,']]]]]]]]]]]]]')
+   
     const selectLocation = bookmarkList.find(el => el.id === id)
 
     const [text, setText] = useState(false)
@@ -72,28 +116,39 @@ function Like({location_name, long, lat, bookmarkList, id, userInfo, bookmark })
                 { text === false ? 
         
                     <Div>
-                        <div>{location_name}</div>
-                        <div>{lat}</div>
-                        <div>{long}</div>
+                        <Title>{location_name}</Title>
+                        <Loc>{lat}</Loc>
+                        <Loc>{long}</Loc>
+                        <IconContainer>
+                        <Icon>
                         <FontAwesomeIcon  icon={faPencil} onClick={() => patchList()} color='skyblue' margin='10px'/> 
+                        </Icon>
+                        <Icon>
                         <FontAwesomeIcon  icon={faTrashCan} onClick={() =>deleteList()} color='skyblue'/>
+                        </Icon>
+                        </IconContainer>
                     </Div>
         
                 : 
                     <Div>
-                    <input type ='text' placeholder={location_name} onChange={onChange}/>
-                    <div>{lat}</div>
-                    <div>{long}</div>
-                    <FontAwesomeIcon  icon={faPencil} onClick={() => patchList()} color='skyblue' margin='10px'/> 
+                    <Input type ='text' placeholder={location_name} onChange={onChange}/>
+                    <Loc>{lat}</Loc>
+                    <Loc>{long}</Loc>
+                    <IconContainer>
+                    <Icon>
+                    <FontAwesomeIcon  icon={faPencil} onClick={() => patchList()} color='skyblue' margin-right='10px'/> 
+                    </Icon>
+                    <Icon>
                     <FontAwesomeIcon  icon={faTrashCan} onClick={() =>deleteList()} color='skyblue'/>
+                    </Icon>
+                    </IconContainer>
                     </Div>
                 }    
             </>
         :
         <Div>
-        <div>정보없음</div>
-        <div>-</div>
-        <div>-</div>
+        <Title>정보없음</Title>
+        
         </Div>
         }
         </>
