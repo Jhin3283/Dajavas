@@ -18,19 +18,19 @@ module.exports = {
         /* const locationInfo = await models.location.findOne({
           where: { user_id: data[i].user_id },
         });
-        console.log(locationInfo,'------') */
-        /* result.push({
+        console.log(locationInfo,'------') 
+        result.push({
           id: locationInfo.id,
           location_name: locationInfo.location_name,
           lat: locationInfo.lat,
           long: locationInfo.long,
-        }); */
-        result.push({
+        });  */
+         result.push({
           id: data[i].id,
           location_name: data[i].location_name,
           lat: data[i].lat,
           long: data[i].long,
-        });
+        }); 
       }
       realResult = result.slice((page - 1) * 5, page * 5);
     }

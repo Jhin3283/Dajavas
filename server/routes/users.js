@@ -19,7 +19,7 @@ router.post("/login/kakao", kakaoLogin.post);
 router.post("/login/google", googleLogin.post);
 router.post("/signup", signup.post);
 router.post("/logout", logout.post);
-router.put("/mypage", controllers.put);
+router.patch("/mypage", controllers.patch);
 router.delete("/mypage", controllers.delete);
 
 module.exports = router;

@@ -26,7 +26,7 @@ module.exports = {
       return console.log("개인정보 조회 에러났음");
     }
   },
-  put: async (req, res) => {
+  patch: async (req, res) => {
     // 개인정보 수정
     console.log("요청된 바디", req.body);
     const { nickname, password, email } = req.body;
@@ -41,12 +41,16 @@ module.exports = {
           {
             nickname: nickname,
             password: password,
-            // email: email,
           },
           { where: { email: email } }
         );
+        const userInfo = await func.checkUser(email);
+
         return res.status(200).json({
-          data: {},
+          data: {
+            nickname: userInfo.nickname,
+            password: userInfo.password,
+          },
           message: "edit ok",
         });
       }

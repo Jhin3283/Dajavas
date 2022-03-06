@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import userApi from "../../API/user";
 import { loginAction } from "../../redux/store/actions";
 import LoadingPage from "../../LoadingPage";
-//import LoadingPage from "../../LoadingPage";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -20,7 +19,7 @@ import "aos/dist/aos.css";
 // `
 
 const HomeContainer = styled.div`
-  width: 100%;
+  /* width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -40,7 +39,7 @@ const HomeContainer = styled.div`
     ${media.lessThan("medium")`
       display: block;
     `}
-  }
+  } */
 `;
 
 const Bigdiv = styled.div`
@@ -81,20 +80,20 @@ function Home() {
     const state = url.searchParams.get("state");
 
     const getKakaoCode = async (authCode) => {
-      const res = await userApi.kakao(authCode, login_method);
+      const res = await userApi.kakao(authCode, '1');
       console.log("카카오 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
         dispatch(loginAction(res.data));
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       }
     };
 
     const getGoogleCode = async (authCode) => {
-      const res = await userApi.google(authCode, login_method);
+      const res = await userApi.google(authCode, '2');
       console.log("구글 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
         dispatch(loginAction(res.data));
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       }
     };
 
@@ -108,7 +107,7 @@ function Home() {
   });
 
   return (
-    <>
+    <HomeContainer>
       <div>
         {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
           설명 문구, 사이드바 숨기는거 토글메뉴 다른거 할거 받아오기 */}
@@ -138,7 +137,7 @@ function Home() {
         </Bigdiv>
         <Footer />
       </div>
-    </>
+    </HomeContainer>
   );
 }
 export default Home;

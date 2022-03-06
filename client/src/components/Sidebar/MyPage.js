@@ -6,7 +6,7 @@ import mypageApi from "../../API/mypage";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
-// import handleInputChange from '../Login/Signup'
+import modalReducer from "../../redux/store/reducers/modalReducer/modalReducer";
 
 import {
   loginAction,
@@ -14,10 +14,26 @@ import {
   confirmModalOnAction,
   modalOffAction,
 } from "../../redux/store/actions";
+import styled from "styled-components";
+import { ConfirmModal } from "../Modal/ConfirmModal";
+
+const Container = styled.div`
+  justify-content: center;
+  align-items: center;
+`
+
+const Text = styled.div`
+  justify-content: center;
+  align-items: center;
+  padding: 10rem;
+  border: 2px solid peachpuff;
+`
+
 
 function MyPage({ type }) {
-  const { isLogin, login_method, email, nickname, password, accessToken } =
-    useSelector(({ userReducer }) => userReducer);
+  const { isLogin, login_method, email, nickname, password, accessToken } =  useSelector(({ userReducer }) => userReducer);
+  const { isConfirmModal } = useSelector(({modalReducer}) => modalReducer);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,7 +52,7 @@ function MyPage({ type }) {
     password: true,
     passwordCheck: true,
   });
-
+  
   const handleInputChange = debounce(async (e) => {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
@@ -90,6 +106,7 @@ function MyPage({ type }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+<<<<<<< HEAD
     console.log("핸들서브밋 인풋", inputValue);
     formData.append("nickname", inputValue.nickname);
     formData.append("password", inputValue.password);
@@ -119,12 +136,35 @@ function MyPage({ type }) {
     } catch (err) {
       console.log(err);
     }
+=======
+
+    console.log('핸들서브밋 인풋', inputValue);
+
+    formData.append("nickname", inputValue.nickname);
+    formData.append("password", inputValue.password);
+    formData.append('email', email)
+
+    // console.log('폼데이터에 닉네임 가져와',formData.get('nickname'))
+    // console.log('폼데이터에 패스워드 가져와',formData.get('password'))
+    // console.log('폼데이터에 이메일 가져와', formData.get('email'))
+
+      const res = await mypageApi.modifyUserInfo(
+        accessToken,
+        formData
+      ).then((result) => {
+        console.log('풋한 결과를 보여주세요',result.data)
+        dispatch(updateInfoAction(result.data));
+        setIsEditMode(false);
+      })
+
+>>>>>>> 634c38c187e51c8d9cc0167fb29fdd460488dca3
   };
 
   const handleCancelClick = (prev) => ({
     ...prev,
   });
 
+<<<<<<< HEAD
   const handleDeleteAccount = async () => {
     try {
       const res = await mypageApi.deleteUserInfo(
@@ -134,11 +174,58 @@ function MyPage({ type }) {
       );
       if (res.status === 200) {
         navigate("/", { replace: true });
+=======
+  const handleLogout = async() => {
+    try{
+      const res = await mypageApi.logoutUserInfo(accessToken);
+      if(res.status === 200){
+        navigate("/", {replace: true});
+      }
+    } catch(err){
+      console.log(err);
+    }
+  }
+
+  const handleDeleteAccount = async() => {
+    try{
+      const res = await mypageApi.deleteUserInfo(email, login_method, accessToken);
+      if(res.status === 200){
+        navigate("/", {replace: true});
+>>>>>>> 634c38c187e51c8d9cc0167fb29fdd460488dca3
       }
     } catch (err) {
       console.log(err);
     }
   };
+
+  // const logoutContent = {
+  //   title: '로그아웃 하시겠습니까?',
+  //   body: '로그인 정보가 사라집니다.',
+  //   func: () => {
+  //     handleLogout();
+  //   }
+  // }
+
+  // const modifyContent = {
+  //   title: '회원정보를 수정하시겠습니까?',
+  //   body: '변경하신 정보를 확인해주시기 바랍니다.',
+  //   func: () => {
+  //     handleSubmit();
+  //   }
+  // }
+
+  const deleteContent = {
+    title: '회원탈퇴를 하시겠습니까?',
+    body: '지금까지의 기록이 삭제됩니다.',
+    func: () => {
+      handleDeleteAccount();
+    }
+  }
+
+  const func = () => {
+    dispatch(confirmModalOnAction);
+    console.log('컨펌모달 켜졌나요?',isConfirmModal)
+  }
 
   useEffect(() => {
     if (!isLogin) {
@@ -158,15 +245,15 @@ function MyPage({ type }) {
   }, []);
 
   return (
-    <>
+    <Container>
       MyPage
       {isLogin === false ? (
-        <>
+        <Text>
           <div> 로그인이 필요한 서비스입니다 </div>
           <div>
             <Link to="/login">로그인페이지로 이동</Link>
           </div>
-        </>
+        </Text>
       ) : isEditMode === true ? (
         <>
           <form onSubmit={handleSubmit}>
@@ -220,9 +307,29 @@ function MyPage({ type }) {
             >
               취소
             </button>
+<<<<<<< HEAD
             <label htmlFor="submitdata" type="submit">
               저장
             </label>
+=======
+            <button>
+              <label
+                htmlFor='submitdata'
+                type='submit'
+                >
+                저장
+              </label>
+            </button>
+          </div>
+          <div>
+            <button
+              type='button'
+              className="logout"
+              onClick={handleLogout}
+            >
+              로그아웃
+            </button>
+>>>>>>> 634c38c187e51c8d9cc0167fb29fdd460488dca3
           </div>
           <div>
             <button
@@ -250,7 +357,8 @@ function MyPage({ type }) {
           <button>회원탈퇴</button> */}
         </>
       )}
-    </>
+      {/* {isConfirmModal && <ConfirmModal content={deleteContent} />} */}
+    </Container>
   );
 }
 
