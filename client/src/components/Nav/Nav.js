@@ -58,7 +58,6 @@ function Nav ({btn, setBtn}) {
     const handleSideBarClick = () => {
         dispatch(sideBarOn);
         setBtn(true);
-        console.log(btn, '네브쪽 비티엔')
     };
 
     useEffect(()=> {
