@@ -15,6 +15,7 @@ import {
   modalOffAction,
 } from "../../redux/store/actions";
 import styled from "styled-components";
+import { ConfirmModal } from "../Modal/ConfirmModal";
 
 const Container = styled.div`
   justify-content: center;
@@ -51,7 +52,7 @@ function MyPage({ type }) {
     password: true,
     passwordCheck: true,
   });
-
+  
   const handleInputChange = debounce(async (e) => {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
@@ -131,9 +132,16 @@ function MyPage({ type }) {
     ...prev
   });
 
-  // const handleLogout = () => ({
-  //   const res = await mypageApi.
-  // })
+  const handleLogout = async() => {
+    try{
+      const res = await mypageApi.logoutUserInfo(accessToken);
+      if(res.status === 200){
+        navigate("/", {replace: true});
+      }
+    } catch(err){
+      console.log(err);
+    }
+  }
 
   const handleDeleteAccount = async() => {
     try{
@@ -145,6 +153,30 @@ function MyPage({ type }) {
       console.log(err);
     }
   };
+
+  // const logoutContent = {
+  //   title: '로그아웃 하시겠습니까?',
+  //   body: '로그인 정보가 사라집니다.',
+  //   func: () => {
+  //     handleLogout();
+  //   }
+  // }
+
+  // const modifyContent = {
+  //   title: '회원정보를 수정하시겠습니까?',
+  //   body: '변경하신 정보를 확인해주시기 바랍니다.',
+  //   func: () => {
+  //     handleSubmit();
+  //   }
+  // }
+
+  const deleteContent = {
+    title: '회원탈퇴를 하시겠습니까?',
+    body: '지금까지의 기록이 삭제됩니다.',
+    func: () => {
+      handleDeleteAccount();
+    }
+  }
 
   const func = () => {
     dispatch(confirmModalOnAction);
@@ -244,7 +276,7 @@ function MyPage({ type }) {
             <button
               type='button'
               className="logout"
-              onClick={func}
+              onClick={handleLogout}
             >
               로그아웃
             </button>
@@ -275,6 +307,7 @@ function MyPage({ type }) {
           <button>회원탈퇴</button> */}
         </>
       )}
+      {/* {isConfirmModal && <ConfirmModal content={deleteContent} />} */}
     </Container>
   );
 }

@@ -6,11 +6,13 @@ import logo from '../../img/logo.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { sideBarOn } from '../../redux/store/actions';
 import { useDispatch } from 'react-redux';
+// import sideBarReducer from '../../redux/store/reducers/sideBarReducer/sideBarReducer'
 
 const Container = styled.div`
     display: flex;
     box-shadow: 0 10px 30px #3c4a5645;
     opacity: 5;
+    width: 100vw;
 `
 const Navi = styled.nav`
     display:flex;
@@ -53,20 +55,14 @@ const Icon = styled.div`
 `
 
 function Nav ({btn, setBtn}) {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    // const {is}
 
     const handleSideBarClick = () => {
         dispatch(sideBarOn);
         setBtn(true);
+        console.log('네브버튼', btn)
     };
-
-    useEffect(()=> {
-        window.addEventListener('click', handleSideBarClick);
-        return () => {
-          window.removeEventListener('click', handleSideBarClick);
-        };
-      })
-
 
     return (
         <Container>

@@ -19,6 +19,7 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const Box = styled.div`
+  width: 100vw;
   display: flex;
   flex: 2 auto;
 `;

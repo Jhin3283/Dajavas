@@ -16,6 +16,7 @@ import {
 import userApi from "../../API/user";
 // import userReducer from "../../redux/store/reducers/userReducer/userReducer";
 import img from '../../img/Wave3.jpg'
+import Footer from "../Footer/Footer";
 const Container = styled.div`
 
 `;
@@ -184,6 +185,7 @@ function Login({ type }) {
       <Wave >
         웨이브
       </Wave>
+      <Footer/>
     </Container>
   );
 }

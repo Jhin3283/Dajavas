@@ -41,6 +41,14 @@ const mypageApi = {
                 'AuthorizationToken': accessToken
             }
         })
+    },
+    //마이페이지 로그아웃
+    logoutUserInfo: (accessToken)=>{
+        return api.post('/user/logout',{
+            headers: {
+                'AuthorizationToken': accessToken
+            }
+        })
     }
 }
 export default mypageApi;

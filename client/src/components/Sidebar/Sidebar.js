@@ -61,7 +61,7 @@ const Sidebar = ({btn, setBtn}) => {
       if ( btn && (!sideArea || !sideCildren)) {
         dispatch(sideBarOff);
         setBtn(false)
-        console.log('비티앤 사이드바쪽',btn)
+        console.log(btn,'사이드바 버튼')
       }
     }
   
@@ -70,9 +70,7 @@ const Sidebar = ({btn, setBtn}) => {
       return () => {
         window.removeEventListener('click', handleClose);
       };
-    })
-
-  
+    });
 
     return (
         <Container btnClicked={btn} ref={side}>
