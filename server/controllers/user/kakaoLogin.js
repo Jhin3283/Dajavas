@@ -37,18 +37,16 @@ module.exports = {
         password: null,
       },
     });
-    if (login_method === "1") {
-      return res.status(200).json({
-        data: {
-          accessToken: await accessToken(kakaoCreate[0].email),
-          id: kakaoCreate[0].id,
-          email: kakaoCreate[0].email,
-          nickname: kakaoCreate[0].nickname,
-          login_method: kakaoCreate[0].login_method,
-        },
-      });
-    } else {
-      return res.status(401).json({ message: "login err" });
-    }
+    
+    return res.status(200).json({
+      data: {
+        accessToken: await accessToken(kakaoCreate[0].email),
+        id: kakaoCreate[0].id,
+        email: kakaoCreate[0].email,
+        nickname: kakaoCreate[0].nickname,
+        login_method: kakaoCreate[0].login_method,
+      },
+    });
+    
   },
 };

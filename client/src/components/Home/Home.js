@@ -83,7 +83,7 @@ function Home() {
       const res = await userApi.kakao(authCode, '1');
       console.log("카카오 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
-        dispatch(loginAction(res.data));
+        dispatch(loginAction(res.data.data));
         navigate("/", { replace: true });
       }
     };

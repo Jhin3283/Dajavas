@@ -21,8 +21,8 @@ const Container = styled.div`
 const Div = styled.div`
   border: dotted red 2px;
   flex-direction: column;
-  /* width:30%; */
-  /* margin: 10px 0px;
+  /* width:30%
+  margin: 10px 0px;
   display: block; */
 `
 
@@ -42,6 +42,8 @@ const StyledNavLink = styled(NavLink)`
     color: antiquewhite;
     background-color: #2AA1B7;
   }
+
+  /* background-color: rgb(222, 247, 243); */
 `
 const Menu = styled.div`
     ${Div} :hover & {
@@ -83,7 +85,10 @@ const Sidebar = ({btn, setBtn}) => {
             <Div>
                 {
                   isLogin === true ?
-                  <div>{nickname}님 반갑습니다</div> 
+                  <>
+                  <NickName>{nickname}</NickName><span style={{color:'black', opacity:0.7, fontWeight:'bold'}}>님</span>
+                  <div style={{fontWeight: 'bold',color:'black',opacity: 0.7}}>반갑습니다</div>
+                  </>
                   :
                   <Menu>
                       <StyledNavLink to='/login'>로그인</StyledNavLink>

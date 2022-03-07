@@ -10,8 +10,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown}  from "@fortawesome/free-solid-svg-icons";
 import Wave from "react-wavify";
 import Footer from '../../Footer/Footer';
+import './Ranking.css'
 
 const Background = styled.div`
+   
     background-color: #8bbac2;
     height: 155vh;
     width:  100vw;
@@ -116,14 +118,15 @@ const Text = styled.div`
 `
 // 닉네임을 반환해야할것같다
 
-function Ranking({userInfo}) {
+function Ranking({userInfo, sidebar}) {
+    console.log(sidebar, '💄')
     console.log(userInfo.email)
     const fishList = ['선택하세요', '광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대','노데이터']
     const [fishNamed, setFishName] = useState('선택하세요')
     const [selectedFishData, setSelectedFishData] = useState("") 
     const [paged, setPage] = useState(1)
 
-    
+  
 
     const getRank = () => {
         
@@ -262,6 +265,7 @@ function Ranking({userInfo}) {
 
     return (
         <>
+        
         <Background>
             <Box>
                 <Data>
@@ -292,7 +296,8 @@ function Ranking({userInfo}) {
 
 const mapStateToProps = (state) => {
      return {
-      userInfo: state.userReducer, 
+      userInfo: state.userReducer,
+      sidebar: state.sideBarReducer.isSideBar   
       
     } 
 }

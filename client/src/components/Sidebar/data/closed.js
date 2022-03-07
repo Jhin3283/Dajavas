@@ -1,4 +1,5 @@
 import React from "react";
+import "./";
 
 export const col = [
   { accessor: "name", Header: "품종" },

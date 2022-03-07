@@ -255,7 +255,8 @@ const mapStateToProps = (state) => {
     console.log(state,'++++++++++++++++++++++++') 
      return {
       targetFish: state.updateFishReducer.data,
-      userInfo: state.userReducer    
+      userInfo: state.userReducer,
+       
     } 
 }
 
