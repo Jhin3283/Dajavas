@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--max-old-space-size=8192 HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-scripts start",
-    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
