@@ -7,7 +7,7 @@ phases:
       - npm install
   build:
     commands:
-      - CI=npm run build
+      - npm run build
 
 artifacts:
   files:
