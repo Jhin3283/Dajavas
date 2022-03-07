@@ -9,8 +9,9 @@ import {
     FISH_BOARD_SUCCESS,
     FISH_BOARD_FAILURE,
     TARGET_FIND,
-    UPDATE_FISH
-    
+    UPDATE_FISH,
+    SIDE_BAR_ON,
+    SIDE_BAR_OFF,
 } from './actionTypes';
 import axios from 'axios';
 
@@ -97,4 +98,12 @@ export const updateFish = () => {
     return {
         type: UPDATE_FISH
     }
+}
+
+export const sideBarOn = {
+    type: SIDE_BAR_ON,
+}
+
+export const sideBarOff = {
+    type: SIDE_BAR_OFF,
 }

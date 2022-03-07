@@ -16,104 +16,60 @@ import Nav from "./components/Nav/Nav";
 import Sidebar from "./components/Sidebar/Sidebar";
 import UpdateFish from "./components/Nav/FishBoard/UpdateFish";
 import styled from "styled-components";
-
-import axios from "axios";
 import { useState } from "react";
+import LoadingPage from "./LoadingPage";
 
 const Box = styled.div`
+   display: flex; 
+   width: 100%;
+   height:130vh;
+  /* width: 100vw;
   display: flex;
+  flex: 2 auto; */
+`;
+
+const Container = styled.div`
+  /* width: 100%; */
 `;
 
 const Div = styled.div``;
 
+
 function App() {
-  const [isLogin, setIsLogin] = useState(false); //로그인 여부
-  const [userInfo, setUserInfo] = useState({
-    id: "",
-    email: "",
-    nickname: "",
-    login_method: "",
-    accessToken: "",
-  });
-  // accessToken, id, email, nickname, login_method
 
-  const loginState = (result) => {
-    console.log("결과를 잘 가져왔나요", result);
-    setIsLogin(true);
-    setUserInfo({
-      id: result.data.data.id,
-      email: result.data.data.email,
-      nickname: result.data.data.nickname,
-      login_method: result.data.data.login_method,
-      accessToken: result.data.data.accessToken,
-    });
-    console.log("유저정보 상태변경", userInfo);
-    console.log("로그인정보 상태변경", isLogin);
-  };
-
-  const handleLogout = () => {
-    axios
-      .post(`https://localhost:5000/user/logout/0:/${userInfo.id}`)
-      .then((res) => {
-        setUserInfo(null);
-        setIsLogin(false);
-        window.location.replace("/");
-      });
-  };
+  const [btn, setBtn] = useState(false);
 
   return (
-    <div className="App">
+    <Container className="App">
       <Router>
         <Box>
+          {/* <Div>
+            <Sidebar />
+          </Div>  */}
           <Div>
-            <Sidebar isLogin={isLogin} userInfo={userInfo} />
-          </Div>
-          <Div>
-            <Nav />
+            <Nav setBtn={setBtn} btn={btn}/>
             <Routes>
               <Route exact path="/" element={<Home />} />
-
               <Route exact path="/ranking" element={<Ranking />} />
               <Route exact path="/map" element={<Map />} />
               <Route exact path="/fishboard" element={<FishBoard />} />
               <Route exact path="/fishdata" element={<FishData />} />
               <Route exact path="/closedseason" element={<ClosedSeason />} />
               <Route exact path="/checklist" element={<CheckList />} />
-              <Route
-                exact
-                path="/mypage"
-                element={
-                  <MyPage
-                    isLogin={isLogin}
-                    userInfo={userInfo}
-                    handleLogout={handleLogout}
-                  />
-                }
-              />
+              <Route exact path="/mypage" element={<MyPage />} />
               <Route exact path="/record" element={<BoardContent />} />
               <Route exact path="/errorpage" element={<ErrorPage />} />
-              <Route
-                exact
-                path="/login"
-                element={
-                  <Login
-                    isLogin={isLogin}
-                    userInfo={userInfo}
-                    loginState={loginState}
-                  />
-                }
-              />
-              <Route
-                exact
-                path="/signup"
-                element={<Signup userInfo={userInfo} />}
-              />
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/signup" element={<Signup />} />
               <Route exact path="/updatefish" element={<UpdateFish />} />
             </Routes>
           </Div>
+          <Div>
+            <Sidebar setBtn={setBtn} btn={btn}/>
+          </Div>
         </Box>
       </Router>
-    </div>
+    </Container>
   );
 }
 
