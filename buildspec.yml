@@ -4,10 +4,10 @@ phases:
   pre_build:
     commands:
       - cd client
-      - npm install
+      - sudo npm install
   build:
     commands:
-      - npm run build
+      - sudo npm run build
 
 artifacts:
   files:
