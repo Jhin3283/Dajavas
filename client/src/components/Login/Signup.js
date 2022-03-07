@@ -17,6 +17,11 @@ const Container = styled.div`
   width: 100vw;
   height: 100vw;
 `
+const Tag = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 3rem;
+`
 const SignupWraper = styled.div`
   padding: 5rem;
 `
@@ -25,7 +30,7 @@ const SignupInput = styled.input`
   border:0 ;
   background-color: #E8F0FE;
   border-radius: 0.5rem;
-  width: 15rem;
+  width: 21.5rem;
   padding: 1rem;
   margin: 0.5rem;
 `
@@ -37,20 +42,63 @@ const Social = styled.div`
   margin: 0.5rem;
   padding: 1rem;
 `
-const BtnDiv = styled.div`
-  /* outline: none;
-  margin: 0.5rem;
-  padding: 1rem;
-  width: 7rem;
-  display: flex;
-  justify-content: center; */
+const Google = styled.button`
+  outline: 0;
+  font-weight: 500;
+  font-size: 20px;
+  border: 0;
+  background-color: white;
 `
-
-// const FishingImg = styled.img`
-//   display: flex;
-//   width: 10rem;
-  
-// `
+const GenSignup = styled.button`
+  margin: 1rem;
+  padding: 0.7rem;
+  width: 23.6rem;
+  border: 3px solid #2AA1B7;
+  outline: none;
+  border-radius: 0.4rem;
+  background-color: white;
+  font-size: 20px;
+  font-weight: 500;
+  color: #2AA1B7;
+  &:hover{
+    cursor: pointer;
+    background-color: #2AA1B7;
+    color: white
+  }
+`
+const Kakao = styled.button`
+  margin-right: 1rem;
+  outline: none;
+  border: 0;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: yellow;
+  border-radius: 0.4rem;
+  padding: 0.7rem;
+  box-shadow: 0.5px 1px 2px 1px lightgray;
+  opacity: 0.7;
+`
+const GenBtn = styled.div`
+  /* border: 1px dashed rebeccapurple; */
+`
+const Btn = styled.button`
+  border: 3px white;
+  margin: 0.4rem;
+  outline: none;
+  border-radius: 0.4rem;
+  height: 3rem;
+  width: 11.5rem;
+  margin-top: 1rem;
+  background-color: #2AA1B7;
+  font-size: 20px;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid #2AA1B7;
+    color: #2AA1B7
+  }
+`
 
 function Signup() {
   const navigate = useNavigate();
@@ -186,7 +234,9 @@ function Signup() {
   return (
     <Container>
       <SignupWraper>
-        회원가입
+        <Tag>
+          회원가입
+        </Tag>
         <form className="SignupInputContainer">
           <div>
             <div>
@@ -234,25 +284,30 @@ function Signup() {
           </div>
         </form>
         <div>{errorMessage}</div>
-        <SignupBtn className="generalSignup" onClick={handleSignup}>
+        <GenSignup className="generalSignup" onClick={handleSignup}>
           회원가입
-        </SignupBtn>
+        </GenSignup>
         <Social>
-          <SignupBtn className="google" onClick={handleSignGoogle}>
-            <FcGoogle/>
-            구글 회원가입
-          </SignupBtn>
-          <SignupBtn className="kakao" onClick={handleSignKakao}>
+          <Kakao className="kakao" onClick={handleSignKakao}>
             <RiKakaoTalkFill/>
             카카오 회원가입
-          </SignupBtn>
+          </Kakao>
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
+            responseType={"id_token"}
+            onSuccess={success}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"}
+            >
+            <Google>구글로 로그인</Google>
+          </GoogleLogin>
         </Social>
-        <BtnDiv>
-          <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
-          <button onClick={() => navigate("/login", { replace: false })}>
+        <GenBtn>
+          <Btn onClick={() => navigate("/", { replace: false })}>홈으로</Btn>
+          <Btn onClick={() => navigate("/login", { replace: false })}>
             로그인
-          </button>
-        </BtnDiv>
+          </Btn>
+        </GenBtn>
       </SignupWraper>
       {/* <FishingImg src={fishingImg} alt='fishingImg'/> */}
       <Wave

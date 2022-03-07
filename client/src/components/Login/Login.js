@@ -24,29 +24,30 @@ const Container = styled.div`
   height: 100%;
 `;
 const GenBtn = styled.div`
-  outline: none;
-  margin: 0.5rem;
-  padding: 1rem;
-  width: 7rem;
+  /* border: 1px dashed rebeccapurple; */
 `
 
 const Div = styled.div`
   padding: 9rem;
   justify-content: center;
-  border: 1rem solid yellow;
+  /* border: 1rem solid yellow; */
+`
+const Tag = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 3rem;
 `
 const StyledInput = styled.input`
   outline: none; /* outline 테두리 없애기 */
   border:0 ;
   background-color: #E8F0FE;
   border-radius: 0.5rem;
-  width: 15rem;
+  width: 21.5rem;
   padding: 1rem;
   margin: 0.5rem;
 `
 const Social = styled.div`
   display: inline;
-  border: 3px solid yellowgreen;
   padding: 1rem;
   margin: 1rem;
 `
@@ -57,10 +58,23 @@ const Google = styled.button`
   border: 0;
   background-color: white;
 `
-const Text = styled.div`
-
+const GenLogin = styled.button`
+  margin: 1rem;
+  padding: 0.7rem;
+  width: 23.6rem;
+  border: 3px solid #2AA1B7;
+  outline: none;
+  border-radius: 0.4rem;
+  background-color: white;
+  font-size: 20px;
+  font-weight: 500;
+  color: #2AA1B7;
+  &:hover{
+    cursor: pointer;
+    background-color: #2AA1B7;
+    color: white
+  }
 `
-
 const Kakao = styled.button`
   margin-right: 1rem;
   outline: none;
@@ -70,7 +84,30 @@ const Kakao = styled.button`
   background-color: yellow;
   border-radius: 0.4rem;
   padding: 0.7rem;
-  /* opacity: 0.7; */
+  box-shadow: 0.5px 1px 2px 1px lightgray;
+  opacity: 0.7;
+`
+const Text = styled.div`
+  margin-top: 1.3rem;
+  font-size: 20px;
+`
+const Btn = styled.button`
+  border: 3px white;
+  margin: 0.4rem;
+  outline: none;
+  border-radius: 0.4rem;
+  height: 3rem;
+  width: 11.5rem;
+  margin-top: 1rem;
+  background-color: #2AA1B7;
+  font-size: 20px;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid #2AA1B7;
+    color: #2AA1B7
+  }
 `
 
 function Login({ type }) {
@@ -169,7 +206,9 @@ function Login({ type }) {
     <Container>
       <Div>
         <div className="loginInputContainer">
-          로그인
+          <Tag>
+            로그인
+          </Tag>
           <form id="login">
             <div>
               <StyledInput
@@ -191,7 +230,7 @@ function Login({ type }) {
               />
             </div>
           </form>
-          <button onClick={handleLogin}>로그인</button>
+          <GenLogin onClick={handleLogin}>로그인</GenLogin>
         </div>
         <Social>
           <Kakao className="kakao" onClick={handleLoginKakao}>
@@ -210,10 +249,10 @@ function Login({ type }) {
         </Social>
         <Text>아직 아이디가 없으신가요?</Text>
         <GenBtn>
-          <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
-          <button onClick={() => navigate("/signup", { replace: false })}>
+          <Btn onClick={() => navigate("/", { replace: false })}>홈으로</Btn>
+          <Btn onClick={() => navigate("/signup", { replace: false })}>
             회원가입
-          </button>
+          </Btn>
         </GenBtn>
         <div>{errorMessage}</div>
       </Div>

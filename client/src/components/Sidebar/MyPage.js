@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import userApi from "../../API/user";
 import mypageApi from "../../API/mypage";
@@ -33,12 +33,24 @@ const MyPageWrapper=styled.div`
 const Tag = styled.div`
   font-size: 25px;
   font-weight: bold;
-  /* border: 3px solid green; */
   margin-top: 3rem;
 `
 const Div = styled.div`
-  border: 5px dotted palevioletred;
   flex-direction: column;
+  margin: 1rem;
+  font-size: 2rem;
+  font-weight: 400;
+`
+const Text = styled.div`
+  justify-content: center;
+  align-items: center;
+  padding: 5rem;
+  border: 20px solid #2AA1B7;
+  border-radius: 0.8rem;
+  font-size: 20px;
+`
+const LoginLink = styled(NavLink)`
+  text-decoration: none;
 `
 
 const MypageInput = styled.input`
@@ -55,14 +67,6 @@ const ChangeDiv = styled.div`
 `
 const CancelDiv = styled.div`
   flex-direction: column;
-`
-const Text = styled.div`
-  justify-content: center;
-  align-items: center;
-  padding: 5rem;
-  border: 20px solid #2AA1B7;
-  border-radius: 0.8rem;
-  font-size: 20px;
 `
 
 const Email = styled.div`
@@ -86,7 +90,6 @@ const Btn = styled.button`
   &:hover{
     cursor: pointer;
     background-color: #2AA1B7;
-    border: none;
     color: white
   }
 `
@@ -124,7 +127,6 @@ const Btn3 = styled.button`
     color: #2AA1B7
   }
 `
-
 
 function MyPage({ type }) {
   const { isLogin, login_method, email, nickname, password, accessToken } =  useSelector(({ userReducer }) => userReducer);
@@ -306,9 +308,9 @@ function MyPage({ type }) {
         {isLogin === false ? (
           <Text>
             <Div> 로그인이 필요한 서비스입니다 </Div>
-            <Div>
-              <Link to="/login">로그인페이지로 이동</Link>
-            </Div>
+            <Btn>
+              <LoginLink to="/login">로그인</LoginLink>
+            </Btn>
           </Text>
         ) : isEditMode === true ? (
           <>

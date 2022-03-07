@@ -19,7 +19,7 @@ const Container = styled.div`
 `
 
 const Div = styled.div`
-  border: dotted red 2px;
+  /* border: dotted red 2px; */
   flex-direction: column;
   /* width:30%; */
   /* margin: 10px 0px;
