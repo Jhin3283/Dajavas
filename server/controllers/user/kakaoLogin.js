@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 module.exports = {
   post: async (req, res) => {
     const { login_method } = req.body;
-    const authCode = req.body.authorizationCode;
+    const authCode = req.body.authCode;
     const kakaoBody = {
       grant_type: "authorization_code",
       redirect_uri: "https://localhost:3000",
@@ -26,11 +26,12 @@ module.exports = {
         Authorization: `Bearer ${kakaoAccesstoken.data.access_token}`,
       },
     });
+    console.log(kakaoSocial);
     const kakaoCreate = await models.user.findOrCreate({
       where: {
         email: kakaoSocial.data.kakao_account.email,
-        nickname: `kakao ${kakaoSocial.data.id}`,
         login_method: "1",
+        nickname: `kakao ${kakaoSocial.data.id}`,
       },
       default: {
         password: null,

@@ -17,10 +17,10 @@ const userApi = {
       }
     );
   },
-  google: (authCode) => {
+  google: (profileObj) => {
     return api.post(
       "/user/login/google", //'user/login/google
-      { authCode },
+      { profileObj },
       {
         headers: {
           "Content-Type": "application/json",
@@ -30,10 +30,7 @@ const userApi = {
   },
   //유저 회원가입
   signup: (info) => api.post("/user/signup", info),
-  //유저 로그아웃
-  logout: async (login_method, userId) => {
-    const res = await api.get(`/user/logout/${login_method}/${userId}`);
-  },
+
   //이메일 중복검사
   checkEmail: (email) => api.get(`/user/emailcheck?email=${email}`),
   //닉네임 중복검사

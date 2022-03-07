@@ -35,8 +35,8 @@ const mypageApi = {
 
     },
     //마이페이지 회원탈퇴
-    deleteUserInfo: (email, login_method, accessToken) => {
-        return api.delete(`/user/mypage/${login_method}/${email}`, {
+    deleteUserInfo: (email, accessToken) => {
+        return api.delete(`/user/mypage?email=${email}`, {
             headers: {
                 'AuthorizationToken': accessToken
             }
@@ -44,7 +44,7 @@ const mypageApi = {
     },
     //마이페이지 로그아웃
     logoutUserInfo: (accessToken)=>{
-        return api.post('/user/logout',{
+        return api.post('/user/logout',{},{
             headers: {
                 'AuthorizationToken': accessToken
             }

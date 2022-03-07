@@ -60,12 +60,13 @@ module.exports = {
   delete: async (req, res) => {
     // 카카오 로그인한 사람 회원탈퇴할때 카카오 연결 끊기 해줘야함
     const userInfo = await func.checkUser(req.query.email);
+    console.log('쿼리문 뭡니까',req.query)
     try {
       await models.user_fish.destroy({ where: { user_id: userInfo.id } });
-      await models.user.destroy({ where: { email: email } });
+      await models.user.destroy({ where: { email: userInfo.email } });
       return res.status(200).json({ message: "delete ok" });
-    } catch {
-      return console.log("유저 삭제 잘못되었음");
+    } catch (err){
+      return console.log("유저 삭제 잘못되었음", err);
     }
   },
 };

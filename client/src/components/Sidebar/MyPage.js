@@ -6,6 +6,7 @@ import mypageApi from "../../API/mypage";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "lodash/debounce";
+import Wave from "react-wavify";
 import modalReducer from "../../redux/store/reducers/modalReducer/modalReducer";
 
 import {
@@ -13,20 +14,115 @@ import {
   updateInfoAction,
   confirmModalOnAction,
   modalOffAction,
+  logoutAction
 } from "../../redux/store/actions";
 import styled from "styled-components";
 import { ConfirmModal } from "../Modal/ConfirmModal";
 
 const Container = styled.div`
+  width: 100vw;
+  height: 100vw;
+`
+const MyPageWrapper=styled.div`
+  padding: 5rem;
+  border: 4px  red;
+  display: flex-block; 
   justify-content: center;
   align-items: center;
 `
+const Tag = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+  /* border: 3px solid green; */
+  margin-top: 3rem;
+`
+const Div = styled.div`
+  border: 5px dotted palevioletred;
+  flex-direction: column;
+`
 
+const MypageInput = styled.input`
+  outline: none; /* outline 테두리 없애기 */
+  border:0 ;
+  background-color: #E8F0FE;
+  border-radius: 0.5rem;
+  width: 20rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  font-size: 15px;
+`
+const ChangeDiv = styled.div`
+`
+const CancelDiv = styled.div`
+  flex-direction: column;
+`
 const Text = styled.div`
   justify-content: center;
   align-items: center;
-  padding: 10rem;
-  border: 2px solid peachpuff;
+  padding: 5rem;
+  border: 20px solid #2AA1B7;
+  border-radius: 0.8rem;
+  font-size: 20px;
+`
+
+const Email = styled.div`
+  display: flex ;
+  padding-left: 2rem;
+`
+const Nickname = styled.div`
+  display: flex;
+  padding-left: 2rem;
+`
+const Btn = styled.button`
+  border: 3px solid #2AA1B7;
+  outline: none;
+  border-radius: 0.4rem;
+  min-height: 3rem;
+  min-width: 10rem;
+  margin: 3rem;
+  background-color: white;
+  font-size: 20px;
+  color: #2AA1B7;
+  &:hover{
+    cursor: pointer;
+    background-color: #2AA1B7;
+    border: none;
+    color: white
+  }
+`
+const Btn2 = styled.button`
+  border: 3px solid #2AA1B7;
+  outline: none;
+  border-radius: 0.4rem;
+  min-height: 3rem;
+  min-width: 10rem;
+  margin: 1rem;
+  background-color: white;
+  font-size: 20px;
+  color: #2AA1B7;
+  &:hover{
+    cursor: pointer;
+    background-color: #2AA1B7;
+    border: none;
+    color: white
+  }
+`
+const Btn3 = styled.button`
+  border: 3px white;
+  outline: none;
+  border-radius: 0.4rem;
+  min-height: 3rem;
+  min-width: 22rem;
+  margin-top: 1rem;
+  background-color: #2AA1B7;
+  font-size: 20px;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid #2AA1B7;
+    color: #2AA1B7
+  }
 `
 
 
@@ -136,6 +232,7 @@ function MyPage({ type }) {
     try{
       const res = await mypageApi.logoutUserInfo(accessToken);
       if(res.status === 200){
+        dispatch(logoutAction)
         navigate("/", {replace: true});
       }
     } catch(err){
@@ -202,112 +299,136 @@ function MyPage({ type }) {
 
   return (
     <Container>
-      MyPage
-      {isLogin === false ? (
-        <Text>
-          <div> 로그인이 필요한 서비스입니다 </div>
-          <div>
-            <Link to="/login">로그인페이지로 이동</Link>
-          </div>
-        </Text>
-      ) : isEditMode === true ? (
-        <>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <input
-                name="email"
-                type="text"
-                placeholder="이메일"
-                defaultValue={email}
-                readOnly
-              />
-            </div>
-            <div>
-              <input
-                name="nickname"
-                type="text"
-                placeholder="닉네임"
-                defaultValue={nickname}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <input
-                name="password"
-                type="text"
-                placeholder="비밀번호"
-                defaultValue={password}
-                onChange={handleInputChange}
-              />
-            </div>
+      <Tag>
+        회원정보
+      </Tag>
+      <MyPageWrapper>
+        {isLogin === false ? (
+          <Text>
+            <Div> 로그인이 필요한 서비스입니다 </Div>
+            <Div>
+              <Link to="/login">로그인페이지로 이동</Link>
+            </Div>
+          </Text>
+        ) : isEditMode === true ? (
+          <>
+            <form onSubmit={handleSubmit}>
+              <Div>
+                <MypageInput
+                  name="email"
+                  type="text"
+                  placeholder="이메일"
+                  defaultValue={email}
+                  readOnly
+                />
+              </Div>
+              <Div>
+                <MypageInput
+                  name="nickname"
+                  type="text"
+                  placeholder="닉네임"
+                  defaultValue={nickname}
+                  onChange={handleInputChange}
+                />
+              </Div>
+              <Div>
+                <MypageInput
+                  name="password"
+                  type="text"
+                  placeholder="비밀번호"
+                  defaultValue={password}
+                  onChange={handleInputChange}
+                />
+              </Div>
 
-            <div>
-              <input
-                name="passwordCheck"
-                type="text"
-                placeholder="비밀번호 확인"
-                defaultValue={password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>{errorMessage}</div>
-            <div>{socialMessage}</div>
-            <button id='submitdata' style={{display:'none'}}></button>
-          </form>
-          <div>
-            <button
-              onClick={()=>{
-                setInputValue(handleCancelClick);
-                setIsEditMode(false);
-              }}
-              >
-              취소
-            </button>
-            <button>
-              <label
-                htmlFor='submitdata'
-                type='submit'
+              <Div>
+                <MypageInput
+                  name="passwordCheck"
+                  type="text"
+                  placeholder="비밀번호 확인"
+                  defaultValue={password}
+                  onChange={handleInputChange}
+                />
+              </Div>
+              <Div>{errorMessage}</Div>
+              <Div>{socialMessage}</Div>
+              <button id='submitdata' style={{display:'none'}}></button>
+            </form>
+            <ChangeDiv>
+              <Btn2
+                onClick={()=>{
+                  setInputValue(handleCancelClick);
+                  setIsEditMode(false);
+                }}
                 >
-                저장
-              </label>
-            </button>
-          </div>
-          <div>
-            <button
-              type='button'
-              className="logout"
-              onClick={handleLogout}
-            >
-              로그아웃
-            </button>
-          </div>
-          <div>
-            <button
-              type='button'
-              className="delete"
-              onClick={()=> dispatch(confirmModalOnAction)}
-            >
-              회원탈퇴
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <div>{email}</div>
-          <div>{nickname}</div>
-          {/* <div>{password}</div> */}
-          <button
-            onClick={() => {
-              setIsEditMode(true)
-            }}
-          >
-            수정
-          </button>
-          {/* <button>로그아웃</button>
-          <button>회원탈퇴</button> */}
-        </>
-      )}
-      {/* {isConfirmModal && <ConfirmModal content={deleteContent} />} */}
+                취소
+              </Btn2>
+              <Btn2>
+                <label
+                  htmlFor='submitdata'
+                  type='submit'
+                  >
+                  저장
+                </label>
+              </Btn2>
+            </ChangeDiv>
+            <CancelDiv>
+              <div>
+                <Btn3
+                  type='button'
+                  className="logout"
+                  onClick={handleLogout}
+                >
+                  로그아웃
+                </Btn3>
+              </div>
+              <div>
+                <Btn3
+                  type='button'
+                  className="delete"
+                  onClick={handleDeleteAccount}
+                >
+                  회원탈퇴
+                </Btn3>
+              </div>
+            </CancelDiv>
+          </>
+        ) : (
+          <>
+            <Text>
+              <Email>
+                <Div>email: </Div>
+                <Div>{email}</Div>
+              </Email>
+              <Nickname>
+                <Div>닉네임: </Div>
+                <Div>{nickname}</Div>
+                {/* <Div>{password}</Div> */}
+              </Nickname>
+                <Btn
+                  onClick={() => {
+                    setIsEditMode(true)
+                  }}
+                >
+                  수정
+                </Btn>
+                {/* <button>로그아웃</button>
+                <button>회원탈퇴</button> */}
+            </Text>
+          </>
+        )}
+        {/* {isConfirmModal && <ConfirmModal content={deleteContent} />} */}
+      </MyPageWrapper>
+      <Wave
+        fill = '#1277b0'
+        paused={false}
+        options={{
+            height: 10,
+            amplitude: 18,
+            speed: 0.30,
+            points: 8
+        }}
+      />
     </Container>
   );
 }
