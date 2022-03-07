@@ -10,14 +10,14 @@ const Div = styled.div`
 `;
 const ImgDiv = styled.div`
   width: 100px;
-  height: 100px;
+  height: 120px;
   /* border: red 2px solid; */
   box-sizing: border-box;
   width: 50%;
 `;
 const Img = styled.img`
   box-sizing: border-box;
-  width: 99.9%;
+  width: 100%;
   height: 100%;
 `;
 
@@ -28,6 +28,7 @@ const ContentDiv = styled.div`
   box-shadow: 0 10px 25px #3c4a5645;
 `;
 const Content = styled.div`
+  text-align: left;
   margin-top: 10px;
   margin-left: 4px;
   font-weight: bold;
@@ -36,7 +37,7 @@ const Content = styled.div`
   justify-content: flex-start;
   opacity: 0.7;
 `;
-function FishDataList(props) {
+function ClosedFishDataList(props) {
   return (
     <Div>
       <ImgDiv>
@@ -45,10 +46,11 @@ function FishDataList(props) {
       <ContentDiv>
         <Content>이름: {props.name}</Content>
         <Content>분류: {props.group}</Content>
-        <Content>방생기준: {props.standard}</Content>
+        <Content>기간: {props.day}</Content>
+        <Content>비고: {props.etc}</Content>
       </ContentDiv>
     </Div>
   );
 }
 
-export default FishDataList;
+export default ClosedFishDataList;

@@ -95,18 +95,4 @@ function FishData() {
   );
 }
 
-function FishData() {
-  const columns = useMemo(() => col, []);
-  const data = useMemo(() => seaFish, []);
-
-  return (
-    <div>
-      <Styles>
-        <h1>물고기 정보(방생기준)</h1>
-        <Table columns={columns} data={data} />
-      </Styles>
-    </div>
-  );
-}
-
 export default FishData;
