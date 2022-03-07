@@ -3,15 +3,57 @@ import { useState } from "react";
 import styled from "styled-components";
 import media from "styled-media-query";
 import debounce from "lodash/debounce";
-import { FcGoogle } from "react-icons/fa"; //구글 아이콘
+import { FcGoogle } from "react-icons/fc"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { useNavigate } from "react-router-dom";
+import Wave from "react-wavify";
+import { GoogleLogin } from "react-google-login";
+import fishingImg  from '../../img/낚시이미지.png';
 
 // import {
 //     modalOffAction,
 //     loginAction,
 // } from '../../store/actions';
 import userApi from "../../API/user";
+
+const Container = styled.div`
+  width: 100vw;
+  height: 100vw;
+`
+const SignupWraper = styled.div`
+  padding: 5rem;
+`
+const SignupInput = styled.input`
+  outline: none; /* outline 테두리 없애기 */
+  border:0 ;
+  background-color: #E8F0FE;
+  border-radius: 0.5rem;
+  width: 15rem;
+  padding: 1rem;
+  margin: 0.5rem;
+`
+
+const SignupBtn = styled.button`
+  
+`
+const Social = styled.div`
+  margin: 0.5rem;
+  padding: 1rem;
+`
+const BtnDiv = styled.div`
+  /* outline: none;
+  margin: 0.5rem;
+  padding: 1rem;
+  width: 7rem;
+  display: flex;
+  justify-content: center; */
+`
+
+// const FishingImg = styled.img`
+//   display: flex;
+//   width: 10rem;
+  
+// `
 
 function Signup() {
   const navigate = useNavigate();
@@ -131,69 +173,88 @@ function Signup() {
   };
 
   return (
-    <>
-      Signup
-      <form className="SignupInputContainer">
-        <div>
-          <div>
-            <input
-              name="email"
-              type="text"
-              autoComplete="username"
-              placeholder="이메일"
-              onChange={handleInputChange}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <input
-              name="nickname"
-              type="text"
-              autoComplete="username"
-              placeholder="닉네임"
-              onChange={handleInputChange}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <input
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              placeholder="비밀번호"
-              onChange={handleInputChange}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <input
-              name="passwordCheck"
-              type="password"
-              autoComplete="current-password"
-              placeholder="비밀번호 확인"
-              onChange={handleInputChange}
-            />
-          </div>
-        </div>
-      </form>
-      <div>{errorMessage}</div>
-      <button className="generalSignup" onClick={handleSignup}>
+    <Container>
+      <SignupWraper>
         회원가입
-      </button>
-      <button className="google" onClick={handleSignGoogle}>
-        구글로 회원가입
-      </button>
-      <button className="kakao" onClick={handleSignKakao}>
-        카카오로 회원가입
-      </button>
-      <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
-      <button onClick={() => navigate("/login", { replace: false })}>
-        로그인
-      </button>
-    </>
+        <form className="SignupInputContainer">
+          <div>
+            <div>
+              <SignupInput
+                name="email"
+                type="text"
+                autoComplete="username"
+                placeholder="이메일"
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <SignupInput
+                name="nickname"
+                type="text"
+                autoComplete="username"
+                placeholder="닉네임"
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <SignupInput
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                placeholder="비밀번호"
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <SignupInput
+                name="passwordCheck"
+                type="password"
+                autoComplete="current-password"
+                placeholder="비밀번호 확인"
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+        </form>
+        <div>{errorMessage}</div>
+        <SignupBtn className="generalSignup" onClick={handleSignup}>
+          회원가입
+        </SignupBtn>
+        <Social>
+          <SignupBtn className="google" onClick={handleSignGoogle}>
+            <FcGoogle/>
+            구글 회원가입
+          </SignupBtn>
+          <SignupBtn className="kakao" onClick={handleSignKakao}>
+            <RiKakaoTalkFill/>
+            카카오 회원가입
+          </SignupBtn>
+        </Social>
+        <BtnDiv>
+          <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
+          <button onClick={() => navigate("/login", { replace: false })}>
+            로그인
+          </button>
+        </BtnDiv>
+      </SignupWraper>
+      {/* <FishingImg src={fishingImg} alt='fishingImg'/> */}
+      <Wave
+        fill = '#1277b0'
+        paused={false}
+        options={{
+            height: 10,
+            amplitude: 18,
+            speed: 0.30,
+            points: 8
+        }}
+      />
+    </Container>
   );
 }
 
