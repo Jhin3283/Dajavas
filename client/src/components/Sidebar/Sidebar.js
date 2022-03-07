@@ -7,7 +7,7 @@ import { sideBarOff  } from '../../redux/store/actions';
 import { useEffect } from 'react';
 
 const Container = styled.div`
-
+  width: 7vw;
   background-color: #D8D7D8;
   justify-content: space-between;
   align-items: center;
@@ -36,6 +36,7 @@ const StyledNavLink = styled(NavLink)`
   transition: background-color, color 100ms ease-out;
   color: #2AA1B7;
   font-size: 16px;
+  font-weight: bolder;
 
   :hover {
     color: antiquewhite;
@@ -49,7 +50,10 @@ const Menu = styled.div`
     }
     font-size: 20px;
 `
-
+const NickName = styled.div`
+  font-weight : bolder;
+  color:#2AA1B7;
+`
 
 const Sidebar = ({btn, setBtn}) => {
     const { isLogin, nickname,} =  useSelector(({ userReducer }) => userReducer);

@@ -146,8 +146,15 @@ function Login({ type }) {
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
     );
   };
-  const success = async (res) => {
-    console.log(res.profileObj);
+  const success = async (e) => {
+    const a = await userApi.google(e.profileObj, "2");
+    console.log("aaaaaaaaa");
+    if (a.status === 200) {
+      console.log("bbbbbbbbb");
+      console.log(a.data.data, "@@@@@@@@");
+      dispatch(loginAction(a.data.data));
+      navigate("/", { replace: true });
+    }
   };
   const onFailure = (error) => {
     console.log(error);
@@ -181,10 +188,10 @@ function Login({ type }) {
           <button onClick={handleLogin}>로그인</button>
         </div>
         <Social>
-          <Google className="google" onClick={handleLoginGoogle}>
+          {/* <Google className="google" onClick={handleLoginGoogle}>
             <FcGoogle/>
             구글로 로그인
-          </Google>
+          </Google> */}
           <Kakao className="kakao" onClick={handleLoginKakao}>
             <RiKakaoTalkFill/>
             카카오로 로그인

@@ -4,11 +4,12 @@ const { accessToken } = require("./accesstoken");
 
 module.exports = {
   post: async (req, res) => {
-    //console.log("--------------", req);
+    console.log("--------------", req);
     // 일반 토큰 로그아웃?
     const validate = await func.validateToken(req.headers.authorizationtoken);
     if (!validate) {
-      res.status(401).json({ message: "not authorized" });
+      res.status(401).json({ message: "not authorized"  });
+
     }
     res.status(200).json({ message: "logout" });
     // 카카오 로그아웃( 액세스 토큰과 리프레시 토큰을 모두 만료)
