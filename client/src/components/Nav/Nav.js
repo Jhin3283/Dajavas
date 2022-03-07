@@ -11,8 +11,10 @@ const Container = styled.div`
     display: flex;
     box-shadow: 0 10px 30px #3c4a5645;
     opacity: 5;
-    width: 100vw;
+    width: 100%;
+
 `
+//    display: ${props => props.btnClicked ? 'none' : 'flex'};
 const Navi = styled.nav`
     display:flex;
     color: #92BBFF;
@@ -68,7 +70,7 @@ function Nav ({btn, setBtn}) {
     };
 
     return (
-        <Container>
+        <Container btnClicked={btn}>
             <Navi>
                         
                 <div>

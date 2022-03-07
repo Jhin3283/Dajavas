@@ -11,7 +11,7 @@ const {kakao} = window;
 
 const Background = styled.div`
     background-color: white;  
-    width: 100vw;
+    width: 100%;
     height: 120vh;
 `
 const Div = styled.div`
@@ -21,7 +21,7 @@ const Div = styled.div`
 `
 const Category = styled.div`
     display:flex;
-    justify-content: space-evenly
+    justify-content: space-evenly;
 
 `
 const Spot = styled.div`

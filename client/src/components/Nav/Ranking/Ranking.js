@@ -14,7 +14,7 @@ import Footer from '../../Footer/Footer';
 const Background = styled.div`
     background-color: #8bbac2;
     height: 155vh;
-    width:  100vw;
+    width:  100%;
     box-shadow: 0 25px 25px #3c4a5645;
 `
 const Data = styled.div`

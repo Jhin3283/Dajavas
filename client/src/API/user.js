@@ -3,13 +3,13 @@ import api from "./index";
 const userApi = {
   //유저 로그인 /user/login
   login: (info) => {
-    return api.post("/user/login", info); //소셜로그인과 구분되게 /user/login/general
+    return api.post("/user/login", info); 
   },
   //유저 소셜로그인
-  kakao: (authCode, login_method) => {
+  kakao: (authCode) => {
     return api.post(
-      "/user/login/kakao", //일반 로그인, 구글과 구분되게 /user/login/kakao 로 바꾸면 어떨까요
-      { authCode, login_method },
+      "/user/login/kakao", 
+      { authCode },
       {
         headers: {
           "Content-Type": "application/json",
@@ -19,7 +19,7 @@ const userApi = {
   },
   google: (profileObj) => {
     return api.post(
-      "/user/login/google", //'user/login/google
+      "/user/login/google",
       { profileObj },
       {
         headers: {

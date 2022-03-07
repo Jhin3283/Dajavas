@@ -9,7 +9,7 @@ const AWS = require("aws-sdk/dist/aws-sdk-react-native");
 
 const Background = styled.div`
   background-color:#8bbac2;
-  width: 100vw;
+  width: 100%;
   height: 80vh;
 `
 

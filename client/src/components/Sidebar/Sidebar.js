@@ -12,7 +12,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 2rem 1rem;
-  height: 100vh;
+  height: 100%;
   top: 0;
   border-bottom: 1px solid red;
   display: ${props => props.btnClicked ? 'block' : 'none'};

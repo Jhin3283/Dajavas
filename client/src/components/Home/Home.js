@@ -12,35 +12,9 @@ import LoadingPage from "../../LoadingPage";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-// const Div = styled.div`
-//     background-color: #ABCCFF;
-//     height:100vh;
-//     width:100vw;
-// `
-
 const HomeContainer = styled.div`
-  /* width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  > * {
-    padding: 2rem;
-    ${media.lessThan("medium")`
-      padding: 2rem 1rem;
-    `}
-  }
-  .pc {
-    ${media.lessThan("medium")`
-      display: none;
-    `}
-  }
-  .mobile {
-    display: none;
-    ${media.lessThan("medium")`
-      display: block;
-    `}
-  } */
-`;
+  width: 100%;
+`
 
 const Bigdiv = styled.div`
   height: 400px;
@@ -83,7 +57,7 @@ function Home() {
       const res = await userApi.kakao(authCode, '1');
       console.log("카카오 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
-        dispatch(loginAction(res.data));
+        dispatch(loginAction(res.data.data));
         navigate("/", { replace: true });
       }
     };
@@ -109,8 +83,6 @@ function Home() {
   return (
     <HomeContainer>
       <div>
-        {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
-          설명 문구, 사이드바 숨기는거 토글메뉴 다른거 할거 받아오기 */}
         <Bigdiv data-aos="fade-down">
           <UlBox>
             <p>설명1</p>

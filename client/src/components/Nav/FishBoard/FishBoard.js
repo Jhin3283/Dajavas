@@ -25,7 +25,7 @@ const Background = styled.div`
 
 const Div = styled.div`
     height: 110vh;
-    width:100vw;
+    width: 100%;
     margin-bottom: 2rem;
     margin-top: 1rem;
     

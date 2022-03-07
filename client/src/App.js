@@ -20,19 +20,22 @@ import { useState } from "react";
 import LoadingPage from "./LoadingPage";
 
 const Box = styled.div`
-   display: flex; 
-   width: 100%;
-   height:130vh;
-  /* width: 100vw;
+  display: flex; 
+  width: 100vw;
+  height:130vh;
   display: flex;
-  flex: 2 auto; */
+  flex: 2 auto; 
 `;
 
 const Container = styled.div`
-  /* width: 100%; */
+  /* width: 100vw; */
 `;
 
-const Div = styled.div``;
+const Div = styled.div`
+  width: ${props => props.btnClicked ? '90vw' : '100vw'};
+`;
+
+const Sidediv = styled.div``;
 
 
 function App() {
@@ -43,10 +46,7 @@ function App() {
     <Container className="App">
       <Router>
         <Box>
-          {/* <Div>
-            <Sidebar />
-          </Div>  */}
-          <Div>
+          <Div btnClicked={btn}>
             <Nav setBtn={setBtn} btn={btn}/>
             <Routes>
               <Route exact path="/" element={<Home />} />
@@ -64,9 +64,9 @@ function App() {
               <Route exact path="/updatefish" element={<UpdateFish />} />
             </Routes>
           </Div>
-          <Div>
+          <Sidediv>
             <Sidebar setBtn={setBtn} btn={btn}/>
-          </Div>
+          </Sidediv>
         </Box>
       </Router>
     </Container>
