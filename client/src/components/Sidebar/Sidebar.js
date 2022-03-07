@@ -20,13 +20,10 @@ const Container = styled.div`
 
 const Div = styled.div`
   border: dotted red 2px;
-<<<<<<< HEAD
   flex-direction: column;
-  width:30%
-=======
-  margin: 10px 0px;
-  display: block;
->>>>>>> 3b4c694002c54a849ccd898d9039b24179a0e439
+  /* width:30%; */
+  /* margin: 10px 0px;
+  display: block; */
 `
 
 const StyledNavLink = styled(NavLink)`

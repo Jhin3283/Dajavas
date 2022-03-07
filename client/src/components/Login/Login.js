@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "styled-media-query";
+import Wave from "react-wavify";
 import debounce from "lodash/debounce";
 import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fa"; //구글 아이콘
+import { FcGoogle } from "react-icons/fc"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { GoogleLogin } from "react-google-login";
 import { 
@@ -18,17 +19,24 @@ import userApi from "../../API/user";
 import img from '../../img/Wave3.jpg'
 import Footer from "../Footer/Footer";
 const Container = styled.div`
-
-`;
-
-const Wave = styled.div`
-  width: 50%;
+  width: 100vw;
   height: 100%;
-  display: flex;
-  background-image: url('../../img/Wave3.jpg');
-  background-position: bottom;
-  background-size: cover;
+`;
+const GenBtn = styled.div`
+  outline: none;
+  margin: 0.5rem;
+  padding: 1rem;
+  width: 7rem;
 `
+
+// const Wave = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   display: flex;
+//   background-image: url('../../img/Wave3.jpg');
+//   background-position: bottom;
+//   background-size: cover;
+// `
 
 const Div = styled.div`
   /* display: flex; */
@@ -38,6 +46,8 @@ const Div = styled.div`
   /* background-color: #F3B178; */
   /* background-color: #F9B10B;  */
   /* background-color: #2AA1B7; */
+  padding: 9rem;
+
 
 
 `
@@ -46,7 +56,16 @@ const StyledInput = styled.input`
   border:0 ;
   background-color: #E8F0FE;
   border-radius: 0.5rem;
+  width: 15rem;
+  padding: 1rem;
+  margin: 0.5rem;
 `
+const Social = styled.div`
+  display: inline;
+`
+const Google = styled.button``
+
+const Kakao = styled.button``
 
 function Login({ type }) {
   const dispatch = useDispatch();
@@ -137,7 +156,7 @@ function Login({ type }) {
     <Container>
       <Div>
         <div className="loginInputContainer">
-          login
+          로그인
           <form id="login">
             <div>
               <StyledInput
@@ -161,30 +180,44 @@ function Login({ type }) {
           </form>
           <button onClick={handleLogin}>로그인</button>
         </div>
-        <button className="google" onClick={handleLoginGoogle}>
-          구글로 로그인
-        </button>
-        <button className="kakao" onClick={handleLoginKakao}>
-          카카오로 로그인
-        </button>
-        <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
-        <GoogleLogin
-          clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
-          buttonText={"Login with Google"}
-          responseType={"id_token"}
-          onSuccess={success}
-          onFailure={onFailure}
-          cookiePolicy={"single_host_origin"}
-        />
+        <Social>
+          <Google className="google" onClick={handleLoginGoogle}>
+            <FcGoogle/>
+            구글로 로그인
+          </Google>
+          <Kakao className="kakao" onClick={handleLoginKakao}>
+            <RiKakaoTalkFill/>
+            카카오로 로그인
+          </Kakao>
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
+            responseType={"id_token"}
+            onSuccess={success}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"}
+          >
+            구글로 로그인
+          </GoogleLogin>
+        </Social>
         <div>아직 아이디가 없으신가요?</div>
-        <button onClick={() => navigate("/signup", { replace: false })}>
-          회원가입
-        </button>
+        <GenBtn>
+          <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
+          <button onClick={() => navigate("/signup", { replace: false })}>
+            회원가입
+          </button>
+        </GenBtn>
         <div>{errorMessage}</div>
       </Div>
-      <Wave >
-        웨이브
-      </Wave>
+      <Wave
+        fill = '#1277b0'
+        paused={false}
+        options={{
+            height: 10,
+            amplitude: 18,
+            speed: 0.30,
+            points: 8
+        }}
+      />
       <Footer/>
     </Container>
   );
