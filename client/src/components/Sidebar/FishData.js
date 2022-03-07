@@ -4,9 +4,12 @@ import { useTable } from "react-table";
 import { seaFish, col } from "./data/seaFish";
 
 const Styles = styled.div`
-  padding: 1rem;
+  margin: auto;
+  width: 80%;
 
   table {
+    margin: auto;
+    margin-top: 30px;
     border-spacing: 0;
     border: 1px solid black;
 
@@ -75,6 +78,7 @@ function FishData() {
   return (
     <div>
       <Styles>
+        <h1>물고기 정보(방생기준)</h1>
         <Table columns={columns} data={data} />
       </Styles>
     </div>
