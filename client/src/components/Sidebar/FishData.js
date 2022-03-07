@@ -4,6 +4,7 @@ import riverFish from './data/riverFish';
 import seaFish from './data/seaFish';
 import FishDataList from './FishDataList'
 import { useState } from 'react'
+import Footer from '../Footer/Footer'
 
 const Container = styled.div`
     display:flex;
@@ -19,17 +20,13 @@ const TitleBox = styled.title`
 `
 
 const Div = styled.div`
-   /*  display:flex;
-    justify-content: space-evenly;
-    width:500px;
-    height: 500px;
-    border: red 2px solid; */
+  
 
 `
 const FishBox = styled.div`
-    border: dotted 2px green;
+    background-color:rgb(222, 247, 243); 
     width: 100vw;
-   
+    padding-bottom: 28vh;
 `
 const Title = styled.div`
     
@@ -62,6 +59,7 @@ function FishData() {
 
   
     return (
+        <>
         <Container>
         <Div>
         <TitleBox>
@@ -84,6 +82,8 @@ function FishData() {
                 
             </Div>
         </Container>
+        <Footer />
+        </>
     )
 }
 

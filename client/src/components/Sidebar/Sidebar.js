@@ -57,7 +57,6 @@ const NickName = styled.div`
   color:#2AA1B7;
 `
 
-
 const Sidebar = ({btn, setBtn}) => {
     const { isLogin, nickname,} =  useSelector(({ userReducer }) => userReducer);
     const dispatch = useDispatch();

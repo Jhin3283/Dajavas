@@ -9,12 +9,9 @@ import { useNavigate } from "react-router-dom";
 import Wave from "react-wavify";
 import { GoogleLogin } from "react-google-login";
 import fishingImg  from '../../img/낚시이미지.png';
-
-// import {
-//     modalOffAction,
-//     loginAction,
-// } from '../../store/actions';
+import { loginAction } from "../../redux/store/actions";
 import userApi from "../../API/user";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   width: 100vw;
@@ -57,6 +54,7 @@ const BtnDiv = styled.div`
 
 function Signup() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState({
     //입력값
     email: "",
@@ -170,6 +168,19 @@ function Signup() {
     window.location.assign(
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
     );
+  };
+  const success = async (e) => {
+    const a = await userApi.google(e.profileObj, "2");
+    console.log("aaaaaaaaa");
+    if (a.status === 200) {
+      console.log("bbbbbbbbb");
+      console.log(a.data.data, "@@@@@@@@");
+      dispatch(loginAction(a.data.data));
+      navigate("/", { replace: true });
+    }
+  };
+  const onFailure = (error) => {
+    console.log(error);
   };
 
   return (

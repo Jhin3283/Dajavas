@@ -6,7 +6,8 @@ const Div = styled.div`
     display: flex;
     border: teal 3px solid;
     &:hover {
-        background-color: coral;
+        background-color: rgb(247, 210, 207);
+        
     }
 `
 const ImgDiv = styled.div`
@@ -19,13 +20,14 @@ const ImgDiv = styled.div`
 const Img = styled.img`
     box-sizing: border-box;
     width:99.9%;
-    height:17.3vh;    
+    height:100%;    
 `
 
 const ContentDiv = styled.div`
-    border: solid 2px black;
+     /* border-left: solid 1px gray;  */
     box-sizing: border-box;
     width: 50%;
+    box-shadow: 0 10px 25px #3c4a5645;
     
     
 `

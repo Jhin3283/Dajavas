@@ -14,6 +14,7 @@ import {
   updateInfoAction,
   confirmModalOnAction,
   modalOffAction,
+  logoutAction
 } from "../../redux/store/actions";
 import styled from "styled-components";
 import { ConfirmModal } from "../Modal/ConfirmModal";
@@ -231,6 +232,7 @@ function MyPage({ type }) {
     try{
       const res = await mypageApi.logoutUserInfo(accessToken);
       if(res.status === 200){
+        dispatch(logoutAction)
         navigate("/", {replace: true});
       }
     } catch(err){
@@ -384,7 +386,7 @@ function MyPage({ type }) {
                 <Btn3
                   type='button'
                   className="delete"
-                  onClick={()=> dispatch(confirmModalOnAction)}
+                  onClick={handleDeleteAccount}
                 >
                   회원탈퇴
                 </Btn3>
