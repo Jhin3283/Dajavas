@@ -205,7 +205,7 @@ function Home() {
 
         <Bigdiv data-aos="fade-right">
           <UlBox>
-          <Title>금어기, 방생기준 외 필수 낚시 용품들까지!</Title>
+          <Title>금어기, 방생 기준 외 필수 낚시 용품들까지!</Title>
             <Sub>초보 낚시꾼에게 필요한 낚시 정보들을 제공합니다 </Sub>
           </UlBox>
           <Gitdiv bgColor="#d8d7d8" src={closedFish}/>
