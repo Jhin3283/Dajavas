@@ -20,9 +20,9 @@ import { useState } from "react";
 import LoadingPage from "./LoadingPage";
 
 const Box = styled.div`
-   display: flex; 
-   width: 100%;
-   height:130vh;
+  display: flex;
+  width: 100%;
+  height: 130vh;
   /* width: 100vw;
   display: flex;
   flex: 2 auto; */
@@ -34,9 +34,7 @@ const Container = styled.div`
 
 const Div = styled.div``;
 
-
 function App() {
-
   const [btn, setBtn] = useState(false);
 
   return (
@@ -47,7 +45,7 @@ function App() {
             <Sidebar />
           </Div>  */}
           <Div>
-            <Nav setBtn={setBtn} btn={btn}/>
+            <Nav setBtn={setBtn} btn={btn} />
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/ranking" element={<Ranking />} />
@@ -65,7 +63,7 @@ function App() {
             </Routes>
           </Div>
           <Div>
-            <Sidebar setBtn={setBtn} btn={btn}/>
+            <Sidebar setBtn={setBtn} btn={btn} />
           </Div>
         </Box>
       </Router>
