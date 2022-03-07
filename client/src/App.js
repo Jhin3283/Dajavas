@@ -17,7 +17,6 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import UpdateFish from "./components/Nav/FishBoard/UpdateFish";
 import styled from "styled-components";
 import { useState } from "react";
-import LoadingPage from "./LoadingPage";
 
 const Box = styled.div`
   display: flex; 
@@ -37,10 +36,29 @@ const Div = styled.div`
 
 const Sidediv = styled.div``;
 
+//   display: flex;
+//   width: 100vw;
+//   /*  width: ${(props) => (props.dev ? "100vw" : "100vw")}; */
+//   height: 130vh;
+//   /* width: 100vw;
+//    display: flex;
+//   flex: 2 auto; */
+// `;
+
+// const Container = styled.div`
+//   width: 100%;
+// `;
+
+// const Divs = styled.div`
+//   flex: 1 1 auto;
+// `;
+// const Div = styled.div`
+//   flex: 1 1 auto;
+// `;
 
 function App() {
-
   const [btn, setBtn] = useState(false);
+  console.log(btn, "ddddd");
 
   return (
     <Container className="App">

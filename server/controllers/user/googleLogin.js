@@ -12,9 +12,9 @@ module.exports = {
       where: {
         email: email,
         login_method: "2",
+        nickname: `google ${googleId}`,
       },
       default: {
-        nickname: `google ${googleId}`,
         password: null,
       },
     });

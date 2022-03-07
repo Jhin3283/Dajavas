@@ -89,6 +89,7 @@ const Page = styled.h2`
 
 function FishBoard({userInfo, myFishBoard, fishBoard}) {
     console.log(myFishBoard, '😹')
+    /* console.log(sidebar, '💐') */
     axios.defaults.withCredentials = true;
     
     // 로그인 여부 userInfo.isLogin
@@ -212,10 +213,11 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state,'88888') 
+   /*  console.log(state,'88888')  */
       return {
         userInfo: state.userReducer,
-        myFishBoard: state.fishBoardReducer
+        myFishBoard: state.fishBoardReducer,
+        /* sidebar:state. sideBarReducer.isSideBar */
      } 
  }
 

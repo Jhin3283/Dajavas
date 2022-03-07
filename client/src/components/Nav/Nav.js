@@ -1,73 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import logo from '../../img/logo.png';
-import { useDispatch } from 'react-redux';
-import { sideBarOn } from '../../redux/store/actions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import logo from "../../img/logo.png";
+import { useDispatch } from "react-redux";
+import { sideBarOn } from "../../redux/store/actions";
 
 const Container = styled.div`
     display: flex;
     box-shadow: 0 10px 30px #3c4a5645;
     opacity: 5;
     width: 100%;
-
 `
 //    display: ${props => props.btnClicked ? 'none' : 'flex'};
 const Navi = styled.nav`
-    display:flex;
-    color: #92BBFF;
-    padding:0 3vw;
-    background-color: white;
-    flex: 1 1 auto; 
-`
+  display: flex;
+  color: #92bbff;
+  padding: 0 3vw;
+  background-color: white;
+  flex: 1 1 auto;
+`;
 
 const Div = styled.div`
-    font-size: 1.4rem;
-    display: flex;
-    align-items:center;
-    margin-right:2rem;
-    padding: 10px;
-    border-radius: 40%;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+  padding: 10px;
+  border-radius: 40%;
 
-    &:hover{
-        cursor: pointer;
-        background-color: rgb(222, 247, 243);
-    }
-`
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(222, 247, 243);
+  }
+`;
 const Menu = styled.div`
-    display:flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: white;
-`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: white;
+`;
 const Icon = styled.div`
-    font-size: 1.4rem;
-    display: ${props => props.btnClicked ? 'none' : 'flex'};
-    align-items:center;
-    margin-right:2rem;
-    padding: 10px;
-    border-radius: 40%;
+  font-size: 1.4rem;
+  display: ${(props) => (props.btnClicked ? "none" : "flex")};
+  align-items: center;
+  margin-right: 2rem;
+  padding: 10px;
+  border-radius: 40%;
 
-    &:hover{
-        cursor: pointer;
-        background-color: rgb(222, 247, 243);
-    }
-   
-    
-    
-`
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(222, 247, 243);
+  }
+`;
 
-function Nav ({btn, setBtn}) {
-    const dispatch = useDispatch();
-    // const {is}
+function Nav({ btn, setBtn }) {
+  const dispatch = useDispatch();
+  // const {is}
 
-    const handleSideBarClick = () => {
-        dispatch(sideBarOn);
-        setBtn(true);
-        console.log('네브버튼', btn)
-    };
+  const handleSideBarClick = () => {
+    dispatch(sideBarOn);
+    setBtn(true);
+    console.log("네브버튼", btn);
+  };
 
     return (
         <Container btnClicked={btn}>
@@ -87,4 +83,4 @@ function Nav ({btn, setBtn}) {
     )
 }
 
-export default Nav
+export default Nav;
