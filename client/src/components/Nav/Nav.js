@@ -52,11 +52,6 @@ const Icon = styled.div`
         cursor: pointer;
         background-color: rgb(222, 247, 243);
     }
-<<<<<<< HEAD
-=======
-   
-    
->>>>>>> 18dcb2955ddbf095d72c555cc18975e0965e46e0
     
 `
 
@@ -70,10 +65,6 @@ function Nav ({btn, setBtn}) {
         setBtn(true);
         console.log('네브버튼', btn)
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> 18dcb2955ddbf095d72c555cc18975e0965e46e0
 
     return (
         <Container>
@@ -87,11 +78,7 @@ function Nav ({btn, setBtn}) {
                 <Div><Link to='/ranking' style={{ textDecoration: 'none', color: '#04A1A1',fontWeight:'bolder'}}><div>랭킹</div></Link></Div>
                 <Div><Link to='/fishboard' style={{ textDecoration: 'none',color:'#04A1A1',fontWeight:'bolder'}}><div>기록</div></Link></Div>
                 <Div><Link to='/map' style={{ textDecoration: 'none',color:'#04A1A1',fontWeight:'bolder'}}><div>지도</div></Link></Div>
-<<<<<<< HEAD
                 <Icon  btnClicked={btn}  style= {{textDecoration: 'none',color:'#04A1A1',fontWeight:'bolder'}} onClick = {handleSideBarClick}><FontAwesomeIcon icon={faBars}/></Icon>
-=======
-                <Icon btnClicked={btn} style= {{textDecoration: 'none',color:'#04A1A1',fontWeight:'bolder'}} onClick = {handleSideBarClick}><FontAwesomeIcon icon={faBars}/></Icon>
->>>>>>> 18dcb2955ddbf095d72c555cc18975e0965e46e0
             </Menu>
         </Container>
     )

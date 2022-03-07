@@ -27,6 +27,7 @@ const Box = styled.div`
    /* width: 100vw;
    display: flex;
   flex: 2 auto; */
+  
 `;
 
 const Container = styled.div`
