@@ -17,36 +17,44 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import UpdateFish from "./components/Nav/FishBoard/UpdateFish";
 import styled from "styled-components";
 import { useState } from "react";
-import LoadingPage from "./LoadingPage";
+
 
 const Box = styled.div`
    display: flex; 
-   width: 100%;
+   width: 100vw;
+  /*  width: ${props => props.dev ? "100vw": "100vw"}; */
    height:130vh;
-  /* width: 100vw;
-  display: flex;
+   /* width: 100vw;
+   display: flex;
   flex: 2 auto; */
 `;
 
 const Container = styled.div`
-  /* width: 100%; */
+  width: 100%; 
 `;
 
-const Div = styled.div``;
+const Divs = styled.div`
+    flex: 1 1 auto;
+`;
+const Div = styled.div`
+  flex: 1 1 auto;
+`;
 
 
 function App() {
 
   const [btn, setBtn] = useState(false);
+  console.log(btn, 'ddddd')
 
   return (
     <Container className="App">
       <Router>
+      {btn === false ?
         <Box>
           {/* <Div>
             <Sidebar />
           </Div>  */}
-          <Div>
+          <Divs>
             <Nav setBtn={setBtn} btn={btn}/>
             <Routes>
               <Route exact path="/" element={<Home />} />
@@ -63,11 +71,39 @@ function App() {
               <Route exact path="/signup" element={<Signup />} />
               <Route exact path="/updatefish" element={<UpdateFish />} />
             </Routes>
-          </Div>
-          <Div>
+          </Divs>
+         {/*  <Div>
             <Sidebar setBtn={setBtn} btn={btn}/>
-          </Div>
+          </Div> */}
         </Box>
+        :
+        <Box >
+        {/* <Div>
+          <Sidebar />
+        </Div>  */}
+        <Divs>
+          <Nav setBtn={setBtn} btn={btn}/>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/ranking" element={<Ranking />} />
+            <Route exact path="/map" element={<Map />} />
+            <Route exact path="/fishboard" element={<FishBoard />} />
+            <Route exact path="/fishdata" element={<FishData />} />
+            <Route exact path="/closedseason" element={<ClosedSeason />} />
+            <Route exact path="/checklist" element={<CheckList />} />
+            <Route exact path="/mypage" element={<MyPage />} />
+            <Route exact path="/record" element={<BoardContent />} />
+            <Route exact path="/errorpage" element={<ErrorPage />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/updatefish" element={<UpdateFish />} />
+          </Routes>
+        </Divs>
+        <Div>
+          <Sidebar setBtn={setBtn} btn={btn}/>
+        </Div>
+      </Box>
+        }
       </Router>
     </Container>
   );
