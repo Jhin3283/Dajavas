@@ -18,6 +18,7 @@ import userApi from "../../API/user";
 // import userReducer from "../../redux/store/reducers/userReducer/userReducer";
 import img from '../../img/Wave3.jpg'
 import Footer from "../Footer/Footer";
+
 const Container = styled.div`
   width: 100vw;
   height: 100%;
@@ -29,27 +30,10 @@ const GenBtn = styled.div`
   width: 7rem;
 `
 
-// const Wave = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   display: flex;
-//   background-image: url('../../img/Wave3.jpg');
-//   background-position: bottom;
-//   background-size: cover;
-// `
-
 const Div = styled.div`
-  /* display: flex; */
-  background-color: #FFFAFA;
-  /* background-color: #88BECE; */
-  /* background-color: #D8D7D8; */
-  /* background-color: #F3B178; */
-  /* background-color: #F9B10B;  */
-  /* background-color: #2AA1B7; */
   padding: 9rem;
-
-
-
+  justify-content: center;
+  border: 1rem solid yellow;
 `
 const StyledInput = styled.input`
   outline: none; /* outline 테두리 없애기 */
@@ -62,10 +46,32 @@ const StyledInput = styled.input`
 `
 const Social = styled.div`
   display: inline;
+  border: 3px solid yellowgreen;
+  padding: 1rem;
+  margin: 1rem;
 `
-const Google = styled.button``
+const Google = styled.button`
+  outline: 0;
+  font-weight: 500;
+  font-size: 20px;
+  border: 0;
+  background-color: white;
+`
+const Text = styled.div`
 
-const Kakao = styled.button``
+`
+
+const Kakao = styled.button`
+  margin-right: 1rem;
+  outline: none;
+  border: 0;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: yellow;
+  border-radius: 0.4rem;
+  padding: 0.7rem;
+  /* opacity: 0.7; */
+`
 
 function Login({ type }) {
   const dispatch = useDispatch();
@@ -188,10 +194,6 @@ function Login({ type }) {
           <button onClick={handleLogin}>로그인</button>
         </div>
         <Social>
-          {/* <Google className="google" onClick={handleLoginGoogle}>
-            <FcGoogle/>
-            구글로 로그인
-          </Google> */}
           <Kakao className="kakao" onClick={handleLoginKakao}>
             <RiKakaoTalkFill/>
             카카오로 로그인
@@ -203,10 +205,10 @@ function Login({ type }) {
             onFailure={onFailure}
             cookiePolicy={"single_host_origin"}
           >
-            구글로 로그인
+            <Google>구글로 로그인</Google>
           </GoogleLogin>
         </Social>
-        <div>아직 아이디가 없으신가요?</div>
+        <Text>아직 아이디가 없으신가요?</Text>
         <GenBtn>
           <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
           <button onClick={() => navigate("/signup", { replace: false })}>
