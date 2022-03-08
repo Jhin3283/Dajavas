@@ -11,10 +11,10 @@ import { loginAction } from "../../redux/store/actions";
 import LoadingPage from "../../LoadingPage";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import ranking from '../../gif/랭킹편집.gif'
-import record from'../../gif/기록1.gif'
-import closedFish from '../../gif/금어기.gif'
-import map from '../../gif/지도1.gif'
+import ranking from "../../gif/랭킹편집.gif";
+import record from "../../gif/기록1.gif";
+import closedFish from "../../gif/금어기.gif";
+import map from "../../gif/지도1.gif";
 // const Div = styled.div`
 //     background-color: #ABCCFF;
 //     height:100vh;
@@ -23,7 +23,7 @@ import map from '../../gif/지도1.gif'
 
 const HomeContainer = styled.div`
   width: 100%;
-`
+`;
 
 const Bigdiv = styled.div`
   display: flex;
@@ -38,9 +38,7 @@ const Gitdiv = styled.img`
   height: 30vw;
   border-radius: 10px;
   margin: 3rem;
-  box-shadow: 10px 10px #D8D7D8;
-  
-  
+  box-shadow: 10px 10px #d8d7d8;
 `;
 
 const UlBox = styled.div`
@@ -48,7 +46,6 @@ const UlBox = styled.div`
   height: 200px;
   padding: 50px;
   margin: auto;
-
 `;
 
 const BigTitle = styled.div`
@@ -56,47 +53,41 @@ const BigTitle = styled.div`
   font-size: 2rem;
   font-weight: bold;
   margin: 10px;
-  margin-left:30px;
+  margin-left: 30px;
   margin-bottom: 0;
-  margin-top:2rem;
-
-`
+  margin-top: 2rem;
+`;
 const Title = styled.div`
   opacity: 0.7;
   font-size: 2rem;
   font-weight: bold;
   margin: 10px;
-  
-`
-const Blank = styled.div`
- 
-`
+`;
+const Blank = styled.div``;
 const End = styled.div`
   opacity: 0.7;
   font-size: 2rem;
   font-weight: bold;
   margin-left: 39rem;
-  margin-bottom:10rem;
+  margin-bottom: 10rem;
   margin-top: 5rem;
-`
+`;
 const Div = styled.div`
   padding: 2rem;
-  
-`
+`;
 const SubTitle = styled.div`
   margin-left: 44rem;
-  color:#7DAFB9;
+  color: #7dafb9;
   opacity: 0.9;
   font-size: 5rem;
   font-weight: bold;
   padding: 0;
-
-`
+`;
 const Sub = styled.div`
   opacity: 0.7;
   font-size: 1rem;
   font-weight: bold;
-`
+`;
 
 function Home() {
   const { isLogin, login_method } = useSelector(
@@ -115,7 +106,7 @@ function Home() {
     const state = url.searchParams.get("state");
 
     const getKakaoCode = async (authCode) => {
-      const res = await userApi.kakao(authCode, '1');
+      const res = await userApi.kakao(authCode, "1");
       console.log("카카오 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
         dispatch(loginAction(res.data.data));
@@ -124,7 +115,7 @@ function Home() {
     };
 
     const getGoogleCode = async (authCode) => {
-      const res = await userApi.google(authCode, '2');
+      const res = await userApi.google(authCode, "2");
       console.log("구글 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
         dispatch(loginAction(res.data));
@@ -146,7 +137,7 @@ function Home() {
       <div>
         {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
           설명 문구, 사이드바 숨기는거 토글메뉴 다른거 할거 받아오기 */}
-           
+
         <Bigdiv data-aos="fade-right">
           {/* <Gitdiv bgColor="#f3b178"  src={ranking}/> */}
           <Div>
@@ -154,27 +145,27 @@ function Home() {
           </Div>
         </Bigdiv>
         <Bigdiv data-aos="fade-left">
-        {/* <Gitdiv bgColor="#f3b178"  src={ranking}/> */}
+          {/* <Gitdiv bgColor="#f3b178"  src={ranking}/> */}
           <Div>
             <SubTitle>Dajavas</SubTitle>
           </Div>
         </Bigdiv>
 
         <Bigdiv data-aos="fade-down">
-          <Gitdiv bgColor="#f3b178"  src={ranking}/>
+          <Gitdiv bgColor="#f3b178" src={ranking} />
           <UlBox>
             <Title>내가 잡은 물고기를 랭크에 올려보세요</Title>
-              <Sub> 사람들과 공유할 수 있어요</Sub>
+            <Sub> 사람들과 공유할 수 있어요</Sub>
           </UlBox>
         </Bigdiv>
-        <Bigdiv data-aos="fade-right" >
+        <Bigdiv data-aos="fade-right">
           <UlBox>
-          <Title>나만의 낚시 포인트를 만들어보세요</Title>
+            <Title>나만의 낚시 포인트를 만들어보세요</Title>
             <Sub>다자바스에서 제공한 추천 낚시 포인트도 제공합니다</Sub>
           </UlBox>
-          <Gitdiv bgColor="#2aa1b7"  src={map}/>
+          <Gitdiv bgColor="#2aa1b7" src={map} />
         </Bigdiv>
-        
+
         <Bigdiv>
           <Gitdiv bgColor="#F9B10B" src={record} />
           <UlBox data-aos="fade-left">
@@ -185,20 +176,19 @@ function Home() {
 
         <Bigdiv data-aos="fade-right">
           <UlBox>
-          <Title>금어기, 방생 기준 외 필수 낚시 용품들까지!</Title>
+            <Title>금어기, 방생 기준 외 필수 낚시 용품들까지!</Title>
             <Sub>초보 낚시꾼에게 필요한 낚시 정보들을 제공합니다 </Sub>
           </UlBox>
-          <Gitdiv bgColor="#d8d7d8" src={closedFish}/>
+          <Gitdiv bgColor="#d8d7d8" src={closedFish} />
         </Bigdiv>
 
         <Bigdiv data-aos="fade-up">
-        {/* <Gitdiv bgColor="#f3b178"  src={ranking}/> */}
-        <Div>
-          <Blank></Blank>
-          <End>당신의 낚시 생활 Dajavas가 함께 합니다.</End>
-        </Div>
+          {/* <Gitdiv bgColor="#f3b178"  src={ranking}/> */}
+          <Div>
+            <Blank></Blank>
+            <End>당신의 낚시 생활 Dajavas가 함께 합니다.</End>
+          </Div>
         </Bigdiv>
-        
 
         <Footer />
       </div>
