@@ -6,27 +6,48 @@ const Div = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 1rem;
+    margin:0 10rem;
+    margin-top: 3rem;
+    border: 0;
+    border-radius: 1%;
+    padding-top:5px;
+    padding-bottom: 5px;
+    box-shadow: 0 10px 25px #3c4a5645;
+    background-color: rgb(222, 247, 243);
 `
 const Img = styled.img`
-    width: 10vw;
+    width: 7vw;
+    height: 10vh;
+    border: solid #EEE9BE 3px;
+    border-radius: 5%;
+    background-color: #EBF1F1;
+    padding:10px;
 `
-
-function RankingList({src, createdAt, size ,nickname, fish_name}) {    
+const Text = styled.div`
+    font-size: 1.3rem;
+    font-weight: bolder;
+    color: gray;
+    opacity: 4;
+    
+`
+function RankingList({src, createdAt, size ,nickname, fish_name, ...rest}) {   
+    
+    console.log(rest,'1234567890987')
     
     return (
         <Div>
         {size === undefined ? 
-            <>
+        <>
             <Img src={photo} />
-            <h4>랭킹에 도전해보세요</h4>
-            </>    
+            <Text>랭킹에 도전해보세요</Text>
+            <Text></Text>
+        </>    
             
         :
         <>
             <Img src={src} />
-            <div>{nickname}</div>
-            <div>{size}cm</div>
+            <Text>{nickname}</Text>
+            <Text>{size}cm</Text>
             
         </>
         

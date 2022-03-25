@@ -3,18 +3,106 @@ import { useState } from "react";
 import styled from "styled-components";
 import media from "styled-media-query";
 import debounce from "lodash/debounce";
-import { FcGoogle } from "react-icons/fa"; //구글 아이콘
+import { FcGoogle } from "react-icons/fc"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { useNavigate } from "react-router-dom";
-
-// import {
-//     modalOffAction,
-//     loginAction,
-// } from '../../store/actions';
+import Wave from "react-wavify";
+import { GoogleLogin } from "react-google-login";
+import fishingImg  from '../../img/낚시이미지.png';
+import { loginAction } from "../../redux/store/actions";
 import userApi from "../../API/user";
+import { useDispatch } from "react-redux";
+
+const Container = styled.div`
+  width: 100vw;
+  height: 100vw;
+`
+const Tag = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 3rem;
+`
+const SignupWraper = styled.div`
+  padding: 5rem;
+`
+const SignupInput = styled.input`
+  outline: none; /* outline 테두리 없애기 */
+  border:0 ;
+  background-color: #E8F0FE;
+  border-radius: 0.5rem;
+  width: 21.5rem;
+  padding: 1rem;
+  margin: 0.5rem;
+`
+
+const SignupBtn = styled.button`
+  
+`
+const Social = styled.div`
+  margin: 0.5rem;
+  padding: 1rem;
+`
+const Google = styled.button`
+  outline: 0;
+  font-weight: 500;
+  font-size: 20px;
+  border: 0;
+  background-color: white;
+`
+const GenSignup = styled.button`
+  margin: 1rem;
+  padding: 0.7rem;
+  width: 23.6rem;
+  border: 3px solid #2AA1B7;
+  outline: none;
+  border-radius: 0.4rem;
+  background-color: white;
+  font-size: 20px;
+  font-weight: 500;
+  color: #2AA1B7;
+  &:hover{
+    cursor: pointer;
+    background-color: #2AA1B7;
+    color: white
+  }
+`
+const Kakao = styled.button`
+  margin-right: 1rem;
+  outline: none;
+  border: 0;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: yellow;
+  border-radius: 0.4rem;
+  padding: 0.7rem;
+  box-shadow: 0.5px 1px 2px 1px lightgray;
+  opacity: 0.7;
+`
+const GenBtn = styled.div`
+  /* border: 1px dashed rebeccapurple; */
+`
+const Btn = styled.button`
+  border: 3px white;
+  margin: 0.4rem;
+  outline: none;
+  border-radius: 0.4rem;
+  height: 3rem;
+  width: 11.5rem;
+  margin-top: 1rem;
+  background-color: #2AA1B7;
+  font-size: 20px;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid #2AA1B7;
+    color: #2AA1B7
+  }
+`
 
 function Signup() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState({
     //입력값
     email: "",
@@ -129,71 +217,110 @@ function Signup() {
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
     );
   };
+  const success = async (e) => {
+    const a = await userApi.google(e.profileObj, "2");
+    console.log("aaaaaaaaa");
+    if (a.status === 200) {
+      console.log("bbbbbbbbb");
+      console.log(a.data.data, "@@@@@@@@");
+      dispatch(loginAction(a.data.data));
+      navigate("/", { replace: true });
+    }
+  };
+  const onFailure = (error) => {
+    console.log(error);
+  };
 
   return (
-    <>
-      Signup
-      <form className="SignupInputContainer">
-        <div>
+    <Container>
+      <SignupWraper>
+        <Tag>
+          회원가입
+        </Tag>
+        <form className="SignupInputContainer">
           <div>
-            <input
-              name="email"
-              type="text"
-              autoComplete="username"
-              placeholder="이메일"
-              onChange={handleInputChange}
-            />
+            <div>
+              <SignupInput
+                name="email"
+                type="text"
+                autoComplete="username"
+                placeholder="이메일"
+                onChange={handleInputChange}
+              />
+            </div>
           </div>
-        </div>
-        <div>
           <div>
-            <input
-              name="nickname"
-              type="text"
-              autoComplete="username"
-              placeholder="닉네임"
-              onChange={handleInputChange}
-            />
+            <div>
+              <SignupInput
+                name="nickname"
+                type="text"
+                autoComplete="username"
+                placeholder="닉네임"
+                onChange={handleInputChange}
+              />
+            </div>
           </div>
-        </div>
-        <div>
           <div>
-            <input
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              placeholder="비밀번호"
-              onChange={handleInputChange}
-            />
+            <div>
+              <SignupInput
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                placeholder="비밀번호"
+                onChange={handleInputChange}
+              />
+            </div>
           </div>
-        </div>
-        <div>
           <div>
-            <input
-              name="passwordCheck"
-              type="password"
-              autoComplete="current-password"
-              placeholder="비밀번호 확인"
-              onChange={handleInputChange}
-            />
+            <div>
+              <SignupInput
+                name="passwordCheck"
+                type="password"
+                autoComplete="current-password"
+                placeholder="비밀번호 확인"
+                onChange={handleInputChange}
+              />
+            </div>
           </div>
-        </div>
-      </form>
-      <div>{errorMessage}</div>
-      <button className="generalSignup" onClick={handleSignup}>
-        회원가입
-      </button>
-      <button className="google" onClick={handleSignGoogle}>
-        구글로 회원가입
-      </button>
-      <button className="kakao" onClick={handleSignKakao}>
-        카카오로 회원가입
-      </button>
-      <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
-      <button onClick={() => navigate("/login", { replace: false })}>
-        로그인
-      </button>
-    </>
+        </form>
+        <div>{errorMessage}</div>
+        <GenSignup className="generalSignup" onClick={handleSignup}>
+          회원가입
+        </GenSignup>
+        <Social>
+          <Kakao className="kakao" onClick={handleSignKakao}>
+            <RiKakaoTalkFill/>
+            카카오 회원가입
+          </Kakao>
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
+            responseType={"id_token"}
+            onSuccess={success}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"}
+            >
+            <Google>구글로 로그인</Google>
+          </GoogleLogin>
+        </Social>
+        <GenBtn>
+          <Btn onClick={() => navigate("/", { replace: false })}>홈으로</Btn>
+          <Btn onClick={() => navigate("/login", { replace: false })}>
+            로그인
+          </Btn>
+        </GenBtn>
+      </SignupWraper>
+      {/* <FishingImg src={fishingImg} alt='fishingImg'/> */}
+      <Wave
+        fill = '#1277b0'
+        paused={false}
+        options={{
+            height: 10,
+            amplitude: 18,
+            speed: 0.30,
+            points: 8
+        }}
+      />
+    </Container>
   );
 }
 

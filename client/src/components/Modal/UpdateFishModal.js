@@ -19,22 +19,46 @@ const ModalBackdrop = styled.div`
 const ModalContainer = styled.div`
   height: 70vh;
   width: 60vw;
-  border: solid 2px #abccff;
-  background-color: #abccff;
+  /* border: solid 2px #abccff; */
+  /* background-color: blue; */
   border-radius: 12%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 const Btn = styled.button`
-  background-color: #4087fe;
+  
   text-decoration: none;
+  font-size: x-large;
+  font-weight : bolder;
   border: none;
   padding: 20px;
-  color: white;
+  color: #0E3B5B;
   border-radius: 30px;
   cursor: grab;
+  &:hover {
+        color: coral;
+        cursor: pointer;
+    }
 `;
+const Div = styled.div`
+  background-color:#EBF1F1; 
+  border-radius: 3%;
+  border: gray 0.1px solid;
+  box-shadow: 0 10px 25px #3c4a5645;
+`
+const Title = styled.title`
+  display:flex;
+  justify-content: flex-end;
+`
+const Text = styled.div`
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #8BBAC2;
+    padding-bottom: 15px;
+    
+
+`
 
 function UpdateFishModal() {
   const navigate = useNavigate();
@@ -45,20 +69,25 @@ function UpdateFishModal() {
     navigate(-1);
   };
 
+
+  
   return (
     <div>
       {open === false ? (
         <ModalBackdrop>
           <ModalContainer>
-            <div>
+            <Div>
               <div>
-                {/* <h1>수정</h1> */}
+                <Title>
+                  <div></div>
+                  <div onClick={(e) => e.stopPropagation()}>
+                  <Btn onClick={openModalHandler}>X</Btn>
+                  </div>
+                </Title>
+                  <Text>수정</Text> 
                 <UpdateBoardContent />
               </div>
-              <div onClick={(e) => e.stopPropagation()}>
-                <Btn onClick={openModalHandler}>닫기</Btn>
-              </div>
-            </div>
+            </Div>
           </ModalContainer>
         </ModalBackdrop>
       ) : null}

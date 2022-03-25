@@ -3,19 +3,112 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "styled-media-query";
+import Wave from "react-wavify";
 import debounce from "lodash/debounce";
 import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fa"; //구글 아이콘
+import { FcGoogle } from "react-icons/fc"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { GoogleLogin } from "react-google-login";
-
 import { 
   loginAction, 
   logoutAction, 
   updateInfoAction 
 } from "../../redux/store/actions";
 import userApi from "../../API/user";
-import userReducer from "../../redux/store/reducers/userReducer/userReducer";
+// import userReducer from "../../redux/store/reducers/userReducer/userReducer";
+import img from '../../img/Wave3.jpg'
+import Footer from "../Footer/Footer";
+
+const Container = styled.div`
+  width: 100vw;
+  height: 100%;
+`;
+const GenBtn = styled.div`
+  /* border: 1px dashed rebeccapurple; */
+`
+
+const Div = styled.div`
+  padding: 9rem;
+  justify-content: center;
+  /* border: 1rem solid yellow; */
+`
+const Tag = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 3rem;
+`
+const StyledInput = styled.input`
+  outline: none; /* outline 테두리 없애기 */
+  border:0 ;
+  background-color: #E8F0FE;
+  border-radius: 0.5rem;
+  width: 21.5rem;
+  padding: 1rem;
+  margin: 0.5rem;
+`
+const Social = styled.div`
+  display: inline;
+  padding: 1rem;
+  margin: 1rem;
+`
+const Google = styled.button`
+  outline: 0;
+  font-weight: 500;
+  font-size: 20px;
+  border: 0;
+  background-color: white;
+`
+const GenLogin = styled.button`
+  margin: 1rem;
+  padding: 0.7rem;
+  width: 23.6rem;
+  border: 3px solid #2AA1B7;
+  outline: none;
+  border-radius: 0.4rem;
+  background-color: white;
+  font-size: 20px;
+  font-weight: 500;
+  color: #2AA1B7;
+  &:hover{
+    cursor: pointer;
+    background-color: #2AA1B7;
+    color: white
+  }
+`
+const Kakao = styled.button`
+  margin-right: 1rem;
+  outline: none;
+  border: 0;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: yellow;
+  border-radius: 0.4rem;
+  padding: 0.7rem;
+  box-shadow: 0.5px 1px 2px 1px lightgray;
+  opacity: 0.7;
+`
+const Text = styled.div`
+  margin-top: 1.3rem;
+  font-size: 20px;
+`
+const Btn = styled.button`
+  border: 3px white;
+  margin: 0.4rem;
+  outline: none;
+  border-radius: 0.4rem;
+  height: 3rem;
+  width: 11.5rem;
+  margin-top: 1rem;
+  background-color: #2AA1B7;
+  font-size: 20px;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid #2AA1B7;
+    color: #2AA1B7
+  }
+`
 
 function Login({ type }) {
   const dispatch = useDispatch();
@@ -34,7 +127,7 @@ function Login({ type }) {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  // const { email, nickname, isLogin, id, login_method, accessToken} = useSelector((userReducer)=>userReducer);
+  const { email, nickname, isLogin, id, login_method, accessToken} = useSelector((userReducer)=>userReducer);
 
   const handleLoginInputValue = debounce(async (e) => {
     const { name, value } = e.target;
@@ -74,6 +167,7 @@ function Login({ type }) {
           // console.log('로그인시 저장된 데이터', res);
           console.log("디스패치 전", res.data.data.isLogin);
           dispatch(loginAction(res.data.data));
+          console.log(isLogin,'이즈로그인')
           console.log("디스패치 후", res.data.data.isLogin);
           navigate("/", { replace: true });
         }
@@ -88,84 +182,92 @@ function Login({ type }) {
     window.location.assign(
       `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&state=kakao`
     );
-    /* 결과 redirect_url
-        https://localhost:3000/?
-        code=_ecjyJZfATYit-VAKVAfsZv-brL85ttUn0vtEeUnePulrBS3TMY7c5pxGHjadAj2VNnMfAopb7kAAAF_J4z1xQ
-        &
-        state=kakao
-        */
   };
 
   const handleLoginGoogle = () => {
     window.location.assign(
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
     );
-    /* 결과 redirect_url
-        https://localhost:3000/?
-        state=google
-        &
-        code=4%2F0AX4XfWjkFb16QFmkVBDAE6FUcypyXBaxgfB61q-wfkx2a-RplVkIhRxrx3AAr_hWwyaNhg
-        &
-        scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid
-        &
-        authuser=1
-        &
-        prompt=consent
-        */
   };
-  const success = async (res) => {
-    console.log(res.profileObj);
+  const success = async (e) => {
+    const a = await userApi.google(e.profileObj, "2");
+    console.log("aaaaaaaaa");
+    if (a.status === 200) {
+      console.log("bbbbbbbbb");
+      console.log(a.data.data, "@@@@@@@@");
+      dispatch(loginAction(a.data.data));
+      navigate("/", { replace: true });
+    }
   };
   const onFailure = (error) => {
     console.log(error);
   };
   return (
-    <>
-      <div className="loginInputContainer">
-        login
-        <form id="login">
-          <div>
-            <input
-              name="email"
-              type="text"
-              placeholder="이메일"
-              autoComplete="username"
-              onChange={handleLoginInputValue}
-            />
-          </div>
-          <div>
-            <input
-              name="password"
-              type="password"
-              placeholder="비밀번호"
-              autoComplete="current-password"
-              onChange={handleLoginInputValue}
-            />
-          </div>
-        </form>
-        <button onClick={handleLogin}>로그인</button>
-      </div>
-      <button className="google" onClick={handleLoginGoogle}>
-        구글로 로그인
-      </button>
-      <button className="kakao" onClick={handleLoginKakao}>
-        카카오로 로그인
-      </button>
-      <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
-      <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
-        buttonText={"Login with Google"}
-        responseType={"id_token"}
-        onSuccess={success}
-        onFailure={onFailure}
-        cookiePolicy={"single_host_origin"}
+    <Container>
+      <Div>
+        <div className="loginInputContainer">
+          <Tag>
+            로그인
+          </Tag>
+          <form id="login">
+            <div>
+              <StyledInput
+                box
+                name="email"
+                type="text"
+                placeholder="이메일"
+                autoComplete="username"
+                onChange={handleLoginInputValue}
+              />
+            </div>
+            <div>
+              <StyledInput
+                name="password"
+                type="password"
+                placeholder="비밀번호"
+                autoComplete="current-password"
+                onChange={handleLoginInputValue}
+              />
+            </div>
+          </form>
+          <GenLogin onClick={handleLogin}>로그인</GenLogin>
+        </div>
+        <Social>
+          <Kakao className="kakao" onClick={handleLoginKakao}>
+            <RiKakaoTalkFill/>
+            카카오로 로그인
+          </Kakao>
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
+            responseType={"id_token"}
+            onSuccess={success}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"}
+          >
+            <Google>구글로 로그인</Google>
+          </GoogleLogin>
+        </Social>
+        <Text>아직 아이디가 없으신가요?</Text>
+        <GenBtn>
+          <Btn onClick={() => navigate("/", { replace: false })}>홈으로</Btn>
+          <Btn onClick={() => navigate("/signup", { replace: false })}>
+            회원가입
+          </Btn>
+        </GenBtn>
+        <div>{errorMessage}</div>
+      </Div>
+      <Wave
+        fill = '#1277b0'
+        paused={false}
+        options={{
+            height: 10,
+            amplitude: 18,
+            speed: 0.30,
+            points: 8
+        }}
       />
-      <div>아직 아이디가 없으신가요?</div>
-      <button onClick={() => navigate("/signup", { replace: false })}>
-        회원가입
-      </button>
-      <div>{errorMessage}</div>
-    </>
+      <Footer/>
+    </Container>
   );
 }
 export default Login;

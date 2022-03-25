@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 
-.env
 
+.env
 # misc
 .DS_Store
 .env.local

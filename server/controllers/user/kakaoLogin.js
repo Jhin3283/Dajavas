@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 module.exports = {
   post: async (req, res) => {
     const { login_method } = req.body;
-    const authCode = req.body.authorizationCode;
+    const authCode = req.body.authCode;
     const kakaoBody = {
       grant_type: "authorization_code",
       redirect_uri: "https://localhost:3000",
@@ -26,28 +26,27 @@ module.exports = {
         Authorization: `Bearer ${kakaoAccesstoken.data.access_token}`,
       },
     });
+    console.log(kakaoSocial);
     const kakaoCreate = await models.user.findOrCreate({
       where: {
         email: kakaoSocial.data.kakao_account.email,
-        nickname: `kakao ${kakaoSocial.data.id}`,
         login_method: "1",
+        nickname: `kakao ${kakaoSocial.data.id}`,
       },
       default: {
         password: null,
       },
     });
-    if (login_method === "1") {
-      return res.status(200).json({
-        data: {
-          accessToken: await accessToken(kakaoCreate[0].email),
-          id: kakaoCreate[0].id,
-          email: kakaoCreate[0].email,
-          nickname: kakaoCreate[0].nickname,
-          login_method: kakaoCreate[0].login_method,
-        },
-      });
-    } else {
-      return res.status(401).json({ message: "login err" });
-    }
+    
+    return res.status(200).json({
+      data: {
+        accessToken: await accessToken(kakaoCreate[0].email),
+        id: kakaoCreate[0].id,
+        email: kakaoCreate[0].email,
+        nickname: kakaoCreate[0].nickname,
+        login_method: kakaoCreate[0].login_method,
+      },
+    });
+    
   },
 };

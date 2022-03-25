@@ -27,8 +27,8 @@ const userReducer = (prevState = initialState, action) => {
         case UPDATE_INFO:
             state = {
                 ...prevState,
-                nickname: 'action.payload.data.nickname',
-                password: 'action.payload.data.password',
+                nickname: action.payload.data.nickname,
+                password: action.payload.data.password,
             };
             break;
         default:
@@ -39,4 +39,3 @@ const userReducer = (prevState = initialState, action) => {
 
 export default userReducer;
 
-//Rnr2
