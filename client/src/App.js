@@ -20,9 +20,9 @@ import { useState } from "react";
 import LoadingPage from "./LoadingPage";
 
 const Box = styled.div`
-   display: flex; 
-   width: 100%;
-   height:130vh;
+  display: flex;
+  width: 100%;
+  height: 130vh;
   /* width: 100vw;
   display: flex;
   flex: 2 auto; */
@@ -34,43 +34,52 @@ const Container = styled.div`
 
 const Div = styled.div``;
 
-
 function App() {
+  const [isLogin, setIsLogin] = useState(false); //로그인 여부
+  const [userInfo, setUserInfo] = useState({
+    id: "",
+    email: "",
+    nickname: "",
+    login_method: "",
+    accessToken: "",
+  });
+  // accessToken, id, email, nickname, login_method
 
-  const [btn, setBtn] = useState(false);
+  function App() {
+    const [btn, setBtn] = useState(false);
 
-  return (
-    <Container className="App">
-      <Router>
-        <Box>
-          {/* <Div>
+    return (
+      <Container className="App">
+        <Router>
+          <Box>
+            {/* <Div>
             <Sidebar />
           </Div>  */}
-          <Div>
-            <Nav setBtn={setBtn} btn={btn}/>
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/ranking" element={<Ranking />} />
-              <Route exact path="/map" element={<Map />} />
-              <Route exact path="/fishboard" element={<FishBoard />} />
-              <Route exact path="/fishdata" element={<FishData />} />
-              <Route exact path="/closedseason" element={<ClosedSeason />} />
-              <Route exact path="/checklist" element={<CheckList />} />
-              <Route exact path="/mypage" element={<MyPage />} />
-              <Route exact path="/record" element={<BoardContent />} />
-              <Route exact path="/errorpage" element={<ErrorPage />} />
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/signup" element={<Signup />} />
-              <Route exact path="/updatefish" element={<UpdateFish />} />
-            </Routes>
-          </Div>
-          <Div>
-            <Sidebar setBtn={setBtn} btn={btn}/>
-          </Div>
-        </Box>
-      </Router>
-    </Container>
-  );
+            <Div>
+              <Nav setBtn={setBtn} btn={btn} />
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/ranking" element={<Ranking />} />
+                <Route exact path="/map" element={<Map />} />
+                <Route exact path="/fishboard" element={<FishBoard />} />
+                <Route exact path="/fishdata" element={<FishData />} />
+                <Route exact path="/closedseason" element={<ClosedSeason />} />
+                <Route exact path="/checklist" element={<CheckList />} />
+                <Route exact path="/mypage" element={<MyPage />} />
+                <Route exact path="/record" element={<BoardContent />} />
+                <Route exact path="/errorpage" element={<ErrorPage />} />
+                <Route exact path="/login" element={<Login />} />
+                <Route exact path="/signup" element={<Signup />} />
+                <Route exact path="/updatefish" element={<UpdateFish />} />
+              </Routes>
+            </Div>
+            <Div>
+              <Sidebar setBtn={setBtn} btn={btn} />
+            </Div>
+          </Box>
+        </Router>
+      </Container>
+    );
+  }
 }
-
 export default App;
