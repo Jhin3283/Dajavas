@@ -7,6 +7,7 @@ const userApi = {
   },
   //유저 소셜로그인
   kakao: (authCode, login_method) => {
+    console.log(authCode);
     return api.post(
       "/user/login/kakao", //일반 로그인, 구글과 구분되게 /user/login/kakao 로 바꾸면 어떨까요
       { authCode, login_method },
@@ -17,10 +18,10 @@ const userApi = {
       }
     );
   },
-  google: (authCode) => {
+  google: (profileObj) => {
     return api.post(
       "/user/login/google", //'user/login/google
-      { authCode },
+      { profileObj },
       {
         headers: {
           "Content-Type": "application/json",

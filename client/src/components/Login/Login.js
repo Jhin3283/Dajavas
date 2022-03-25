@@ -8,45 +8,42 @@ import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fa"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { GoogleLogin } from "react-google-login";
-import { 
-  loginAction, 
-  logoutAction, 
-  updateInfoAction 
+import {
+  loginAction,
+  logoutAction,
+  updateInfoAction,
 } from "../../redux/store/actions";
 import userApi from "../../API/user";
 // import userReducer from "../../redux/store/reducers/userReducer/userReducer";
-import img from '../../img/Wave3.jpg'
+import img from "../../img/Wave3.jpg";
 import Footer from "../Footer/Footer";
-const Container = styled.div`
-
-`;
+import axios from "axios";
+const Container = styled.div``;
 
 const Wave = styled.div`
   width: 50%;
   height: 100%;
   display: flex;
-  background-image: url('../../img/Wave3.jpg');
+  background-image: url("../../img/Wave3.jpg");
   background-position: bottom;
   background-size: cover;
-`
+`;
 
 const Div = styled.div`
   /* display: flex; */
-  background-color: #FFFAFA;
+  background-color: #fffafa;
   /* background-color: #88BECE; */
   /* background-color: #D8D7D8; */
   /* background-color: #F3B178; */
   /* background-color: #F9B10B;  */
   /* background-color: #2AA1B7; */
-
-
-`
+`;
 const StyledInput = styled.input`
   outline: none; /* outline 테두리 없애기 */
-  border:0 ;
-  background-color: #E8F0FE;
+  border: 0;
+  background-color: #e8f0fe;
   border-radius: 0.5rem;
-`
+`;
 
 function Login({ type }) {
   const dispatch = useDispatch();
@@ -65,7 +62,8 @@ function Login({ type }) {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { email, nickname, isLogin, id, login_method, accessToken} = useSelector((userReducer)=>userReducer);
+  const { email, nickname, isLogin, id, login_method, accessToken } =
+    useSelector((userReducer) => userReducer);
 
   const handleLoginInputValue = debounce(async (e) => {
     const { name, value } = e.target;
@@ -97,7 +95,7 @@ function Login({ type }) {
       // console.log('이즈로그인',isLogin)
       // console.log('email',email)
       try {
-        const res = await userApi.login(loginInputValue);
+        const res = userApi.login(loginInputValue);
         // console.log('인풋벨류는??',loginInputValue)
 
         console.log("응답은 뭐라고 왔나?", res.data.data);
@@ -105,7 +103,7 @@ function Login({ type }) {
           // console.log('로그인시 저장된 데이터', res);
           console.log("디스패치 전", res.data.data.isLogin);
           dispatch(loginAction(res.data.data));
-          console.log(isLogin,'이즈로그인')
+          console.log(isLogin, "이즈로그인");
           console.log("디스패치 후", res.data.data.isLogin);
           navigate("/", { replace: true });
         }
@@ -127,8 +125,15 @@ function Login({ type }) {
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
     );
   };
-  const success = async (res) => {
-    console.log(res.profileObj);
+  const success = async (e) => {
+    console.log("aaaaaaaaa");
+    const a = await userApi.google(e.profileObj, "2");
+    if (a.status === 200) {
+      console.log("bbbbbbbbb");
+      console.log(a.data.data, "@@@@@@@@");
+      dispatch(loginAction(a.data.data));
+      navigate("/", { replace: true });
+    }
   };
   const onFailure = (error) => {
     console.log(error);
@@ -167,7 +172,9 @@ function Login({ type }) {
         <button className="kakao" onClick={handleLoginKakao}>
           카카오로 로그인
         </button>
-        <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
+        <button onClick={() => navigate("/", { replace: false })}>
+          홈으로
+        </button>
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
           buttonText={"Login with Google"}
@@ -182,10 +189,8 @@ function Login({ type }) {
         </button>
         <div>{errorMessage}</div>
       </Div>
-      <Wave >
-        웨이브
-      </Wave>
-      <Footer/>
+      <Wave>웨이브</Wave>
+      <Footer />
     </Container>
   );
 }

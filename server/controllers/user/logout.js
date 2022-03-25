@@ -6,6 +6,7 @@ module.exports = {
   post: async (req, res) => {
     //console.log("--------------", req);
     // 일반 토큰 로그아웃?
+    console.log(req.headers);
     const validate = await func.validateToken(req.headers.authorizationtoken);
     if (!validate) {
       res.status(401).json({ message: "not authorized" });

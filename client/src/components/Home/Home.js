@@ -80,16 +80,18 @@ function Home() {
     const state = url.searchParams.get("state");
 
     const getKakaoCode = async (authCode) => {
-      const res = await userApi.kakao(authCode, '1');
+      console.log(authCode, "@@@@@@@@");
+      const res = await userApi.kakao(authCode, "1");
       console.log("카카오 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
         dispatch(loginAction(res.data));
         navigate("/", { replace: true });
+        console.log(authCode, "!!!!!!!!!!!!!");
       }
     };
 
     const getGoogleCode = async (authCode) => {
-      const res = await userApi.google(authCode, '2');
+      const res = await userApi.google(authCode, "2");
       console.log("구글 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
         dispatch(loginAction(res.data));

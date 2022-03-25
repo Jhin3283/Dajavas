@@ -6,18 +6,17 @@ const dotenv = require("dotenv");
 
 module.exports = {
   post: async (req, res) => {
-    const { login_method, email, googleId } = req.body;
+    const { login_method, email, googleId } = req.body.profileObj;
     const googleCreate = await models.user.findOrCreate({
       where: {
         email: email,
-        nickname: `google ${googleId}`,
         login_method: "2",
       },
       default: {
+        nickname: `google ${googleId}`,
         password: null,
       },
     });
-
     if (login_method === "2") {
       return res.status(200).json({
         data: {
