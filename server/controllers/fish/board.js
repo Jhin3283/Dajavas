@@ -61,10 +61,10 @@ module.exports = {
         fish_id: fish.id,
         user_id: userId,
       });
-      console.log('qqq')
+      console.log("qqq");
       return res.status(201).send({ message: `${userId}` });
-    } catch(error) { 
-      return console.log("유저 사진 기록 잘못되었음",error);
+    } catch (error) {
+      return console.log("유저 사진 기록 잘못되었음", error);
     }
   },
   put: async (req, res) => {

@@ -44,16 +44,16 @@ function MyPage({ type }) {
     if (name === "nickname") {
       if (value === "") {
         setErrorMessage("");
-      } else if (value === nickname ) {
+      } else if (value === nickname) {
         setErrorMessage("변경사항이 없습니다.");
       } else {
         try {
           const res = await userApi.checkNickName(value);
-          console.log('닉네임 체크 결과는?',res)
-          // res.status === 200 && 
+          console.log("닉네임 체크 결과는?", res);
+          // res.status === 200 &&
           setErrorMessage("");
-        } catch (err){
-          console.log(err); 
+        } catch (err) {
+          console.log(err);
           setErrorMessage("이미 사용중인 닉네임입니다.");
         }
       }
@@ -67,7 +67,7 @@ function MyPage({ type }) {
       setValidated({ ...validated, [name]: passwordVal });
       if (value === "") setErrorMessage("");
       else if (passwordVal) {
-        console.log('비밀번호 들어옵니다',password)
+        console.log("비밀번호 들어옵니다", password);
         setErrorMessage("");
       } else {
         setErrorMessage("6-20글자 숫자 혹은 특수 문자를 포함해야 합니다.");
@@ -90,13 +90,13 @@ function MyPage({ type }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    console.log('핸들서브밋 인풋', inputValue);
+    console.log("핸들서브밋 인풋", inputValue);
     formData.append("nickname", inputValue.nickname);
     formData.append("password", inputValue.password);
-    formData.append('email', email)
-    console.log('폼데이터에 닉네임 가져와',formData.get('nickname'))
-    console.log('폼데이터에 패스워드 가져와',formData.get('password'))
-    console.log('폼데이터에 이메일 가져와', formData.get('email'))
+    formData.append("email", email);
+    console.log("폼데이터에 닉네임 가져와", formData.get("nickname"));
+    console.log("폼데이터에 패스워드 가져와", formData.get("password"));
+    console.log("폼데이터에 이메일 가져와", formData.get("email"));
     // axios({
     //   url:'https://localhost:5000/user/mypage',
     //   method: 'put',
@@ -111,12 +111,9 @@ function MyPage({ type }) {
     //   console.log(err)
     // })
     try {
-      const res = await mypageApi.modifyUserInfo(
-        accessToken,
-        formData
-      );
-   
-      console.log('풋한 결과를 보여주세요',res)
+      const res = await mypageApi.modifyUserInfo(accessToken, formData);
+
+      console.log("풋한 결과를 보여주세요", res);
       dispatch(updateInfoAction(res));
       setIsEditMode(false);
     } catch (err) {
@@ -125,14 +122,18 @@ function MyPage({ type }) {
   };
 
   const handleCancelClick = (prev) => ({
-    ...prev
+    ...prev,
   });
 
-  const handleDeleteAccount = async() => {
-    try{
-      const res = await mypageApi.deleteUserInfo(email, login_method, accessToken);
-      if(res.status === 200){
-        navigate("/", {replace: true});
+  const handleDeleteAccount = async () => {
+    try {
+      const res = await mypageApi.deleteUserInfo(
+        email,
+        login_method,
+        accessToken
+      );
+      if (res.status === 200) {
+        navigate("/", { replace: true });
       }
     } catch (err) {
       console.log(err);
@@ -140,9 +141,9 @@ function MyPage({ type }) {
   };
 
   useEffect(() => {
-    if(!isLogin){
-      return 
-    } else{
+    if (!isLogin) {
+      return;
+    } else {
       const checkMyPage = async () => {
         const res = await mypageApi.getUserInfo(email, accessToken);
         setInputValue({
@@ -152,7 +153,7 @@ function MyPage({ type }) {
         });
       };
       checkMyPage();
-      console.log('유즈이펙트 인풋',inputValue)
+      console.log("유즈이펙트 인풋", inputValue);
     }
   }, []);
 
@@ -208,34 +209,30 @@ function MyPage({ type }) {
             </div>
             <div>{errorMessage}</div>
             <div>{socialMessage}</div>
-            <button id='submitdata' style={{display:'none'}}></button>
+            <button id="submitdata" style={{ display: "none" }}></button>
           </form>
           <div>
             <button
-              onClick={()=>{
+              onClick={() => {
                 setInputValue(handleCancelClick);
                 setIsEditMode(false);
               }}
-              >
+            >
               취소
             </button>
-            <label
-              htmlFor='submitdata'
-              type='submit'
-              >
+            <label htmlFor="submitdata" type="submit">
               저장
             </label>
           </div>
           <div>
             <button
-              type='button'
+              type="button"
               className="delete"
-              onClick={()=> dispatch(confirmModalOnAction)}
+              onClick={() => dispatch(confirmModalOnAction)}
             >
               회원탈퇴
             </button>
           </div>
-
         </>
       ) : (
         <>
@@ -244,7 +241,7 @@ function MyPage({ type }) {
           {/* <div>{password}</div> */}
           <button
             onClick={() => {
-              setIsEditMode(true)
+              setIsEditMode(true);
             }}
           >
             수정

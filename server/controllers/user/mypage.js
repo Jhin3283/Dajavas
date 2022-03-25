@@ -28,7 +28,7 @@ module.exports = {
   },
   put: async (req, res) => {
     // 개인정보 수정
-    console.log('요청된 바디',req)
+    console.log("요청된 바디", req.body);
     const { nickname, password, email } = req.body;
     const validate = await func.validateToken(req.headers.authorizationtoken);
     // const userInfo = await func.checkUser(req.query.email);
@@ -45,11 +45,10 @@ module.exports = {
           },
           { where: { email: email } }
         );
-        return res.status(200).json({ 
-          data:{
-
-          },
-          message: "edit ok" });
+        return res.status(200).json({
+          data: {},
+          message: "edit ok",
+        });
       }
     } catch {
       return console.log("회원정보 수정 잘못되었음");
