@@ -3,8 +3,9 @@ import styled from "styled-components";
 import riverFish from "./data/riverFish";
 import seaFish from "./data/seaFish";
 import FishDataList from "./FishDataList";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Footer from "../Footer/Footer";
+
 
 const Container = styled.div`
   display: flex;
@@ -49,7 +50,13 @@ const SeaFish = styled.div`
   grid-gap: 1rem;
 `;
 function FishData() {
-  const [sea, setSea] = useState(true);
+  const [sea, setSea] = useState(false);
+  const SeaFishes = React.lazy(() => import("./FishDataList"))
+  
+  const onClick = () => {
+    setSea(false);
+    
+  }
 
   return (
     <>
@@ -64,30 +71,32 @@ function FishData() {
               바다물고기
             </Title>
             <Title
-              onClick={() => {
-                setSea(false);
-              }}
+              onClick={onClick}
             >
               민물
             </Title>
           </TitleBox>
+          <Suspense fallback={<div>로딩</div>}>
           {sea === true ? (
             <FishBox>
-              <SeaFish>
-                {seaFish.map((el, idx) => (
-                  <FishDataList {...el} key={idx} />
-                ))}
-              </SeaFish>
+                <SeaFish>
+                  {seaFish.map((el, idx) => (
+                    <SeaFishes {...el} key={idx} />
+                  ))}
+                </SeaFish>
             </FishBox>
-          ) : (
+          ) 
+          : 
+          (
             <FishBox>
               <RiverFish>
                 {riverFish.map((el, idx) => (
                   <FishDataList {...el} key={idx} />
-                ))}
+                  ))}
               </RiverFish>
             </FishBox>
           )}
+          </Suspense>
         </Div>
       </Container>
       <Footer />

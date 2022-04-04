@@ -1,21 +1,17 @@
 import React from 'react'
 import styled from 'styled-components';
-import { useState, useEffect } from 'react'
-import { faCrown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from 'react'
+import { FaCrown } from "react-icons/fa";
 import axios from "axios";
 import {connect} from 'react-redux'
-import Modal from '../../Modal/Modal'
 import { useNavigate } from "react-router-dom"
-const AWS = require("aws-sdk/dist/aws-sdk-react-native");
+// const AWS = require("aws-sdk/dist/aws-sdk-react-native");
 
 
 
 const Div = styled.div`
-
     height:60vh;
     width:50vw; 
-    
     margin-bottom:5px;
 `
 const Day = styled.div`
@@ -97,9 +93,6 @@ const Select = styled.select`
 `
 
 function UpdateBoardContent({targetFish,userInfo,navigation}) {
-   console.log(targetFish,'🤡',userInfo)
-
-   const [isRedirect, setIsRedirect] = useState(false)
 
    axios.defaults.withCredentials = true;
     const navigate = useNavigate();
@@ -125,39 +118,39 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
 
     
 
-   //* aws연결해야함 *//
-  AWS.config.update({
-    region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력하기. (Ex. "ap-northeast-2")
-    credentials: new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: "ap-northeast-2:ef99751f-2c0b-464a-9500-6fd482fa1eaf", // cognito 인증 풀에서 받아온 키를 문자열로 입력하기. (Ex. "ap-northeast-2...")
-    }),
-  });
+//    //* aws연결해야함 *//
+//   AWS.config.update({
+//     region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력하기. (Ex. "ap-northeast-2")
+//     credentials: new AWS.CognitoIdentityCredentials({
+//       IdentityPoolId: "ap-northeast-2:ef99751f-2c0b-464a-9500-6fd482fa1eaf", // cognito 인증 풀에서 받아온 키를 문자열로 입력하기. (Ex. "ap-northeast-2...")
+//     }),
+//   });
   
-  // 파일 업로드
-  const firstImgHandle = (event) => {
-    const imageFile = event.target.files[0];
-    console.log(imageFile,'#########');
-    setPhoto(imageFile);
+//   // 파일 업로드
+//   const firstImgHandle = (event) => {
+//     const imageFile = event.target.files[0];
+//    // console.log(imageFile,'#########');
+//     setPhoto(imageFile);
   
-  const upload = new AWS.S3.ManagedUpload({ 
-    params: {
-      Bucket: "dajavas-photo", // 업로드할 대상 버킷명 문자열로 작성.
-      Key: imageFile.name, //업로드할 파일명 
-      Body: imageFile, // 업로드할 파일 객체
-    },
-  });
+//   const upload = new AWS.S3.ManagedUpload({ 
+//     params: {
+//       Bucket: "dajavas-photo", // 업로드할 대상 버킷명 문자열로 작성.
+//       Key: imageFile.name, //업로드할 파일명 
+//       Body: imageFile, // 업로드할 파일 객체
+//     },
+//   });
 
-  const promise = upload.promise();
+//   const promise = upload.promise();
 
-  promise.then(
-    function (data) {
-      setPhoto(data.Location);
-    },
-    function (err) {
-      console.log(err);
-    }
-  );
-  }
+//   promise.then(
+//     function (data) {
+//       setPhoto(data.Location);
+//     },
+//     function (err) {
+//       console.log(err);
+//     }
+//   );
+//   }
 
  
 
@@ -171,7 +164,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
        }   
         if(fishName === '변경안함') {
             axios({
-                url: `https://localhost:5000/fish/board`,
+                url: `${process.env.REACT_APP_BASE_URL}/fish/board`,
                 method: "put",
                 headers: {authorizationtoken: userInfo.accessToken},
                 data: {
@@ -185,7 +178,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
         }else {        
 //* 저장되었다는 모달창 띄우자 그러고나면 네비게이트로 /record로 보내주기
             axios({
-                url: `https://localhost:5000/fish/board`,
+                url: `${process.env.REACT_APP_BASE_URL}/fish/board`,
                 method: "put",
                 headers: {authorizationtoken: userInfo.accessToken},
                 data: {
@@ -199,7 +192,6 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
         })
         .then(result => {
             console.log(result)
-            console.log(record,"수정된 정보.")
             
         })
         .catch(err => console.log(err))               
@@ -224,7 +216,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                         type="file"
                         name="file"
                         // accept="image/*"
-                        onChange={firstImgHandle}
+                       /*  onChange={firstImgHandle} */
                         />   
                 </File>
                 <Fish>
@@ -241,7 +233,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                         <Span>크기</Span>
                         <Size type='text' value={size} onChange={(e)=>setSize(e.target.value)}></Size><Span>cm</Span>
                         <Text onClick={() => selectRank()}>랭크 등록</Text>
-                        {rank === false ? '': <FontAwesomeIcon icon={faCrown} size="3x" color='gold'/> }
+                        {rank === false ? '': <FaCrown size="2x" color='gold'/> }
                     </div>
                 </Fish>
                     <Btn onClick={(e) => save(e)}>기록 저장</Btn>
@@ -252,14 +244,12 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state,'++++++++++++++++++++++++') 
      return {
       targetFish: state.updateFishReducer.data,
       userInfo: state.userReducer,
        
     } 
 }
-
 
 
 export default connect(mapStateToProps)(UpdateBoardContent)

@@ -1,20 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home/Home";
-import Ranking from "./components/Nav/Ranking/Ranking";
-import Map from "./components/Nav/Map/Map";
-import FishBoard from "./components/Nav/FishBoard/FishBoard";
-import FishData from "./components/Sidebar/FishData";
-import ClosedSeason from "./components/Sidebar/ClosedSeason";
-import CheckList from "./components/Sidebar/CheckList";
-import MyPage from "./components/Sidebar/MyPage";
-import BoardContent from "./components/Nav/FishBoard/BoardContent";
-import ErrorPage from "./ErrorPage";
-import Login from "./components/Login/Login";
-import Signup from "./components/Login/Signup";
+import * as Rout from './Routes'
 import Nav from "./components/Nav/Nav";
 import Sidebar from "./components/Sidebar/Sidebar";
-import UpdateFish from "./components/Nav/FishBoard/UpdateFish";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -58,7 +46,7 @@ const Sidediv = styled.div``;
 
 function App() {
   const [btn, setBtn] = useState(false);
-  console.log(btn, "ddddd");
+  
 
   return (
     <Container className="App">
@@ -67,19 +55,19 @@ function App() {
           <Div btnClicked={btn}>
             <Nav setBtn={setBtn} btn={btn}/>
             <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/ranking" element={<Ranking />} />
-              <Route exact path="/map" element={<Map />} />
-              <Route exact path="/fishboard" element={<FishBoard />} />
-              <Route exact path="/fishdata" element={<FishData />} />
-              <Route exact path="/closedseason" element={<ClosedSeason />} />
-              <Route exact path="/checklist" element={<CheckList />} />
-              <Route exact path="/mypage" element={<MyPage />} />
-              <Route exact path="/record" element={<BoardContent />} />
-              <Route exact path="/errorpage" element={<ErrorPage />} />
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/signup" element={<Signup />} />
-              <Route exact path="/updatefish" element={<UpdateFish />} />
+              <Route exact path="/" element={<Rout.Home />} />
+              <Route exact path="/ranking" element={<Rout.Ranking />} />
+              <Route exact path="/map" element={<Rout.Map />} />
+              <Route exact path="/fishboard" element={<Rout.FishBoard />} />
+              <Route exact path="/fishdata" element={<Rout.FishData />} />
+              <Route exact path="/closedseason" element={<Rout.ClosedSeason />} />
+              <Route exact path="/checklist" element={<Rout.CheckList />} />
+              <Route exact path="/mypage" element={<Rout.MyPage />} />
+              <Route exact path="/record" element={<Rout.BoardContent />} />
+              <Route exact path="/errorpage" element={<Rout.ErrorPage />} />
+              <Route exact path="/login" element={<Rout.Login />} />
+              <Route exact path="/signup" element={<Rout.Signup />} />
+              <Route exact path="/updatefish" element={<Rout.UpdateFish />} />
             </Routes>
           </Div>
           <Sidediv>

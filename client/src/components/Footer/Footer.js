@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../../img/javas.png";
+import Logo from "../../img/logo.jpg";
 
 const Bdiv = styled.div`
   margin-top: 10px;
@@ -42,7 +42,7 @@ function Footer() {
         <img
           src={Logo}
           alt="logo"
-          style={{ width: 300, height: 180, color: "black" }}
+          style={{ width: 280, height: 100, color: "black" }}
         />
       </Div>
       <Div>

@@ -9,6 +9,7 @@ const middleware = [logger, thunk]
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)))
 
 
+<<<<<<< HEAD
 // /* eslint-disable no-underscore-dangle */
 // const store = createStore(
 //   reducers,
@@ -17,6 +18,8 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...mi
 // );
 // /* eslint-enable */
 
+=======
+>>>>>>> 802cf51347c59628a478503963b978a8e98bf478
 export default store;
 
 

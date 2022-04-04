@@ -1,5 +1,5 @@
 import React from 'react'
-import photo from '../../../img/월척.png'
+import photo from '../../../img/월척.jpg'
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -32,7 +32,6 @@ const Text = styled.div`
 `
 function RankingList({src, createdAt, size ,nickname, fish_name, ...rest}) {   
     
-    console.log(rest,'1234567890987')
     
     return (
         <Div>

@@ -1,16 +1,17 @@
 import React from 'react'
 import styled from 'styled-components';
 import RankingList from './RankingList';
-import photo from '../../../img/월척.png'
+import photo from '../../../img/월척.jpg'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios';
- import { faFish } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCrown}  from "@fortawesome/free-solid-svg-icons";
 import Wave from "react-wavify";
 import Footer from '../../Footer/Footer';
-import './Ranking.css'
+import { FaCrown } from "react-icons/fa";
+import { FaFish } from "react-icons/fa";
+
+
+
 
 const Background = styled.div`
    
@@ -23,7 +24,6 @@ const Data = styled.div`
     padding: 1em;
 `
 const Box = styled.div`    
-    
     
 
 `
@@ -63,11 +63,11 @@ const Img = styled.img`
     padding:10px;
   
 `
-const MyRank = styled.div`
-    border: solid 2px green;
-    padding: 1rem;
-    margin-bottom: 1rem;
-`
+// const MyRank = styled.div`
+//     border: solid 2px green;
+//     padding: 1rem;
+//     margin-bottom: 1rem;
+// `
 const Pagenation = styled.div`
     display: flex;
     justify-content: center;
@@ -119,8 +119,6 @@ const Text = styled.div`
 // 닉네임을 반환해야할것같다
 
 function Ranking({userInfo, sidebar}) {
-    console.log(sidebar, '💄')
-    console.log(userInfo.email)
     const fishList = ['선택하세요', '광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대','노데이터']
     const [fishNamed, setFishName] = useState('선택하세요')
     const [selectedFishData, setSelectedFishData] = useState("") 
@@ -128,29 +126,32 @@ function Ranking({userInfo, sidebar}) {
 
   
 
-    const getRank = () => {
+ /*    const getRank = () => {
         
-        console.log(fishNamed,'을 선택했습니다.')
         axios.get(`https://localhost:5000/ranking?fishName=${fishNamed}&&page=${paged}`)
         .then(result => {
-            console.log(result, fishNamed,'서버로부터 데이터 잘 받아져왔는지')
-            console.log(result.data.data.realResult ) 
+            // console.log(result.data.data.realResult ) 
             setSelectedFishData(result.data.data.realResult)
             
         })
         .catch(error => console.log(error,'에러'))
-    }
+    } */
 
-    console.log(selectedFishData, "랭킹별 데이터") 
 
     useEffect(() => { 
+        const getRank = () => {
+        
+            axios.get(`${process.env.REACT_APP_BASE_URL}/ranking?fishName=${fishNamed}&&page=${paged}`)
+            .then(result => {
+                // console.log(result.data.data.realResult ) 
+                setSelectedFishData(result.data.data.realResult)
+                
+            })
+            .catch(error => console.log(error,'에러'))
+        }
         getRank()
     }, [fishNamed, paged])
-   /*  useEffect(() => { 
-        getRank()
-        console.log(paged)
-    }, [paged])
- */
+  
  
 //selectedFishData
 // 데이터가 있을때(페이지네이션1일때와 아닐때 )와 없을때로 나뉠 수 있다. */
@@ -161,7 +162,7 @@ function Ranking({userInfo, sidebar}) {
                     <Blank/>
                     <Blank/>
                     <Blank/>
-                    <Title><FontAwesomeIcon icon={faFish}/> 어류를 선택해주세요 <FontAwesomeIcon icon={faFish}/></Title> 
+                    <Title><FaFish/> 어류를 선택해주세요 <FaFish/></Title> 
                     <Blank/>
                     <Blank/>
                     <Wave
@@ -269,7 +270,7 @@ function Ranking({userInfo, sidebar}) {
         <Background>
             <Box>
                 <Data>
-                    <Title><FontAwesomeIcon icon={faCrown} color='gold' /> Ranking <FontAwesomeIcon icon={faCrown} color='gold' /></Title>
+                    <Title><FaCrown color='gold' /> Ranking <FaCrown color='gold' /></Title>
                     <Select onChange={(e)=> setFishName(e.target.value)}>
                             {fishList.map((el,idx) => <option value={el} key={idx}>{el}</option>)}
                     </Select>   

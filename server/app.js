@@ -10,6 +10,8 @@ const rankingRouter = require("./routes/ranking");
 const fishRouter = require("./routes/fish");
 const https = require("https");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 
 // view engine setup
@@ -22,7 +24,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: "https://localhost:3000",
+    origin: [
+      "https://localhost:3000",
+      "http://localhost:3000",
+      "https://dajavas.net",
+      "http://dajavas.net",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"],
   })
@@ -51,7 +58,7 @@ app.use(function (err, req, res, next) {
 });
 
 // ----
-const HTTPS_PORT = 5000;
+const HTTPS_PORT = 5000 || 443 || 80;
 
 // 인증서 파일들이 존재하는 경우에만 https 프로토콜을 사용하는 서버를 실행합니다.
 // 만약 인증서 파일이 존재하지 않는경우, http 프로토콜을 사용하는 서버를 실행합니다.

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../img/logo.png";
+import { FaBars } from "react-icons/fa";
+import logo from "../../img/logo.jpg";
 import { useDispatch } from "react-redux";
 import { sideBarOn } from "../../redux/store/actions";
 
@@ -62,7 +61,6 @@ function Nav({ btn, setBtn }) {
   const handleSideBarClick = () => {
     dispatch(sideBarOn);
     setBtn(true);
-    console.log("네브버튼", btn);
   };
 
     return (
@@ -77,7 +75,7 @@ function Nav({ btn, setBtn }) {
                 <Div><Link to='/ranking' style={{ textDecoration: 'none', color: '#04A1A1',fontWeight:'bolder'}}><div>랭킹</div></Link></Div>
                 <Div><Link to='/fishboard' style={{ textDecoration: 'none',color:'#04A1A1',fontWeight:'bolder'}}><div>기록</div></Link></Div>
                 <Div><Link to='/map' style={{ textDecoration: 'none',color:'#04A1A1',fontWeight:'bolder'}}><div>지도</div></Link></Div>
-                <Icon btnClicked={btn} style= {{textDecoration: 'none',color:'#04A1A1',fontWeight:'bolder'}} onClick = {handleSideBarClick}><FontAwesomeIcon icon={faBars}/></Icon>
+                <Icon btnClicked={btn} style= {{textDecoration: 'none',color:'#04A1A1',fontWeight:'bolder'}} onClick = {handleSideBarClick}><FaBars/></Icon>
             </Menu>
         </Container>
     )

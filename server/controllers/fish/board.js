@@ -92,14 +92,14 @@ module.exports = {
     }
   },
   delete: async (req, res) => {
-   // console.log(req.body.fishId, "+++++++++++++++++++");
+    // console.log(req.body.fishId, "+++++++++++++++++++");
     const { fishId } = req.body;
     const validate = await func.validateToken(req.headers.authorizationtoken);
     try {
       if (!validate) {
         return res.status(401).send({ message: "not authorized" });
       } else {
-       // console.log(fishId, "⭐️");
+        // console.log(fishId, "⭐️");
         await models.user_fish.destroy({ where: { fish_id: fishId } });
         await models.fish.destroy({ where: { id: fishId } });
         return res.status(200).send({ message: "deleted fish board" });

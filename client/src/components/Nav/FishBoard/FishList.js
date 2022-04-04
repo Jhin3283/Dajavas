@@ -2,17 +2,12 @@ import React from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Link, Navigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import UpdateFish from './UpdateFish'
-// import  { axiosFishBoard }  from '../../../redux'
+import { Link} from 'react-router-dom'
 import { targetFind } from '../../../redux/store/actions'
-import { faCrown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from '../../Modal/Modal';
 import { useNavigate } from "react-router-dom"
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FaCrown } from "react-icons/fa";
+import { FaPencilAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import  { keyframes } from 'styled-components';
 
 const FishCard = styled.div`
@@ -94,8 +89,6 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
   
     axios.defaults.withCredentials = true;
       
-    console.log(userInfo, "유저정보")
-    console.log(myFishBoard.data, '데이터')
   
 
     const selectFish = () => {   
@@ -106,17 +99,15 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
    
 //* 수정
     const updateList = (fishInfo) => {
-        console.log('수정')
         targetFind(fishInfo)
 } 
 
     
 //*삭제 //myFishBoard.data// 
     const deleteList = (fishInfo) => {
-        console.log('삭제')
         /* let body = {fishId: fishId} */
         axios({
-            url: `https://localhost:5000/fish/board`,
+            url: `${process.env.REACT_APP_BASE_URL}/fish/board`,
             method: "delete",
             headers: {authorizationToken: userInfo.accessToken},
             data: {fishId}
@@ -138,7 +129,7 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
 
     const ranking = () => {
         if(ranked === 1) {
-            return <Crown><FontAwesomeIcon icon={faCrown} size="3x" color='gold'/></Crown>
+            return <Crown><FaCrown  color='gold'/></Crown>
         } else {
             return <Crown width/>
         }
@@ -167,10 +158,10 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
                  
                 <Div>
                     <Box>
-                    <FontAwesomeIcon onClick={goHome} icon={faPencil} size="2x" color='skyblue' margin='10px'/> 
+                    <FaPencilAlt onClick={goHome}   color='skyblue' margin='10px'/> 
                     </Box>
                     <Box>
-                    <FontAwesomeIcon onClick={goHome} icon={faTrashCan} size="2x" color='skyblue'/>
+                    <FaTrashAlt onClick={goHome}   color='skyblue'/>
                     </Box>
                         
                 </Div>
@@ -196,10 +187,10 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
                 <Div>
                 
                     <Box>
-                    <Link to='/updateFish'><FontAwesomeIcon onClick={() => {updateList(selectFish)}} icon={faPencil} size="2x" color='skyblue'/></Link> 
+                    <Link to='/updateFish'><FaPencilAlt onClick={() => {updateList(selectFish)}} size="2x" color='skyblue'/></Link> 
                     </Box>
                     <Box>
-                    <FontAwesomeIcon onClick={() =>deleteList(selectFish)}icon={faTrashCan} size="2x" color='skyblue'/>
+                    <FaTrashAlt onClick={() =>deleteList(selectFish)}  color='skyblue'/>
                     </Box>
                         
                 </Div>
@@ -212,7 +203,6 @@ function FishList({fish_name, src, size, createdAt, fishId, ranked, myFishBoard,
     
 }
 const mapStateToProps = (state) => {
-    //console.log(state, "🤡")
     return {
         userInfo: state.userReducer,
         myFishBoard: state.fishBoardReducer

@@ -1,5 +1,3 @@
-import React from "react";
-// 'img/sea/산천어.png'
 
 const seaFish = [
   {

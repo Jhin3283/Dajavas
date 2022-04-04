@@ -4,7 +4,11 @@ import {
     UPDATE_INFO,
     CONFIRM_MODAL_ON,
     MODAL_OFF,
+<<<<<<< HEAD
     FISH_BOARD, 
+=======
+
+>>>>>>> 802cf51347c59628a478503963b978a8e98bf478
     FISH_BOARD_REQUEST, 
     FISH_BOARD_SUCCESS,
     FISH_BOARD_FAILURE,
@@ -75,7 +79,11 @@ export const fishBoardFailureAction = (error) => {
 export const fishBoard = (email, page, token) => {
     return (dispatch) => {
         dispatch(fishBoardRequestAction())
+<<<<<<< HEAD
         axios.get(`https://localhost:5000/fish/board?email=${email}&page=${page}`,{
+=======
+        axios.get(`${process.env.REACT_APP_BASE_URL}/fish/board?email=${email}&page=${page}`,{
+>>>>>>> 802cf51347c59628a478503963b978a8e98bf478
             headers :{ authorizationtoken: token}
         })
         .then(data => dispatch(fishBoardSuccessAction(data.data)))

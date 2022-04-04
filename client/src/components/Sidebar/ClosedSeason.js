@@ -1,10 +1,12 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import styled from "styled-components";
-
 import closedSea from "./data/closed";
-import ClosedFishDataList from "./ClosedFishDataList";
-import { useState } from "react";
 import Footer from "../Footer/Footer";
+import { Suspense } from 'react';
+import ClosedFishDataList from "../Sidebar/ClosedFishDataList" 
+import LoadingPage from "../../LoadingPage";
+
+
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +44,20 @@ const SeaFish = styled.div`
   background-color: rgb(222, 247, 243);
   grid-gap: 1rem;
 `;
+const Text = styled.div`
+
+`
+
 function ClosedSeason() {
+  const [state, setState] = useState(false)
+  const loading = () => {
+    setTimeout(() => {setState(true)}, 3000)
+  }
+  useEffect (() => {
+    loading()
+  }, [])
+  
+
   return (
     <>
       <Container>
@@ -53,9 +68,23 @@ function ClosedSeason() {
 
           <FishBox>
             <SeaFish>
+                
+              {state === true ? 
+              <Suspense fallback={<div><LoadingPage/></div>}>
               {closedSea.map((el, idx) => (
                 <ClosedFishDataList {...el} key={idx} />
               ))}
+              </Suspense>
+              :
+              <>
+              <Text> 
+              정보를 불러오고 있습니다. 
+              </Text>
+              </>
+              }
+               
+              
+               
             </SeaFish>
           </FishBox>
         </Div>

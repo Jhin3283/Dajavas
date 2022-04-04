@@ -1,22 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import media from "styled-media-query";
 import Wave from "react-wavify";
 import debounce from "lodash/debounce";
 import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { GoogleLogin } from "react-google-login";
 import { 
   loginAction, 
-  logoutAction, 
-  updateInfoAction 
 } from "../../redux/store/actions";
 import userApi from "../../API/user";
-// import userReducer from "../../redux/store/reducers/userReducer/userReducer";
-import img from '../../img/Wave3.jpg'
 import Footer from "../Footer/Footer";
 
 const Container = styled.div`
@@ -127,12 +121,9 @@ function Login({ type }) {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { email, nickname, isLogin, id, login_method, accessToken} = useSelector((userReducer)=>userReducer);
-
   const handleLoginInputValue = debounce(async (e) => {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
-    // console.log('버튼 클릭시 인풋 데이터 모음',inputValue);
     if (name === "email") {
       const emailVal =
         /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(
@@ -155,20 +146,10 @@ function Login({ type }) {
     const valResult = validated.email && validated.password;
     if (valResult) {
       const loginInputValue = { ...inputValue };
-      console.log("로그인 인풋벨류", loginInputValue);
-      // console.log('이즈로그인',isLogin)
-      // console.log('email',email)
       try {
         const res = await userApi.login(loginInputValue);
-        // console.log('인풋벨류는??',loginInputValue)
-
-        console.log("응답은 뭐라고 왔나?", res.data.data);
         if (res.status === 200) {
-          // console.log('로그인시 저장된 데이터', res);
-          console.log("디스패치 전", res.data.data.isLogin);
           dispatch(loginAction(res.data.data));
-          console.log(isLogin,'이즈로그인')
-          console.log("디스패치 후", res.data.data.isLogin);
           navigate("/", { replace: true });
         }
       } catch (err) {
@@ -184,17 +165,9 @@ function Login({ type }) {
     );
   };
 
-  const handleLoginGoogle = () => {
-    window.location.assign(
-      `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
-    );
-  };
   const success = async (e) => {
     const a = await userApi.google(e.profileObj, "2");
-    console.log("aaaaaaaaa");
     if (a.status === 200) {
-      console.log("bbbbbbbbb");
-      console.log(a.data.data, "@@@@@@@@");
       dispatch(loginAction(a.data.data));
       navigate("/", { replace: true });
     }

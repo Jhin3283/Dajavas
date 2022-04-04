@@ -1,14 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import media from "styled-media-query";
 import debounce from "lodash/debounce";
-import { FcGoogle } from "react-icons/fc"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { useNavigate } from "react-router-dom";
 import Wave from "react-wavify";
 import { GoogleLogin } from "react-google-login";
-import fishingImg  from '../../img/낚시이미지.png';
 import { loginAction } from "../../redux/store/actions";
 import userApi from "../../API/user";
 import { useDispatch } from "react-redux";
@@ -126,7 +123,6 @@ function Signup() {
   const handleInputChange = debounce(async (e) => {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
-    // console.log('제대로 입력값이',inputValue)
     if (name === "email") {
       const emailVal =
         /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(
@@ -175,7 +171,6 @@ function Signup() {
     } else if (name === "nickname") {
       try {
         const res = await userApi.checkNickname(value);
-        console.log("응답 왔는가?", res);
         res.status === 200 && setErrorMessage("");
       } catch (err) {
         setErrorMessage("이미 사용중인 닉네임입니다.");
@@ -184,15 +179,12 @@ function Signup() {
   });
 
   const handleSignup = async (e) => {
-    // e.prevenetDefault(); //에러메시지 1초만에 사라지는 것 방지
     const valResult = Object.values(validated).every((el) => {
       return el === true;
     });
     if (valResult) {
       const signInputValue = { ...inputValue };
-      console.log("이메일체크 삭제전", signInputValue);
       delete signInputValue.passwordCheck;
-      console.log("이메일체크 삭제후", signInputValue);
 
       try {
         const res = await userApi.signup(signInputValue);
@@ -212,17 +204,9 @@ function Signup() {
     );
   };
 
-  const handleSignGoogle = () => {
-    window.location.assign(
-      `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
-    );
-  };
   const success = async (e) => {
     const a = await userApi.google(e.profileObj, "2");
-    console.log("aaaaaaaaa");
     if (a.status === 200) {
-      console.log("bbbbbbbbb");
-      console.log(a.data.data, "@@@@@@@@");
       dispatch(loginAction(a.data.data));
       navigate("/", { replace: true });
     }

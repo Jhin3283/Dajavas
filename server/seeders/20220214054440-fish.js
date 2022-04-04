@@ -7,7 +7,7 @@ module.exports = {
       [
         {
           fish_name: "개서대",
-          src: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg",
+          src: "",
           size: 10,
           ranked: 0,
         },
